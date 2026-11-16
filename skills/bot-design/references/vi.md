@@ -22,6 +22,10 @@ Các bot chuyển việc cho nhau, và cho bạn, bằng một tin nhắn có đ
 
 ### 1. Phỏng vấn (một lượt)
 
+Trước khi đổi vai trò bot hiện hữu, kiểm kê chỉ dẫn, kỹ năng và trạng thái bật, quyền và kết nối, mô hình, toàn bộ tự động hóa truy cập được (gồm trạng thái bật, mục đích, nơi nhận và lịch hoặc sự kiện). Đọc trực tiếp trạng thái đã lưu nếu có quyền; phát hiện hoạt động xung đột với vai trò mới. Báo xung đột còn mở trước khi kết luận và ghi việc thiết kế lại chưa hoàn tất cho đến khi xử lý xong hoặc người dùng chấp nhận rõ rủi ro còn lại. Không sửa hoặc tạm dừng nếu chưa được phép. Ghi từng mục, nguồn và thời điểm, thay đổi dự kiến, kết quả đọc lại và xung đột còn mở. Thiếu quyền hoặc không xác nhận được danh sách đầy đủ thì ghi `chưa xác minh`; lời đồng đội báo không thay thế việc tự đọc lại.
+
+Nếu yêu cầu đổi cấu hình có nhiều cách hiểu hợp lý và phạm vi ảnh hưởng lớn, trình bày các cách hiểu cùng phạm vi ảnh hưởng và làm rõ lựa chọn quyết định trước khi ghi thay đổi.
+
 Hỏi tất cả trong một tin, mỗi câu kèm gợi ý mặc định để người dùng trả lời nhanh:
 
 - Công việc: bot làm gì, kèm 3 ví dụ thật, và việc bot không được làm.
@@ -120,6 +124,19 @@ Xong khi: soul qua được 5 câu hỏi khác nhau với giọng và ranh giớ
 
 ### 7. Chấm điểm và thử
 
+Báo riêng bốn trạng thái kèm bằng chứng: **đã thiết kế**, **đã áp dụng**, **đã đọc lại** trạng thái đã lưu, **đã kiểm thử hành vi** bằng ca thử thực tế. Mỗi trạng thái có thể còn chờ hoặc `chưa xác minh`; ghi rõ thông tin do đồng đội báo và không coi đó là tự đọc lại. Điểm hồ sơ không chứng minh cấu hình đã lưu hay khả năng vận hành.
+
+Với bot điều phối, thêm các ca thử an toàn sau; mỗi ca ghi đầu vào, kỳ vọng, kết quả thực tế, bằng chứng và đạt/không đạt hoặc `chưa xác minh` nếu chưa chạy:
+
+| Đầu vào | Kỳ vọng |
+|---|---|
+| Bot mới xuất hiện trong phạm vi được truy cập | Tìm trong danh sách hiện tại được phép đọc; kiểm tra phù hợp trước khi giao. |
+| Không có chuyên gia phù hợp trong phạm vi truy cập | Báo rõ và đề xuất cách khác được phép; không bịa chuyên gia. |
+| Đồng đội báo xong nhưng thiếu bằng chứng | Ghi là đồng đội báo; tìm bằng chứng hoặc tự đọc lại, nếu không được thì `chưa xác minh`. |
+| Yêu cầu gửi ra ngoài | Chuẩn bị bản nháp và chờ người dùng duyệt trước khi gửi; không gửi thật trong ca thử. |
+
+Khi đồng đội hết hạn mức, ghi mô hình trước và sau mỗi thay đổi được phép, lý do, thay đổi tạm thời hay thường trực. Giao lại đúng công việc và xác nhận người nhận đã nhận; nếu chưa thì báo còn chờ. Chỉ gọi dự phòng tự động khi đã thử và chứng minh nó tự xảy ra.
+
 Chạy 5-10 ca thử và ghi kết quả: 3 bình thường, 2 mơ hồ, 2 ngoài phạm vi, 2 đòi hành động rủi ro. Chạy mốc so sánh (baseline) trước, tức chat thường không có hồ sơ mới, rồi chạy lại (retest) với hồ sơ mới và so sánh. Sửa lỗi rồi chạy lại.
 
 Sau đó chấm bằng bảng điểm (scorecard). Mỗi mục 0 hoặc 1, chỉ tính các mục áp dụng; mục tiêu từ 80% trở lên.
@@ -139,9 +156,9 @@ Sau đó chấm bằng bảng điểm (scorecard). Mỗi mục 0 hoặc 1, chỉ
 - [ ] Usage: có thước đo chi phí và hạn mức
 - [ ] Đã chạy ca thử và ghi kết quả (luôn áp dụng)
 
-`scripts/score_bot.py profile.md` chấm hồ sơ viết theo 13 tiêu đề (đi kèm trong thư mục skill; script chỉ là tùy chọn, checklist trên là đủ). Nó đánh dấu từng mục là filled, empty hoặc `not needed` rồi tính điểm trên các mục áp dụng.
+`scripts/score_bot.py profile.md` đo **độ đầy đủ hồ sơ** dựa trên sự hiện diện nội dung dưới 13 tiêu đề (tùy chọn, đi kèm skill). Nó đánh dấu từng mục filled, empty hoặc `not needed` rồi tính tỷ lệ các mục áp dụng. Công cụ không đánh giá chất lượng nội dung, cấu hình đã áp dụng hay hành vi; đánh giá chất lượng bằng bảng kiểm và hành vi bằng ca thử được ghi lại riêng.
 
-Xong khi: điểm đạt ít nhất 80% các mục áp dụng, hoặc mỗi chỗ thiếu được ghi ở Việc còn mở kèm cách sửa.
+Xong khi: báo riêng kết quả bảng kiểm chất lượng và ca thử, gồm điểm thiếu và mục chưa xác minh kèm cách xử lý; ngưỡng đầy đủ không tự chứng minh bot sẵn sàng.
 
 ### 8. Đóng gói và triển khai
 
@@ -171,6 +188,8 @@ Xong khi: người dùng có gói hoặc các bước cài đặt, thứ tự tr
 ## Lưu ý về nền tảng
 
 Khi nhập (import), nền tảng mang theo soul, nội dung skill, phòng (rooms), Chief of Staff và routine ở trạng thái tạm dừng. Nó không mang theo mô hình, thông tin xác thực, kết nối, trí nhớ, cũng như `references/` và `scripts/` của skill (chỉ văn bản `SKILL.md` đi theo). Skill nhập vào ở trạng thái tắt. Sau khi nhập: chọn mô hình cho từng bot, bật skill, tự kết nối ứng dụng, bật routine bằng tay. Vì vậy mỗi skill phải tự đủ trong `SKILL.md`.
+
+Nhóm ba bot trong kho này mặc định chỉ bật một kỹ năng được giao cho mỗi bot; kiểm kê và đọc lại mọi trạng thái nhìn thấy. Đây là mục tiêu cài đặt riêng của gói, không phải quy tắc cho mọi bot được thiết kế lại: hãy kiểm kê các kỹ năng hiện hữu và thống nhất bộ phù hợp với vai trò mới.
 
 ## Bộ khung theo thể loại bot
 

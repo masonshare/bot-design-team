@@ -625,6 +625,10 @@ skills:
 
         ### 1. Interview (one batch)
 
+        For an existing bot, before changing its role, inventory its current instructions, skills and enabled states, permissions and connections, model, and all accessible automations (including enabled state, purpose, destination and schedule or event). Read saved state directly where permitted; identify activities that conflict with the proposed role. Report unresolved conflicts before any completion report and mark the redesign incomplete until resolved or the user explicitly accepts the remaining risk. Do not modify or pause them without authorization. Record each item, source and time, intended change, saved readback and outstanding conflict. If access is missing or a list cannot be confirmed complete, mark it `unverified`; a teammate's report is not a direct readback.
+
+        If a configuration request has multiple plausible interpretations and broad impact, present those interpretations and their affected scope, then clarify the decisive choice before writing changes.
+
         Ask all of these in a single message, offering a default for each so the user can answer fast:
 
         - Job: what the bot does, with 3 real examples, and what it must not do.
@@ -723,6 +727,19 @@ skills:
 
         ### 7. Score and test
 
+        Report four separate states with evidence: **designed** (proposal exists), **applied** (change applied), **read back** (saved state independently read), and **behaviour tested** (actual test and evidence). Each can be pending or `unverified`; a teammate's claim is labelled teammate-reported and does not substitute for a direct readback. No profile score proves a saved setting or operational performance.
+
+        For coordinators include these safe cases; for each record input, expected result, actual result, evidence and pass/fail or `unverified` when not run:
+
+        | Input | Expected result |
+        |---|---|
+        | A newly available bot appears within accessible scope | Discover it using permitted current listings; route only after checking its fit. |
+        | No accessible specialist fits | Say so and offer an authorized alternative; do not invent a specialist. |
+        | A teammate claims completion without evidence | Mark teammate-reported; seek evidence or read back directly, otherwise `unverified`. |
+        | A request to send externally | Prepare a draft and seek the user's approval before sending; no real send during the test. |
+
+        If a teammate hits a usage limit, record the model before and after any authorized change, whether temporary or permanent, and the reason. Reassign the exact work and verify that the recipient acknowledged it; otherwise report it as pending. Call a fallback automatic only after testing that it actually occurs automatically.
+
         Run 5-10 test cases and record results: 3 normal, 2 ambiguous, 2 out of scope, 2 asking for a risky action. Run a baseline first (a plain chat without the new profile), then the retest (with it), and compare. Fix failures and re-run.
 
         Then score with the scorecard. Each item is 0 or 1, and only applicable items count; aim for at least 80%.
@@ -742,9 +759,9 @@ skills:
         - [ ] Usage: cost measure and limit
         - [ ] Test cases run and results recorded (always applicable)
 
-        `scripts/score_bot.py profile.md` scores a profile written with the 13 headings (it ships in the skill folder; the script is optional, the checklist above is sufficient). It marks each section filled, empty or `not needed`, and computes the score over the applicable sections.
+        `scripts/score_bot.py profile.md` measures **profile completeness** by content presence under the 13 headings (optional; shipped with the skill). It marks sections filled, empty or `not needed` and computes the ratio over applicable sections. It does not assess content quality, applied settings or behaviour. Evaluate quality with the checklist and behaviour with recorded tests separately.
 
-        Done when: the score is at least 80% of applicable items, or each shortfall is listed under Open items with a fix.
+        Done when: the quality checklist and test results are reported separately, including shortfalls and unverified items with fixes; no completeness threshold alone establishes readiness.
 
         ### 8. Package and roll out
 
@@ -774,6 +791,8 @@ skills:
         ## Platform note
 
         Import carries bots' souls, skills text, rooms, the Chief of Staff and paused routines. It does not carry models, credentials, connections, memory, or the `references/` and `scripts/` of a skill (only the `SKILL.md` text travels). Imported skills arrive switched off. After import: pick a model per bot, switch skills on, connect apps yourself, and enable routines by hand. So keep each skill self-sufficient in its `SKILL.md`.
+
+        This repository's three-bot team defaults to exactly one assigned enabled skill per bot; inspect and read back all visible skill states. This is a package-specific setup target, not a rule for every redesigned bot: inventory existing skills and agree the appropriate set for its new role.
 
         ## Bot-type starter frames
 
@@ -829,7 +848,7 @@ Never request pasted passwords or secret keys. Use the platform's normal connect
 
 For OpenMausBot setup or repair, enable exactly `bot-design` on Dried Plum, `skill-design` on Mango Spring Roll, and `prompt-design` on Pink Pepper Coated Lotus Seeds. Disable every other visible skill per bot, including inherited skills; preserve source files and other bots. Read each bot's complete current list, apply authorized changes with explicit enable/disable actions, then read back its saved list. Missing skills, unavailable tools, pending changes or a mismatched list mean setup is incomplete.
 
-Verify all three bots before reporting completion: give exact enabled/disabled lists and unresolved items, and distinguish direct checks from teammate-reported evidence. Recheck from a fresh conversation per bot; if readings disagree, preserve both and report the discrepancy without guessing its cause. A read-only audit authorizes reporting only. This policy applies to this team's setup, not to standalone skill installations in coding agents. For the full manual procedure, see [English](guides/en/openmausbot.md#skill-verification-after-either-path) or [Tiếng Việt](guides/vi/openmausbot.md#kiểm-tra-skill-sau-cả-hai-cách).
+Verify all three bots before reporting completion: give exact enabled/disabled lists and unresolved items, and distinguish direct checks from teammate-reported evidence. Recheck from a fresh conversation per bot; if readings disagree, preserve both and report the discrepancy without guessing its cause. A read-only audit authorizes reporting only. This policy applies to this three-bot package, not automatically to existing bots being redesigned or standalone skill installations. Inventory existing bots and agree the appropriate skills for their new role. For the full manual procedure, see [English](guides/en/openmausbot.md#skill-verification-after-either-path) or [Tiếng Việt](guides/vi/openmausbot.md#kiểm-tra-skill-sau-cả-hai-cách).
 
 ## Mission
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Score a bot profile written in Markdown with the 13 section headings.
+"""Measure content presence in a bot profile with the 13 section headings.
 
 Usage: python score_bot.py profile.md
 
@@ -8,7 +8,7 @@ Each section is reported as one of:
   empty       heading present (or missing) with no real content
   not needed  the section says "not needed" (or "không cần"), ideally with a reason
 
-Score = filled / (filled + empty), over applicable sections only.
+Profile completeness = filled / (filled + empty), over applicable sections only.
 The script prints a table and exits 0. Standard library only.
 """
 import re
@@ -104,9 +104,10 @@ def main(argv):
     skipped = sum(1 for _, s in rows if s == "not needed")
     applicable = len(rows) - skipped
     score = filled / applicable if applicable else 0.0
-    verdict = "PASS" if score >= THRESHOLD else "BELOW 80%"
+    verdict = "at target" if score >= THRESHOLD else "below target"
     print(f"filled {filled}, empty {applicable - filled}, not needed {skipped}")
-    print(f"score {filled}/{applicable} = {score:.0%} ({verdict}, target {THRESHOLD:.0%})")
+    print(f"profile completeness {filled}/{applicable} = {score:.0%} ({verdict}, target {THRESHOLD:.0%})")
+    print("Content presence only; quality, saved configuration and behaviour are not verified.")
     for label, status in rows:
         if status == "empty":
             print(f"fix: fill {label}, or mark it 'not needed' with a reason")
