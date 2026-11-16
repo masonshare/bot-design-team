@@ -9,6 +9,7 @@ Thư mục này giúp bạn biến ba bot trong repo thành bot chạy được,
 | Thiết kế bot trước khi mở bất kỳ ứng dụng nào | [00-platform-neutral.md](00-platform-neutral.md) |
 | Dựng 3 bot trong OpenMausBot, nhanh hoặc làm tay | [openmausbot.md](openmausbot.md) |
 | Dựng một bot trong Grok Bot | [grok-bot.md](grok-bot.md) |
+| Cài riêng bot điều phối Ginger Honey và kỹ năng nhắc mở cuộc trò chuyện mới | [ginger-honey.md](ginger-honey.md) |
 | Xem mỗi mục của bản thiết kế nằm ở đâu trong từng ứng dụng | [field-mapping.md](field-mapping.md) |
 
 Thứ tự gợi ý: điền bản thiết kế chung trước, rồi làm theo hướng dẫn cho ứng dụng của bạn, cuối cùng đối chiếu bảng ánh xạ.
