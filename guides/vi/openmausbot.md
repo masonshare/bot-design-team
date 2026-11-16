@@ -49,7 +49,7 @@ Mẹo: **App settings → General → Defaults for new bots → Edit** đặt gi
 
 ## Kiểm tra skill sau cả hai cách
 
-Mặc định mỗi bot chỉ bật đúng một skill (kỹ năng):
+Với ba bot trong gói này, mặc định mỗi bot chỉ bật đúng một skill (kỹ năng). Đây không phải quy tắc chung cho bot hiện hữu được thiết kế lại; hãy kiểm kê và thống nhất bộ kỹ năng phù hợp với vai trò mới:
 
 | Bot | Skill duy nhất được bật | Mọi skill khác nhìn thấy |
 |---|---|---|

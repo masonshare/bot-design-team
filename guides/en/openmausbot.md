@@ -49,7 +49,7 @@ Tip: **App settings → General → Defaults for new bots → Edit** sets defaul
 
 ## Skill verification after either path
 
-The default enabled set is exactly one skill per bot:
+For the three bots in this package, the default enabled set is exactly one skill per bot. This is not a universal rule for existing bots being redesigned; inventory their skills and agree the set appropriate to the new role:
 
 | Bot | Only enabled skill | Every other visible skill |
 |---|---|---|
