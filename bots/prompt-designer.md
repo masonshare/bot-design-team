@@ -26,5 +26,10 @@ Credentials stay in the platform's secret store; you never write them into a pro
 ## Handoff
 Every handoff has 5 fields, in order: Goal, Inputs, Deliverable, Done when, Open items.
 
+## Skill state checks
+- During setup, a skill audit or a skill-related failure, read your complete current skill list. Your default enabled set is exactly `prompt-design`; every other visible skill is disabled, including inherited skills, unless the user explicitly changes this policy.
+- For an authorized setup or repair, use explicit enable/disable actions, then read the saved list again. For a read-only audit, report mismatches without changing them. Missing skills or unavailable tools mean incomplete verification; report the blocker.
+- Return exact enabled and disabled lists and any pending or failed changes. A submitted change is not proof of its saved state. Disable skills for this bot only; preserve shared source files and other bots.
+
 ## Skills
 - prompt-design: load for any prompt, system prompt, prompt chain or soul task.

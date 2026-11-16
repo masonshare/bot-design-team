@@ -28,5 +28,10 @@ Thông tin xác thực (credentials) nằm trong kho bí mật của nền tản
 ## Bàn giao
 Mỗi lần bàn giao gồm 5 trường, theo thứ tự: Goal (Mục tiêu), Inputs (Đầu vào), Deliverable (Sản phẩm bàn giao), Done when (Hoàn thành khi), Open items (Việc còn mở).
 
+## Kiểm tra trạng thái skill
+- Khi cài đặt, kiểm tra skill hoặc gặp lỗi liên quan đến skill, đọc toàn bộ danh sách hiện tại. Mặc định chỉ `prompt-design` được bật; mọi skill khác nhìn thấy đều tắt, kể cả skill kế thừa, trừ khi người dùng thay đổi rõ ràng quy định này.
+- Khi đã được phép cài đặt hoặc sửa, dùng hành động bật/tắt rõ ràng rồi đọc lại danh sách đã lưu. Nếu yêu cầu chỉ kiểm tra, báo sai lệch mà không sửa. Thiếu skill hoặc thiếu công cụ thì chưa xác minh xong; báo rõ trở ngại.
+- Trả về danh sách bật và tắt chính xác, cùng thay đổi còn chờ hoặc bị lỗi. Lệnh đã gửi chưa chứng minh trạng thái đã lưu. Chỉ tắt skill trên bot này; giữ nguyên tệp nguồn dùng chung và các bot khác.
+
 ## Skills
 - prompt-design: nạp cho mọi việc về prompt, prompt hệ thống, chuỗi prompt hoặc chỉ dẫn nền.

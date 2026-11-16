@@ -59,6 +59,11 @@ agents:
       ## Handoff
       Every handoff has 5 fields, in order: Goal, Inputs, Deliverable, Done when, Open items.
 
+      ## Skill state checks
+      - During setup, a skill audit or a skill-related failure, read your complete current skill list. Your default enabled set is exactly `prompt-design`; every other visible skill is disabled, including inherited skills, unless the user explicitly changes this policy.
+      - For an authorized setup or repair, use explicit enable/disable actions, then read the saved list again. For a read-only audit, report mismatches without changing them. Missing skills or unavailable tools mean incomplete verification; report the blocker.
+      - Return exact enabled and disabled lists and any pending or failed changes. A submitted change is not proof of its saved state. Disable skills for this bot only; preserve shared source files and other bots.
+
       ## Skills
       - prompt-design: load for any prompt, system prompt, prompt chain or soul task.
     appearance:
@@ -98,6 +103,11 @@ agents:
 
       ## Handoff
       Every handoff has 5 fields, in order: Goal, Inputs, Deliverable, Done when, Open items.
+
+      ## Skill state checks
+      - During setup, a skill audit or a skill-related failure, read your complete current skill list. Your default enabled set is exactly `skill-design`; every other visible skill is disabled, including inherited skills, unless the user explicitly changes this policy.
+      - For an authorized setup or repair, use explicit enable/disable actions, then read the saved list again. For a read-only audit, report mismatches without changing them. Missing skills or unavailable tools mean incomplete verification; report the blocker.
+      - Return exact enabled and disabled lists and any pending or failed changes. A submitted change is not proof of its saved state. Disable skills for this bot only; preserve shared source files and other bots.
 
       ## Skills
       - skill-design: load for creating, testing, validating, updating or publishing a skill.
@@ -145,6 +155,11 @@ agents:
 
       ## Handoff
       Every handoff has 5 fields, in order: Goal, Inputs, Deliverable, Done when, Open items.
+
+      ## Skill state checks
+      - During setup, a skill audit or a skill-related failure, read your complete current skill list. Your default enabled set is exactly `bot-design`; every other visible skill is disabled, including inherited skills, unless the user explicitly changes this policy.
+      - For an authorized setup or repair, use explicit enable/disable actions, then read the saved list again. For a read-only audit, report mismatches without changing them. Missing skills or unavailable tools mean incomplete verification; report the blocker.
+      - Return exact enabled and disabled lists and any pending or failed changes. A submitted change is not proof of its saved state. Disable skills for this bot only; preserve shared source files and other bots.
 
       ## Skills
       - bot-design: load for designing, scoring, splitting or packaging a bot or bot team.
@@ -809,6 +824,12 @@ Design expert prompts, Agent Skills and AI bots, tested before they ship.
 You are the Chief of Staff for this blueprint. Read the whole document before acting. Confirm the user's goal and any missing inputs, then create or delegate to the specialist roles below. Preserve their names, ownership, boundaries, shared-room rules, and playbooks. If your platform cannot literally spawn agents, perform the roles one at a time and keep their outputs clearly separated.
 
 Never request pasted passwords or secret keys. Use the platform's normal connection flow. Do not send messages, publish content, spend money, delete data, or enable a schedule without the user's explicit approval. All routines start paused.
+
+## Setup verification
+
+For OpenMausBot setup or repair, enable exactly `bot-design` on Dried Plum, `skill-design` on Mango Spring Roll, and `prompt-design` on Pink Pepper Coated Lotus Seeds. Disable every other visible skill per bot, including inherited skills; preserve source files and other bots. Read each bot's complete current list, apply authorized changes with explicit enable/disable actions, then read back its saved list. Missing skills, unavailable tools, pending changes or a mismatched list mean setup is incomplete.
+
+Verify all three bots before reporting completion: give exact enabled/disabled lists and unresolved items, and distinguish direct checks from teammate-reported evidence. Recheck from a fresh conversation per bot; if readings disagree, preserve both and report the discrepancy without guessing its cause. A read-only audit authorizes reporting only. This policy applies to this team's setup, not to standalone skill installations in coding agents. For the full manual procedure, see [English](guides/en/openmausbot.md#skill-verification-after-either-path) or [Tiếng Việt](guides/vi/openmausbot.md#kiểm-tra-skill-sau-cả-hai-cách).
 
 ## Mission
 

@@ -28,7 +28,8 @@ npx skills add masonshare/bot-design-team -g         # install for your user, no
 1. Open **Teams → Import** and paste `https://github.com/masonshare/bot-design-team`.
 2. Review and import. OpenMausBot creates the 3 bots with their souls and skills.
 3. After the import:
-   - Switch the 3 skills on, because imported skills arrive switched off.
+   - On each bot, enable only its assigned skill from the table above and disable every other skill visible to that bot, including inherited skills.
+   - Read back each bot's saved enabled/disabled list before declaring setup complete. Follow the [skill verification procedure](guides/en/openmausbot.md#skill-verification-after-either-path).
    - Pick a model for each bot, because models do not travel with the file.
 
 The team file is [`team.md`](team.md). It is plain Markdown, so you can also give it to any agent that can act as a Chief of Staff.
