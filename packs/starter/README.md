@@ -1,6 +1,6 @@
 # Starter
 
-Bản đang soạn cho người dùng muốn có đội thiết kế bot, kỹ năng và prompt. **Chưa nghiệm thu:** cần thử nhập gói mới trên OpenMausBot.
+Bản đang soạn cho người dùng muốn có đội thiết kế bot, kỹ năng và prompt. **Đã nghiệm thu (2026-11-18):** Hoàng Tổng tự thử nhập gói trên OpenMausBot và báo kết quả đạt.
 
 ## Cài đặt
 
@@ -29,4 +29,4 @@ Ghi đầu vào, kết quả thực tế, đạt/không đạt và ảnh hoặc 
 3. Yêu cầu đội tạo một bot mẫu; kiểm tra nhận được hồ sơ bot mẫu.
 4. Sau khi cài skill, mở Skills của từng chuyên gia để kiểm tra trạng thái; gửi một yêu cầu ngắn phù hợp cho từng người và kiểm tra kết quả. Ginger Honey không có skill trong gói nên bước skill không áp dụng.
 
-Chưa chạy các phép thử này; chưa thể kết luận gói đạt nghiệm thu.
+Kết quả: Hoàng Tổng báo đạt sau khi tự thử nhập (2026-11-18). Chưa có báo cáo chi tiết từng phép thử (a)–(d) từ Quality & Release.
