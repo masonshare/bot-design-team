@@ -8,7 +8,7 @@ Liên kết dưới đây chỉ có nội dung mới sau khi nhánh được c�
 
 1. Chọn **+ → Import…**, dán liên kết `https://github.com/masonshare/bot-design-team/tree/feat/starter-pack/packs/starter`.
 2. Xem nội dung, chọn **Add** và chọn mô hình cho từng bot.
-3. **Bật skill tự động:** nhắn Ginger Honey "cài skill". Ginger Honey giao từng bot tự bật skill của mình theo bảng và tự tắt mọi skill khác (kể cả nhãn THIS COMPUTER), rồi báo kết quả đọc lại. Không cần mở từng hồ sơ để bấm.
+3. **Bật skill tự động:** nhắn Ginger Honey "cài skill". Ginger Honey giao từng bot tự bật skill được giao theo bảng và tự tắt skill không việc nào của bot dùng (kể cả nhãn THIS COMPUTER), rồi báo kết quả đọc lại. Không cần mở từng hồ sơ để bấm.
 4. Kiểm tra danh sách bot, trạng thái từng skill và thử giao việc.
 
 | Bot | Skill được bật |

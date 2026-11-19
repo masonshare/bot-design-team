@@ -38,7 +38,8 @@ If a configuration request has multiple plausible interpretations and broad impa
 
 Ask all of these in a single message, offering a default for each so the user can answer fast:
 
-- Job: what the bot does, with 3 real examples, and what it must not do.
+- Job: what the bot does, with 3 real examples.
+- Anti-job (required): 2-4 lines on what the bot must never do, even when asked.
 - User: who talks to it, their expertise, their language.
 - Inputs: data, apps, files and accounts available.
 - Outputs: format, destination, who reviews it.
@@ -89,13 +90,13 @@ Section essentials:
 
 | Section | Fill with | Avoid |
 |---|---|---|
-| Overview | One sentence: helps [who] do [what] to get [result]; 3-5 in-scope jobs; 2-3 out-of-scope; one success metric | "General assistant" |
+| Overview | One sentence: helps [who] do [what] to get [result]; 3-5 in-scope jobs; 2-3 out-of-scope; one success metric; an Anti-job of 2-4 lines (required) | "General assistant"; an Anti-job that only says "be careful" |
 | Identity | Short name that hints at the job; title; 1-2 line description saying what it does and when to use it; language and form of address | Generic or duplicate names |
-| Skills | 3-7 skills, each with a trigger description, numbered steps, a verify step, an output template | One giant skill; mechanical work left to the model instead of a script |
+| Skills | A bot may own several skills, assigned by its role (typically 3-7); each skill ties to one job in the Job and has a trigger description, numbered steps, a verify step, an output template; remove skills no job uses | One giant skill; a skill with no job; mechanical work left to the model instead of a script |
 | Memory | Stable preferences, settled decisions with reasons, user corrections, naming | Anything expiring within a week, secrets, long text (point to Library) |
 | Library | Small files by topic, update date, owner | One 50-page file; stale copies beside new ones |
-| Routines | Repeatable work with predictable output; instructions that run without chat context; event triggers over frequent polling; draft-only output | Schedules every few minutes without need; routines that act irreversibly |
-| Access | Only the apps the bot truly uses; read before write; who it may call and who may call it | Connecting everything for convenience |
+| Routines | Repeatable work with predictable output; instructions that run without chat context; event triggers over frequent polling; draft-only output; start paused | Schedules every few minutes without need; routines that act irreversibly |
+| Access | Only the apps the bot truly uses, each tied to a job in the Job; read before write; who it may call and who may call it | Connecting everything for convenience |
 | Model | The smallest model that passes the test cases; cheaper for high-volume routines | Strongest model everywhere |
 | Voice/alerts | Notify only when action is needed: approval, error, deadline; short message saying what, what to do, where; quiet hours | Alerting every step |
 | History | One thread per job; on a heavy thread, start a new one with a handoff | One endless thread |
@@ -115,10 +116,14 @@ Apply least privilege. Grant read and search freely, drafts and writes inside a 
 | Critical | Delete data, sign, change policy | Do not automate |
 
 - Read before write: start every connection read-only; add write access per tool when a test case needs it.
+- Every tool, connection and skill ties to a job in the Job; if it ties to none, remove it. Trimming leftovers keeps the context small and the attack surface short.
 - Gate before sending, publishing, deleting, spending, installing, committing or pushing code, enabling a schedule.
 - Money limits live in the platform's settings, not in prompt text.
 - Credentials go only in the platform's secret or connection store. Keep secrets, webhook URLs and auth notes out of prompts, skills, memory, chat and files. Ask the user to add them through the secret store.
 - Several labelled accounts for one app beat duplicate bots.
+- Local computer control: the Grok Bot docs set the default to "Ask every time", not "blocked". Choose "Never allow" for any bot whose Job does not need the local machine.
+- Routine approval cards expire after 30 minutes (Grok Bot docs). A routine that waits for approval must not depend on a late answer; the safe outcome of an expired card is that nothing happens.
+- Bots on one account share one cloud computer. It is not a security boundary between bots: never rely on it to keep one bot's files or secrets from another.
 
 Done when: the permission table shows the worst case if the bot is wrong, and every irreversible action has a gate.
 
@@ -126,7 +131,7 @@ Done when: the permission table shows the worst case if the bot is wrong, and ev
 
 Delegate prompt craft to the `prompt-design` skill when it is available, passing a brief (goal, audience, inputs, constraints, definition of done) and receiving the soul plus test cases. Delegate workflows to the `skill-design` skill the same way. When they are missing, write inline:
 
-Soul, 150-400 words, in this order: role in 1-2 sentences; the user and their expertise; voice; working principles, each with its reason; hard limits (ask first before sending, deleting, spending, committing); honest reporting (what was done, not done, what failed; never claim done before checking); when stuck, say so and name how to get the data. Prefer reasons over capital-letter bans. Keep procedures out of the soul and put them in skills. Keep time-bound facts out.
+Soul, 150-400 words, in this order: role in 1-2 sentences; the user and their expertise; voice; working principles, each with its reason; hard limits (ask first before sending, deleting, spending, committing); the Anti-job (2-4 lines of what it must never do); honest reporting (what was done, not done, what failed; never claim done before checking); when stuck, say so and name how to get the data. Prefer reasons over capital-letter bans. Keep procedures out of the soul and put them in skills. Keep time-bound facts out.
 
 Skill (inline fallback): a folder with `SKILL.md` carrying `name`, a one-line `description` saying what it does and when to trigger, numbered steps each ending on a checkable criterion, and an output template.
 
@@ -151,14 +156,14 @@ Run 5-10 test cases and record results: 3 normal, 2 ambiguous, 2 out of scope, 2
 
 Then score with the scorecard. Each item is 0 or 1, and only applicable items count; aim for at least 80%.
 
-- [ ] Overview: one-sentence goal, in scope and out of scope
+- [ ] Overview: one-sentence goal, in scope and out of scope, and an Anti-job of 2-4 lines
 - [ ] Identity: name and description say what and when
-- [ ] Soul: under 400 words, voice, limits, honest reporting, stuck handling
-- [ ] Skills: 3-7, descriptions trigger correctly, each has a verify step and output template
+- [ ] Soul: under 400 words, voice, limits, Anti-job, honest reporting, stuck handling
+- [ ] Skills: assigned by role (typically 3-7), each tied to a job in the Job, unused ones removed, descriptions trigger correctly, each has a verify step and output template
 - [ ] Memory: only stable facts, no secrets, nothing expiring
 - [ ] Library: small dated files, no duplicates
 - [ ] Routines: run alone, event-first, draft-only
-- [ ] Access: only used connections, read before write
+- [ ] Access: only used connections, each tied to a job, read before write
 - [ ] Model: smallest that passes the test cases
 - [ ] Permissions: every irreversible action has a gate
 - [ ] Voice/alerts: notify only when action is needed
@@ -179,7 +184,7 @@ Choose by platform:
 
 Roll out in this order, with a gate between stages:
 1. One bot, proven alone on the test cases.
-2. Routines, starting paused; run each by hand twice, then enable.
+2. Routines, starting paused; run each by hand twice, then enable. After an import, compare the routines in `team.md` with the automations that actually exist (see Platform note).
 3. The team, last; add a bot to a group only after it works alone.
 
 Review after 1-2 weeks using usage and history; trim any soul that grew, move procedures into skills.
@@ -197,9 +202,9 @@ Done when: the user has the package or the setup steps, the rollout order, and a
 
 ## Platform note
 
-Import carries bots' souls, skills text, rooms, the Chief of Staff and paused routines. It does not carry models, credentials, connections, memory, or the `references/` and `scripts/` of a skill (only the `SKILL.md` text travels). Imported skills arrive switched off. After import: pick a model per bot, switch skills on, connect apps yourself, and enable routines by hand. So keep each skill self-sufficient in its `SKILL.md`.
+Import carries bots' souls, skills text, rooms and the Chief of Staff. It usually carries routines too, paused, but that is not guaranteed: re-read the automation list after import. It does not carry models, credentials, connections, memory, or the `references/` and `scripts/` of a skill (only the `SKILL.md` text travels). Imported skills arrive switched off. After import: pick a model per bot, switch skills on, connect apps yourself, and enable routines by hand. Compare the routines declared in `team.md` with the real automation list: add what is missing (paused) and report any difference. So keep each skill self-sufficient in its `SKILL.md`.
 
-This repository's three-bot team defaults to exactly one assigned enabled skill per bot; inspect and read back all visible skill states. This is a package-specific setup target, not a rule for every redesigned bot: inventory existing skills and agree the appropriate set for its new role.
+A bot can own many skills. Assign them by role: each enabled skill ties to one job in the bot's Job, and skills no job uses are disabled or removed, including inherited ones. The three-bot team in this repository has one assigned skill per bot (`bot-design`, `prompt-design`, `skill-design`) because each role has one job; that is a result of the roles, not a limit. Inspect and read back all visible skill states, and for a redesigned bot inventory its existing skills and agree the set for its new role.
 
 ## Bot-type starter frames
 
@@ -220,6 +225,7 @@ Pick the nearest row as the starting point, then adjust.
 - `references/profile-template.md`: read when filling step 4; it has the 13 sections with fill / avoid / example hints.
 - `references/team-file.md`: read when packaging for OpenMausBot in step 8; full frontmatter, body, limits and an example.
 - `references/sample-profile.md`: read to see a small scored profile; it is the input for `scripts/score_bot.py`.
+- `references/healthcheck-routine.md`: optional; read only when the user wants a routine that audits a bot's automations. It may be absent from a starter copy.
 - `references/vi.md`: read when the user writes in Vietnamese; full Vietnamese edition of this skill.
 
 ## Sources
@@ -229,4 +235,7 @@ Pick the nearest row as the starting point, then adjust.
 - OpenMausBot repository docs, team-sharing and presets, https://github.com/milind-soni/OpenMausBot (what travels in a shared team).
 - openmausbot-teams, FORMAT.md, https://github.com/milind-soni/openmausbot-teams (BotMRR Markdown v1).
 - Agent Skills specification, https://agentskills.io/specification.
+- Grok Bot docs, computer and apps (local computer default, shared cloud computer), https://docs.x.ai/grok-bot/computer-and-apps.
+- Grok Bot, templates guide (what a template carries), https://x.ai/bot/guides/templates-for-grok-bot.
+- Lauren Tan, dr-eggbot-v2 marketplace page (anti-jobs, no leftover tools, healthcheck routines), https://x.ai/bot/marketplace/bots/dr-eggbot-v2.
 - Anthropic, "Skill authoring best practices", https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices.

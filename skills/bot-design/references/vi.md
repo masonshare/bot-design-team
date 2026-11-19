@@ -28,7 +28,8 @@ Nếu yêu cầu đổi cấu hình có nhiều cách hiểu hợp lý và phạ
 
 Hỏi tất cả trong một tin, mỗi câu kèm gợi ý mặc định để người dùng trả lời nhanh:
 
-- Công việc: bot làm gì, kèm 3 ví dụ thật, và việc bot không được làm.
+- Công việc: bot làm gì, kèm 3 ví dụ thật.
+- Việc không bao giờ làm (anti-job, bắt buộc): 2-4 dòng về điều bot tuyệt đối không làm, kể cả khi được nhờ.
 - Người dùng: ai nói chuyện với bot, mức am hiểu, ngôn ngữ.
 - Đầu vào: dữ liệu, ứng dụng, tệp, tài khoản đang có.
 - Đầu ra: định dạng, nơi nhận, ai duyệt.
@@ -79,13 +80,13 @@ Tóm lược từng mục:
 
 | Mục | Điền | Tránh |
 |---|---|---|
-| Overview | Một câu: giúp [ai] làm [việc] để đạt [kết quả]; 3-5 việc trong phạm vi; 2-3 việc ngoài phạm vi; một chỉ số thành công | "Trợ lý đa năng" |
+| Overview | Một câu: giúp [ai] làm [việc] để đạt [kết quả]; 3-5 việc trong phạm vi; 2-3 việc ngoài phạm vi; một chỉ số thành công; anti-job 2-4 dòng (bắt buộc) | "Trợ lý đa năng"; anti-job chỉ ghi "cẩn thận" |
 | Identity | Tên ngắn gợi việc; chức danh; mô tả 1-2 dòng nói làm gì và khi nào dùng; ngôn ngữ và cách xưng hô | Tên chung hoặc trùng |
-| Skills | 3-7 skill, mỗi skill có mô tả kích hoạt, các bước đánh số, bước kiểm tra, mẫu đầu ra | Một skill khổng lồ; việc máy làm được lại bắt mô hình làm |
+| Skills | Một bot có thể có nhiều skill, giao theo vai trò (thường 3-7); mỗi skill gắn với một việc trong Công việc và có mô tả kích hoạt, các bước đánh số, bước kiểm tra, mẫu đầu ra; bỏ skill không việc nào dùng | Một skill khổng lồ; skill không gắn việc nào; việc máy làm được lại bắt mô hình làm |
 | Memory | Sở thích ổn định, quyết định đã chốt kèm lý do, chỗ người dùng đã sửa, thuật ngữ | Thứ hết hạn trong một tuần, bí mật, văn bản dài (để trong Library) |
 | Library | Tệp nhỏ theo chủ đề, ngày cập nhật, người chịu trách nhiệm | Một tệp 50 trang; bản cũ lẫn bản mới |
-| Routines | Việc lặp lại có đầu ra dự đoán được; hướng dẫn chạy được không cần ngữ cảnh chat; ưu tiên sự kiện hơn quét dày; chỉ ghi nháp | Lịch vài phút một lần không cần thiết; routine hành động không hoàn tác |
-| Access | Chỉ những ứng dụng bot thật sự dùng; đọc trước ghi sau; được gọi bot nào, ai được gọi nó | Kết nối tất cả cho tiện |
+| Routines | Việc lặp lại có đầu ra dự đoán được; hướng dẫn chạy được không cần ngữ cảnh chat; ưu tiên sự kiện hơn quét dày; chỉ ghi nháp; bắt đầu ở trạng thái tạm dừng | Lịch vài phút một lần không cần thiết; routine hành động không hoàn tác |
+| Access | Chỉ những ứng dụng bot thật sự dùng, mỗi cái gắn với một việc trong Công việc; đọc trước ghi sau; được gọi bot nào, ai được gọi nó | Kết nối tất cả cho tiện |
 | Model | Mô hình nhỏ nhất vẫn qua các ca thử; rẻ hơn cho routine chạy nhiều | Dùng mô hình mạnh nhất cho mọi việc |
 | Voice/alerts | Chỉ báo khi cần hành động: duyệt, lỗi, deadline; tin ngắn nói việc gì, cần làm gì, ở đâu; giờ yên lặng | Báo từng bước |
 | History | Một thread một việc; thread nặng thì mở thread mới kèm bàn giao | Một thread dài vô tận |
@@ -105,10 +106,14 @@ Xong khi: mỗi mục đều được điền hoặc ghi `không cần` kèm lý
 | Tới hạn | Xóa dữ liệu, ký, đổi chính sách | Không tự động hóa |
 
 - Đọc trước ghi sau: mọi kết nối bắt đầu ở chế độ chỉ đọc; thêm quyền ghi theo từng công cụ khi một ca thử cần.
+- Mỗi công cụ, kết nối và skill phải gắn với một việc trong Công việc; không gắn việc nào thì bỏ. Dọn đồ thừa giữ ngữ cảnh gọn và bề mặt tấn công ngắn.
 - Đặt cổng trước khi gửi, đăng, xóa, chi tiền, cài đặt, commit hoặc push mã, bật lịch chạy.
 - Hạn mức tiền nằm trong cài đặt của nền tảng, không viết trong prompt.
 - Thông tin xác thực chỉ đặt trong kho bí mật (secret store) hoặc kho kết nối của nền tảng. Không để bí mật, URL webhook hay ghi chú đăng nhập trong prompt, skill, memory, chat hay tệp. Nhờ người dùng nhập qua kho bí mật.
 - Nhiều tài khoản có nhãn rõ cho một ứng dụng thì tốt hơn nhân đôi bot.
+- Điều khiển máy local: tài liệu Grok Bot đặt mặc định là "Ask every time" (hỏi mỗi lần), không phải "chặn". Chọn "Never allow" (không bao giờ cho) với bot mà Công việc không cần máy local.
+- Thẻ duyệt của routine hết hạn sau 30 phút (tài liệu Grok Bot). Routine chờ duyệt không được phụ thuộc vào câu trả lời đến muộn; thẻ hết hạn thì kết quả an toàn là không có gì xảy ra.
+- Các bot trong một tài khoản dùng chung một máy cloud. Nó không phải ranh giới bảo mật giữa các bot: đừng dựa vào nó để giấu tệp hay bí mật của bot này khỏi bot khác.
 
 Xong khi: bảng quyền cho thấy thiệt hại tối đa nếu bot làm sai, và mọi hành động không hoàn tác đều có cổng.
 
@@ -116,7 +121,7 @@ Xong khi: bảng quyền cho thấy thiệt hại tối đa nếu bot làm sai, 
 
 Giao việc viết prompt cho skill `prompt-design` khi có, kèm brief (mục tiêu, đối tượng, đầu vào, ràng buộc, định nghĩa xong) và nhận lại soul cùng ca thử. Giao quy trình cho skill `skill-design` theo cách tương tự. Khi thiếu hai skill đó, tự viết:
 
-Soul, 150-400 từ, theo thứ tự: vai trò 1-2 câu; người dùng và mức am hiểu; giọng văn; nguyên tắc làm việc kèm lý do; ranh giới cứng (hỏi trước khi gửi, xóa, chi tiền, commit); báo cáo trung thực (đã làm gì, chưa làm gì, lỗi gì, không báo xong khi chưa kiểm); khi bí thì nói rõ và nêu cách lấy dữ liệu. Ưu tiên lý do hơn cấm đoán viết hoa. Quy trình dài đưa sang skill, không để trong soul. Không để thông tin dễ lỗi thời.
+Soul, 150-400 từ, theo thứ tự: vai trò 1-2 câu; người dùng và mức am hiểu; giọng văn; nguyên tắc làm việc kèm lý do; ranh giới cứng (hỏi trước khi gửi, xóa, chi tiền, commit); anti-job (2-4 dòng về điều bot không bao giờ làm); báo cáo trung thực (đã làm gì, chưa làm gì, lỗi gì, không báo xong khi chưa kiểm); khi bí thì nói rõ và nêu cách lấy dữ liệu. Ưu tiên lý do hơn cấm đoán viết hoa. Quy trình dài đưa sang skill, không để trong soul. Không để thông tin dễ lỗi thời.
 
 Skill (phương án tự viết): một thư mục có `SKILL.md` gồm `name`, `description` một dòng nói làm gì và khi nào kích hoạt, các bước đánh số mỗi bước kết thúc bằng tiêu chí kiểm tra được, và mẫu đầu ra.
 
@@ -141,14 +146,14 @@ Chạy 5-10 ca thử và ghi kết quả: 3 bình thường, 2 mơ hồ, 2 ngoà
 
 Sau đó chấm bằng bảng điểm (scorecard). Mỗi mục 0 hoặc 1, chỉ tính các mục áp dụng; mục tiêu từ 80% trở lên.
 
-- [ ] Overview: mục tiêu một câu, trong và ngoài phạm vi
+- [ ] Overview: mục tiêu một câu, trong và ngoài phạm vi, và anti-job 2-4 dòng
 - [ ] Identity: tên và mô tả nói rõ làm gì, khi nào dùng
-- [ ] Soul: dưới 400 từ, có giọng, ranh giới, báo cáo trung thực, cách xử lý khi bí
-- [ ] Skills: 3-7 skill, mô tả kích hoạt đúng, mỗi skill có bước kiểm tra và mẫu đầu ra
+- [ ] Soul: dưới 400 từ, có giọng, ranh giới, anti-job, báo cáo trung thực, cách xử lý khi bí
+- [ ] Skills: giao theo vai trò (thường 3-7), mỗi skill gắn với một việc trong Công việc, bỏ skill không dùng, mô tả kích hoạt đúng, mỗi skill có bước kiểm tra và mẫu đầu ra
 - [ ] Memory: chỉ sự thật ổn định, không bí mật, không dữ liệu hết hạn
 - [ ] Library: tệp nhỏ có ngày, không trùng lặp
 - [ ] Routines: tự chạy được, ưu tiên sự kiện, chỉ ghi nháp
-- [ ] Access: chỉ kết nối thật sự dùng, đọc trước ghi sau
+- [ ] Access: chỉ kết nối thật sự dùng, mỗi cái gắn với một việc, đọc trước ghi sau
 - [ ] Model: nhỏ nhất vẫn qua các ca thử
 - [ ] Permissions: mọi hành động không hoàn tác đều có cổng
 - [ ] Voice/alerts: chỉ báo khi cần hành động
@@ -169,7 +174,7 @@ Chọn theo nền tảng:
 
 Triển khai theo thứ tự này, có cổng giữa các giai đoạn:
 1. Một bot, chạy tốt một mình trên các ca thử.
-2. Routine, bắt đầu ở trạng thái tạm dừng; chạy tay hai lần rồi mới bật.
+2. Routine, bắt đầu ở trạng thái tạm dừng; chạy tay hai lần rồi mới bật. Sau khi nhập, so sánh routine trong `team.md` với các tự động hóa thật sự có (xem Lưu ý về nền tảng).
 3. Đội, làm cuối; chỉ thêm bot vào nhóm khi nó đã chạy tốt một mình.
 
 Rà lại sau 1-2 tuần bằng usage và history; soul nào phình ra thì cắt, đưa quy trình sang skill.
@@ -187,9 +192,9 @@ Xong khi: người dùng có gói hoặc các bước cài đặt, thứ tự tr
 
 ## Lưu ý về nền tảng
 
-Khi nhập (import), nền tảng mang theo soul, nội dung skill, phòng (rooms), Chief of Staff và routine ở trạng thái tạm dừng. Nó không mang theo mô hình, thông tin xác thực, kết nối, trí nhớ, cũng như `references/` và `scripts/` của skill (chỉ văn bản `SKILL.md` đi theo). Skill nhập vào ở trạng thái tắt. Sau khi nhập: chọn mô hình cho từng bot, bật skill, tự kết nối ứng dụng, bật routine bằng tay. Vì vậy mỗi skill phải tự đủ trong `SKILL.md`.
+Khi nhập (import), nền tảng mang theo soul, nội dung skill, phòng (rooms) và Chief of Staff. Thường nó mang cả routine ở trạng thái tạm dừng, nhưng không được đảm bảo: đọc lại danh sách tự động hóa sau khi nhập. Nó không mang theo mô hình, thông tin xác thực, kết nối, trí nhớ, cũng như `references/` và `scripts/` của skill (chỉ văn bản `SKILL.md` đi theo). Skill nhập vào ở trạng thái tắt. Sau khi nhập: chọn mô hình cho từng bot, bật skill, tự kết nối ứng dụng, bật routine bằng tay. So sánh các routine khai báo trong `team.md` với danh sách tự động hóa thật: thêm cái còn thiếu (ở trạng thái tạm dừng) và báo mọi chỗ khác nhau. Vì vậy mỗi skill phải tự đủ trong `SKILL.md`.
 
-Nhóm ba bot trong kho này mặc định chỉ bật một kỹ năng được giao cho mỗi bot; kiểm kê và đọc lại mọi trạng thái nhìn thấy. Đây là mục tiêu cài đặt riêng của gói, không phải quy tắc cho mọi bot được thiết kế lại: hãy kiểm kê các kỹ năng hiện hữu và thống nhất bộ phù hợp với vai trò mới.
+Một bot có thể có nhiều skill. Giao theo vai trò: mỗi skill được bật gắn với một việc trong Công việc của bot, còn skill không việc nào dùng thì tắt hoặc bỏ, kể cả skill kế thừa. Nhóm ba bot trong kho này mỗi bot có một skill được giao (`bot-design`, `prompt-design`, `skill-design`) vì mỗi vai trò chỉ có một việc; đó là kết quả của vai trò, không phải giới hạn. Đọc lại mọi trạng thái skill nhìn thấy, và với bot được thiết kế lại thì kiểm kê skill hiện hữu rồi thống nhất bộ phù hợp với vai trò mới.
 
 ## Bộ khung theo thể loại bot
 
@@ -219,3 +224,6 @@ Chọn hàng gần nhất làm điểm xuất phát rồi chỉnh.
 - openmausbot-teams, FORMAT.md, https://github.com/milind-soni/openmausbot-teams (BotMRR Markdown v1).
 - Đặc tả Agent Skills, https://agentskills.io/specification.
 - Anthropic, "Skill authoring best practices", https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices.
+- Tài liệu Grok Bot, máy tính và ứng dụng (mặc định máy local, máy cloud dùng chung), https://docs.x.ai/grok-bot/computer-and-apps.
+- Grok Bot, hướng dẫn mẫu (template mang theo gì), https://x.ai/bot/guides/templates-for-grok-bot.
+- Lauren Tan, trang chợ dr-eggbot-v2 (anti-job, không để công cụ thừa, routine kiểm tra sức khỏe), https://x.ai/bot/marketplace/bots/dr-eggbot-v2.

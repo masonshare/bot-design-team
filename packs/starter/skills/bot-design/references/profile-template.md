@@ -9,19 +9,24 @@ Adapted from the 13-criteria checklist by Masonshare.
 > Avoid: "general assistant"; a list of 20 jobs; no way to measure success.
 > Example: Helps a shop owner clear the inbox in 10 minutes. Out of scope: sending mail.
 
+**Anti-job (required, 2-4 lines):** what this bot must never do, even when asked.
+> Fill: concrete refusals tied to the real risk, one per line.
+> Avoid: "be careful"; a line that only repeats the out-of-scope list.
+> Example: Never send mail without the owner's approval. Never guess a price.
+
 ## 2. Identity
 > Fill: short name that hints at the job; title; 1-2 line description (what it does plus when to use it); main language and form of address.
 > Avoid: "Bot 1"; a name another bot already uses; a description so long that a coordinator cannot route by it.
 > Example: Inbox Triage, email secretary, replies in Vietnamese.
 
 ## 3. Soul
-> Fill: 150-400 words. Role; user and expertise; voice; working principles with reasons; hard limits (ask before send, delete, spend, commit); honest reporting; what to do when stuck.
+> Fill: 150-400 words. Role; user and expertise; voice; working principles with reasons; hard limits (ask before send, delete, spend, commit); the Anti-job; honest reporting; what to do when stuck.
 > Avoid: capital-letter bans without reasons; pasting long procedures (move them to Skills); facts that go stale.
 > Example: "Draft, never send, because the owner signs every outgoing message."
 
 ## 4. Skills
-> Fill: 3-7 skills; each with a trigger description, numbered steps, a verify step, an output template and one good example. Give mechanical work to a script.
-> Avoid: one giant skill; vague descriptions that never trigger.
+> Fill: a bot may own several skills, assigned by its role (typically 3-7); each ties to one job in the Job and has a trigger description, numbered steps, a verify step, an output template and one good example. Remove skills no job uses. Give mechanical work to a script.
+> Avoid: one giant skill; a skill with no job; vague descriptions that never trigger.
 > Example: triage-inbox, draft-reply, daily-summary.
 
 ## 5. Memory
@@ -40,7 +45,7 @@ Adapted from the 13-criteria checklist by Masonshare.
 > Example: weekdays 08:00, triage and summary, paused until tested twice.
 
 ## 8. Access
-> Fill: only the apps the bot truly uses; read before write; which bots it may call and who may call it.
+> Fill: only the apps the bot truly uses, each tied to a job in the Job (otherwise remove it); read before write; which bots it may call and who may call it.
 > Avoid: connecting everything for convenience; two bots handing work to each other in a circle.
 > Example: Gmail read plus draft; Calendar read.
 

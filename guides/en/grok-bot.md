@@ -28,6 +28,17 @@ Before you start, fill in [the neutral spec](00-platform-neutral.md).
 
 Bot details > **Share** > **Create a copy** > **Publish** > **Copy link** makes a template. A template carries instructions, skills, first-party plugins and routines. It leaves out personal memories, private skills, secrets, scripts and MCP servers; the docs disagree on whether memories travel (unverified). Whoever imports it opens the link, chooses **Add to Grok Bot**, reviews, then **Add Bot**, and must re-add secrets and MCP servers.
 
+## Design lessons from Lauren Tan's dr-eggbot-v2
+
+Read directly from the [dr-eggbot-v2 marketplace page](https://x.ai/bot/marketplace/bots/dr-eggbot-v2) (author Lauren Tan, no publication date shown, read 2026-11-19). These describe how that author builds bots; they are practice, not platform rules.
+
+- **One job, one voice, explicit anti-jobs, no leftover tools.** For non-coding bots the page asks for exactly this. Here: write an Anti-job of 2-4 lines per bot, and tie every tool, connection and skill to a job in the Job, otherwise remove it (`bot-design`, step 5).
+- **Put the full live profile description in the template.** The page tells the bot to copy its full live `profile.description` into the template's `profile.description`, not a summary. Do the same before you publish.
+- **Check routines after a template import.** The page warns that template import may not materialize packed routines. After any import, compare the routines you packed with the real automation list and create what is missing, paused.
+- **Healthcheck routine that stays quiet.** The page lists a weekly token and waste audit that says nothing when there is nothing to propose, and creates nothing from a report until the user picks. An optional template is in `skills/bot-design/references/healthcheck-routine.md`; it is not part of the starter pack.
+
+Not adopted: poteto-mode as a coding-bot bar (the page names it but this repo does not define it, so it is unverified here), and any claim from the page's talk or posts that I could not read.
+
 ## Check it works
 
 - Ask the Bot to repeat its job and its approval rules back to you.

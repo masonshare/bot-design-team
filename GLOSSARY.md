@@ -14,7 +14,7 @@
 
 **Skill (kỹ năng)**: Gói hướng dẫn giúp bot thực hiện một loại công việc.
 
-**Cài skill tự động**: Sau khi nhập, Ginger Honey giao từng bot tự bật kỹ năng được giao và tắt kỹ năng khác bằng công cụ của bot; kỹ năng nhập từ GitHub ban đầu tắt.
+**Cài skill tự động**: Sau khi nhập, Ginger Honey giao từng bot tự bật các kỹ năng được giao và tắt kỹ năng không việc nào của bot dùng, bằng công cụ của bot; kỹ năng nhập từ GitHub ban đầu tắt.
 
 **Nghiệm thu**: Đánh giá gói bằng các phép thử và bằng chứng theo tiêu chí đã thống nhất.
 

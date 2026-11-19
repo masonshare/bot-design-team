@@ -100,7 +100,7 @@ skills:
 ```
 
 Key notes:
-- Every routine carries `enabledAfterInstall: false`; routines always arrive paused.
+- Every routine carries `enabledAfterInstall: false`; the file asks for routines to arrive paused. Import usually carries them, but re-read the automation list after import and compare it with `routines` in `team.md`; add what is missing (paused) and report any difference.
 - `agents[].skills` lists skill names that exist in `skills.entries` (at most 20 per agent).
 - `chiefOfStaff` names the `key` of the coordinator agent.
 - A working example file: https://github.com/milind-soni/openmausbot-teams/blob/main/packages/inbox-follow-up.md
