@@ -4,6 +4,30 @@ Bản tiếng Việt của `SKILL.md`. Biến một quy trình (workflow), SOP h
 
 **Cổng (gate)** là điểm dừng để người dùng duyệt trước khi làm tiếp. Các cổng trong skill này: trước khi cài bất cứ thứ gì tìm được trên mạng, trước khi ghi đè một skill đang có, trước khi xuất bản.
 
+## Skill là gì
+
+**Agent Skill** là một thư mục có tệp `SKILL.md` (frontmatter YAML gồm `name` và `description`, rồi các bước bằng Markdown) và tùy chọn `scripts/`, `references/`, `assets/`. Agent nạp skill theo **progressive disclosure** (nạp dần theo nhu cầu): `description` luôn nằm trong ngữ cảnh, thân `SKILL.md` chỉ nạp khi prompt khớp, các tệp khác chỉ nạp khi agent đọc hoặc chạy chúng.
+
+Nền tảng chạy được skill (đã đối chiếu tài liệu chính thức và máy này ngày 2026-11-18):
+
+| Nền tảng | Skill nằm ở đâu hoặc nhập vào bằng cách nào |
+|---|---|
+| Claude Code | Thư mục `~/.claude/skills/<name>/SKILL.md` (cá nhân), `.claude/skills/<name>/SKILL.md` (dự án) hoặc plugin. Không cần tải lên. |
+| Claude.ai | Tải lên tệp zip trong phần cài đặt. Skill tùy biến cần gói Pro, Max, Ultra, Team hoặc Enterprise và bật code execution. |
+| Claude API | Tải lên qua `/v1/skills`, rồi liệt kê `skill_ids` trong tham số `container` cùng công cụ code execution. Dùng chung cả workspace; container không có mạng. |
+| Agent SDK | Tệp trên đĩa trong `.claude/skills/`, được tìm qua `settingSources` và tùy chọn `skills`. Không có API đăng ký skill bằng code. |
+| OpenMausBot | Thư mục `workspaces/<botId>/skills/<name>/SKILL.md` trong thư mục dữ liệu, thuộc về một bot (thấy trên máy này). Giao diện nhập skill và việc nhập giữ những tệp nào: chưa kiểm chứng; một lần nhập ở đây chỉ giữ SKILL.md. |
+
+Skill tùy biến không đồng bộ giữa các nền tảng Claude: tải lên hoặc sao chép riêng cho từng nơi.
+
+| Thứ | Là gì | Khi nào được nạp | Dùng khi |
+|---|---|---|---|
+| Prompt | Một tin nhắn chỉ dẫn | Chỉ lượt đó | Việc làm một lần |
+| Soul (chỉ dẫn thường trực) | Vai trò, giọng và các cổng cố định của bot | Mọi lượt, xếp trên skill | Bot là ai và không bao giờ làm gì |
+| AGENTS.md / CLAUDE.md | Quy tắc luôn bật của dự án | Mọi phiên | Sự kiện và quy tắc ngắn |
+| Skill | Quy trình tái dùng có bước và tiêu chí kiểm | Description luôn nạp, thân nạp khi khớp | Quy trình lặp lại, mỗi lần chạy giống nhau |
+| Bot | Một agent có soul, model, thư mục và mức phê duyệt | Chạy khi được gọi | Người làm việc mang các skill |
+
 ## Bước 1. Tiếp nhận (làm rõ)
 
 Hỏi gộp một lần tất cả trường còn thiếu. Trường nào chưa có thì điền mặc định và nói rõ.
@@ -152,6 +176,9 @@ Khi chuyển việc cho bot khác hoặc người dùng, gửi 5 trường theo 
 
 - Anthropic, "Skill authoring best practices": https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices
 - Đặc tả Agent Skills: https://agentskills.io/specification
+- Anthropic, "Agent Skills overview" (nền tảng, các mức nạp, phạm vi chia sẻ): https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
+- Claude Code, "Extend Claude with skills" (vị trí skill, so với CLAUDE.md): https://code.claude.com/docs/en/skills
+- Claude Agent SDK, "Extend agents with skills": https://code.claude.com/docs/en/agent-sdk/skills
 - obra/superpowers, "writing-skills" (ý tưởng kiểm thử trước cho skill): https://github.com/obra/superpowers
 - vercel-labs/skills (`npx skills`, find-skills): https://github.com/vercel-labs/skills
 - Thư mục skill: https://skills.sh
