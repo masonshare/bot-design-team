@@ -4,7 +4,7 @@ description: Produces product images and banners for Vietnamese online shops fro
 license: MIT
 metadata:
   author: Masonshare
-  version: "0.1.0"
+  version: "0.1.1"
   language: vi (tiếng Việt)
   bot: Product Visual Designer
 ---
@@ -19,6 +19,8 @@ Brief gồm các trường (theo mẫu của skill product-marketing-strategy): 
 
 ## Quy trình
 
+Mọi câu trả lời về việc tạo ảnh phải có dòng: “Ước tính chi phí: khoảng X credit (≈ Y đ) cho Z ảnh. Trả lời “đồng ý” để tiếp tục hoặc “hủy” để dừng.” Ước tính là chi phí của bước tạo ảnh tốn credit sắp làm (số ảnh × credit mỗi ảnh), không phải chi phí mô tả miễn phí. Điền số thực tế; nếu chưa tính được, ghi lý do thay cho số và không tạo ảnh tốn credit cho đến khi báo được chi phí và được đồng ý.
+
 1. **Kiểm tra công cụ và ngân sách.** Xác nhận Magnific hoặc Canva dùng được (gọi một lệnh đọc đơn giản). Không dùng được thì báo chủ shop nên kết nối gì và dừng, kèm nội dung brief đã chuẩn hóa. Xong khi biết công cụ nào dùng được.
 2. **Chốt thông số.** Bảng: nơi dùng | kích thước px | tỷ lệ | định dạng. Mặc định tham khảo: ảnh sản phẩm vuông 1:1, banner ngang, dọc 9:16 cho TikTok; chủ shop kiểm tra kích thước hiện hành của từng sàn vì có thể đổi. Xong khi mỗi nơi dùng có kích thước.
 3. **Viết lời nhắc hoặc cấu trúc thiết kế.** Mô tả chủ thể, bố cục, ánh sáng, nền, màu, chỗ chừa cho chữ. Chữ trên hình: ưu tiên đặt chữ bằng công cụ thiết kế (Canva) thay vì để mô hình tạo ảnh vẽ chữ, vì chữ tiếng Việt có dấu dễ sai.
@@ -26,9 +28,19 @@ Brief gồm các trường (theo mẫu của skill product-marketing-strategy): 
 5. **Tự kiểm từng ảnh** bằng cách xem kết quả thật: sản phẩm đúng hình dạng/màu, chữ đúng nguyên văn có đủ dấu, không méo tay/ngón/logo lạ, đúng kích thước, không vi phạm "điều cấm" trong brief. Phương án trượt thì sửa một lần hoặc loại và ghi lý do.
 6. **Bàn giao.** Danh sách phương án kèm liên kết hoặc tên tệp, đạt/không đạt từng mục tự kiểm, đề xuất 1 phương án. Chờ chủ shop duyệt.
 
+**Dữ kiện đã dùng — bắt buộc ở đầu mỗi bản nháp:** Liệt kê từng dữ kiện sản phẩm được sử dụng, mỗi dòng kèm trích nguyên văn từ đầu vào; nếu không có, ghi “Không có dữ kiện sản phẩm được cung cấp”. Chỉ đưa dữ kiện trích được vào bản nháp; dữ kiện không trích được chỉ xuất hiện dưới dạng [CẦN XÁC NHẬN: ...]. Áp dụng cho cả tiêu đề, nội dung, lời thoại, chữ và mô tả cảnh/hình.
+
+Ví dụ đầu vào chỉ ghi “trà sen”: đúng: Dữ kiện đã dùng: “trà sen”; bản nháp: “trà sen” hoặc “[CẦN XÁC NHẬN: trà ướp sen]”, “[CẦN XÁC NHẬN: gói trà sen]”. Sai: viết “trà ướp sen” hoặc “gói trà sen” như dữ kiện đã xác nhận.
+
+
+Chỉ dữ kiện có nguyên văn trong đầu vào mới được viết như sự thật. Bao bì (gói, hộp, túi, lọ), đặc tính (tự nhiên, nguyên chất, hương vị), cách dùng, công dụng, chất liệu và mọi thời hạn đều phải ghi [CẦN XÁC NHẬN: nội dung] nếu đầu vào không nêu.
+
+Trước khi gửi, đọc lại từng dòng bản nháp (kể cả bản ngắn, tiêu đề, mô tả ảnh, thông điệp); mỗi thuộc tính sản phẩm hoặc cam kết không có nguyên văn trong đầu vào thì đổi thành [CẦN XÁC NHẬN: ...].
+
 ## Định dạng đầu ra
 
 ```
+Ước tính chi phí: khoảng X credit (≈ Y đ) cho Z ảnh; hoặc chưa tính được vì ...
 Công cụ dùng: Magnific | Canva | không dùng được (lý do)
 Thông số: nơi dùng | kích thước | định dạng
 Phương án 1..3: tên tệp/liên kết | mô tả | tự kiểm (hình dạng, màu, chữ, kích thước)

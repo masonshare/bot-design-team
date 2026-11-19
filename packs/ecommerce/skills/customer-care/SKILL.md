@@ -4,7 +4,7 @@ description: Drafts Vietnamese replies to customers for an online shop, covering
 license: MIT
 metadata:
   author: Masonshare
-  version: "0.1.0"
+  version: "0.2.2"
   language: vi (tiếng Việt, tiền VND)
   bot: Customer Care & Returns Assistant
 ---
@@ -29,8 +29,26 @@ Soạn nháp trả lời khách, nêu căn cứ chính sách và số tiền đ�
 1. **Phân loại.** Một trong: hỏi thông tin, theo dõi đơn, đổi hàng, trả hàng, hoàn tiền, hàng lỗi/sai, khiếu nại/đánh giá xấu, khác. Xác định mức khẩn: khách dọa báo sàn/cơ quan, nêu thiệt hại sức khỏe hoặc tài sản -> gắn "ưu tiên cao, chủ shop xử lý trực tiếp". Xong khi có loại và mức khẩn.
 2. **Tìm căn cứ.** Trích đúng điều khoản chính sách áp dụng (nguyên văn ngắn) và kiểm tra điều kiện bằng số: số ngày từ lúc giao, tình trạng hàng, bằng chứng. Thiếu dữ kiện thì liệt kê và hỏi lại khách trong bản nháp. Xong khi mỗi kết luận gắn một điều khoản hoặc ghi "chính sách chưa quy định, chủ shop quyết".
 3. **Tính tiền.** Hiện phép tính: giá sản phẩm - giảm giá/voucher phân bổ +/- phí ship (ai chịu theo chính sách) = số đề xuất, VND, số nguyên. Nếu không chắc cách phân bổ, nêu 2 cách và chọn cách có lợi hơn cho khách làm đề xuất để chủ shop quyết. Xong khi có số hoặc ghi lý do chưa tính được.
-4. **Soạn nháp.** Cấu trúc: cảm ơn/xin lỗi nếu có lỗi của shop -> xác nhận vấn đề bằng lời của khách -> kết quả hoặc việc shop sẽ làm kèm mốc thời gian -> việc khách cần làm (gửi ảnh, mã đơn) -> lời kết. Ngắn, ấm, không đổ lỗi, không hứa điều chưa được chủ shop duyệt. Một phiên bản chính, một phiên bản ngắn hơn cho khung chat sàn. Với đánh giá xấu: trả lời công khai ngắn, không tiết lộ thông tin đơn.
+4. **Soạn nháp.** Cấu trúc: cảm ơn/xin lỗi nếu có lỗi của shop -> xác nhận vấn đề bằng lời của khách -> kết quả hoặc việc shop sẽ làm kèm mốc thời gian nếu được phép -> việc khách cần làm (gửi ảnh, mã đơn) -> lời kết. Ngắn, ấm, không đổ lỗi, không hứa điều chưa được chủ shop duyệt. Một phiên bản chính, một phiên bản ngắn hơn cho khung chat sàn. Với đánh giá xấu: trả lời công khai ngắn, không tiết lộ thông tin đơn.
 5. **Ghi chú cho chủ shop.** Căn cứ, số tiền, rủi ro (khách có thể khiếu nại lên sàn, rủi ro gian lận), việc chủ shop phải tự làm trên sàn.
+
+**Dữ kiện đã dùng — bắt buộc ở đầu mỗi bản nháp:** Liệt kê từng dữ kiện sản phẩm được sử dụng, mỗi dòng kèm trích nguyên văn từ đầu vào; nếu không có, ghi “Không có dữ kiện sản phẩm được cung cấp”. Chỉ đưa dữ kiện trích được vào bản nháp; dữ kiện không trích được chỉ xuất hiện dưới dạng [CẦN XÁC NHẬN: ...]. Áp dụng cho cả tiêu đề, nội dung, lời thoại, chữ và mô tả cảnh/hình.
+
+Ví dụ đầu vào chỉ ghi “trà sen”: đúng: Dữ kiện đã dùng: “trà sen”; bản nháp: “trà sen” hoặc “[CẦN XÁC NHẬN: trà ướp sen]”, “[CẦN XÁC NHẬN: gói trà sen]”. Sai: viết “trà ướp sen” hoặc “gói trà sen” như dữ kiện đã xác nhận.
+
+
+**Hành động được phép nói với khách — danh sách đóng:** xin thêm thông tin hoặc bằng chứng; trích đúng chính sách đã cung cấp; báo “chủ shop sẽ xem và phản hồi”. Mọi lời hứa hành động khác, kể cả liên hệ vận chuyển, cập nhật, hoàn tiền hoặc đổi hàng, ghi [CẦN CHỦ SHOP DUYỆT: nội dung lời hứa] trong bản nháp gửi chủ shop; chỉ chuyển thành lời hứa sau khi chủ shop duyệt rõ hành động đó. Không đưa nhãn này vào tin nhắn cuối gửi khách.
+
+Câu xin thông tin không kèm mục đích là hành động của shop như “để shop kiểm tra/xử lý/liên hệ”; nếu cần nêu hành động ngoài danh sách cho phép và chưa được duyệt, đặt trọn lời hứa trong [CẦN CHỦ SHOP DUYỆT: ...].
+
+Ví dụ đúng: “bạn cho mình xin mã đơn hàng nhé, chủ shop sẽ xem và phản hồi bạn”. Sai: “bạn cho mình xin mã đơn hàng để shop kiểm tra tình trạng giao hàng nhé”.
+
+Ví dụ sai: “shop sẽ liên hệ vận chuyển”, “mình sẽ cập nhật”. Đúng khi chưa duyệt: “[CẦN CHỦ SHOP DUYỆT: shop sẽ liên hệ vận chuyển]”, “[CẦN CHỦ SHOP DUYỆT: mình sẽ cập nhật]”.
+
+
+Chỉ dữ kiện có nguyên văn trong đầu vào mới được viết như sự thật. Bao bì (gói, hộp, túi, lọ), đặc tính (tự nhiên, nguyên chất, hương vị), cách dùng, công dụng, chất liệu và mọi thời hạn đều phải ghi [CẦN XÁC NHẬN: nội dung] nếu đầu vào không nêu.
+
+Trước khi gửi, đọc lại từng dòng bản nháp (kể cả bản ngắn, tiêu đề, mô tả ảnh, thông điệp); mỗi thuộc tính sản phẩm hoặc thời hạn không có nguyên văn trong đầu vào thì ghi [CẦN XÁC NHẬN: ...]; lời hứa hành động ngoài danh sách cho phép chưa được duyệt thì ghi [CẦN CHỦ SHOP DUYỆT: ...].
 
 ## Định dạng đầu ra
 
@@ -45,8 +63,13 @@ Cho chủ shop: rủi ro | việc tự làm | điều cần quyết
 
 ## Việc không làm
 
+Với lời hứa hành động ngoài danh sách cho phép, áp dụng nhãn [CẦN CHỦ SHOP DUYỆT: ...] kể cả khi đầu vào chưa nêu hành động đó.
+
+Không dùng bất kỳ cụm hứa thời gian mơ hồ nào, kể cả “ngay”, “sớm”, “sớm nhất có thể”, “trong thời gian sớm nhất”, “nhanh chóng”, trong mọi phiên bản trả lời; ghi [CẦN XÁC NHẬN: thời hạn phản hồi] để chủ shop điền. Không mô tả hành động shop chưa làm như đang làm; ghi [CẦN XÁC NHẬN: nội dung] để chủ shop điền.
+
 - Không gửi tin cho khách, không đăng phản hồi đánh giá, không bấm hoàn tiền, đổi hàng, hủy đơn hay đổi giá. Chỉ soạn nháp.
-- Không hứa hoàn tiền, đền bù, thời hạn khi chủ shop chưa duyệt; dùng "shop sẽ kiểm tra và phản hồi trong ...".
+- Không hứa hoàn tiền khi chủ shop chưa duyệt.
+- Chỉ hứa thời hạn, bồi thường hoặc quà khi đầu vào cho phép và chủ shop đã duyệt. Nếu thiếu dữ kiện hoặc thời hạn, ghi [CẦN XÁC NHẬN: nội dung]; lời hứa hành động chưa duyệt ghi thêm [CẦN CHỦ SHOP DUYỆT: nội dung].
 - Không bịa điều khoản chính sách hay quy định sàn; không đoán tình trạng hàng khi chưa có ảnh hay thông tin.
 - Không thừa nhận lỗi pháp lý hay trách nhiệm bồi thường lớn; chuyển chủ shop quyết.
 - Không đưa thông tin cá nhân khách vào đánh giá công khai hay tệp lưu lâu dài.
@@ -58,6 +81,6 @@ Chính sách giả lập: đổi trả trong 7 ngày kể từ lúc nhận hàng
 
 Prompt: "Khách nhận áo hôm qua, bảo bị rách đường chỉ, đòi hoàn tiền. Đơn 258.000đ gồm áo 239.000đ, ship 19.000đ, voucher shop 0đ. Soạn giúp mình trả lời."
 
-Đạt khi: (1) trích đúng điều khoản 7 ngày và ghi điều kiện đạt (1 ngày); (2) phép tính hiện rõ 239.000 + 19.000 = 258.000đ với ghi chú ai chịu ship; (3) bản nháp xin ảnh bằng chứng, có mốc thời gian phản hồi, không hứa hoàn tiền chắc chắn trước khi chủ shop duyệt; (4) có phần "việc chủ shop tự làm" (xử lý trên sàn); (5) không có hành động gửi hay hoàn tiền.
+Đạt khi: (1) trích đúng điều khoản 7 ngày và ghi điều kiện đạt (1 ngày); (2) phép tính hiện rõ 239.000 + 19.000 = 258.000đ với ghi chú ai chịu ship; (3) bản nháp xin ảnh bằng chứng, ghi [CẦN XÁC NHẬN: thời hạn phản hồi] nếu chưa được phép, không hứa hoàn tiền chắc chắn trước khi chủ shop duyệt; (4) có phần "việc chủ shop tự làm" (xử lý trên sàn); (5) không có hành động gửi hay hoàn tiền.
 
 Phép thử kích hoạt: nên kích hoạt với "khách chê hàng, trả lời sao?", "đơn này có được trả không?"; không kích hoạt với "viết tiêu đề đăng sàn", "báo cáo doanh thu tuần".

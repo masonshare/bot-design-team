@@ -4,7 +4,7 @@ description: Writes the script, shot list and edit plan for a short Vietnamese p
 license: MIT
 metadata:
   author: Masonshare
-  version: "0.1.0"
+  version: "0.1.1"
   language: vi (tiếng Việt)
   bot: Product Video Producer
 ---
@@ -14,6 +14,15 @@ metadata:
 Lập kịch bản, danh sách cảnh, kế hoạch dựng, rồi tạo bản nháp bằng Magnific đã kết nối. Chỉ tạo bản nháp để duyệt; không đăng video. Chưa kiểm chứng bot dùng được Magnific trong mọi môi trường: kiểm tra ở bước 1.
 
 ## Đầu vào
+
+**Dữ kiện đã dùng — bắt buộc ở đầu mỗi bản nháp:** Liệt kê từng dữ kiện sản phẩm được sử dụng, mỗi dòng kèm trích nguyên văn từ đầu vào; nếu không có, ghi “Không có dữ kiện sản phẩm được cung cấp”. Chỉ đưa dữ kiện trích được vào bản nháp; dữ kiện không trích được chỉ xuất hiện dưới dạng [CẦN XÁC NHẬN: ...]. Áp dụng cho cả tiêu đề, nội dung, lời thoại, chữ và mô tả cảnh/hình.
+
+Ví dụ đầu vào chỉ ghi “trà sen”: đúng: Dữ kiện đã dùng: “trà sen”; bản nháp: “trà sen” hoặc “[CẦN XÁC NHẬN: trà ướp sen]”, “[CẦN XÁC NHẬN: gói trà sen]”. Sai: viết “trà ướp sen” hoặc “gói trà sen” như dữ kiện đã xác nhận.
+
+
+Chỉ dữ kiện có nguyên văn trong đầu vào mới được viết như sự thật. Bao bì (gói, hộp, túi, lọ), đặc tính (tự nhiên, nguyên chất, hương vị), cách dùng, công dụng, chất liệu và mọi thời hạn đều phải ghi [CẦN XÁC NHẬN: nội dung] nếu đầu vào không nêu.
+
+Trước khi gửi, đọc lại từng dòng bản nháp, gồm lời thoại, mô tả cảnh và chữ trên hình; mỗi thuộc tính sản phẩm hoặc cam kết không có nguyên văn trong đầu vào thì đổi thành [CẦN XÁC NHẬN: ...].
 
 Brief (mẫu của skill product-marketing-strategy): mục tiêu, sản phẩm và ảnh/video gốc, khách mục tiêu, thông điệp, chữ và lời thoại bắt buộc, phong cách, kênh và tỷ lệ, độ dài, điều cấm, hạn giao, người duyệt. Mặc định: dọc 9:16, 15-30 giây, có phụ đề tiếng Việt. Thiếu ảnh/video gốc của sản phẩm thì hỏi; không tạo cảnh "sản phẩm thật" khi không có nguồn.
 

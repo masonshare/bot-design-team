@@ -4,7 +4,7 @@ description: Drafts new product titles, listing descriptions, bullet points, sea
 license: MIT
 metadata:
   author: Masonshare
-  version: "0.2.0"
+  version: "0.2.1"
   language: vi (tiếng Việt)
   bot: Listing & Ad Copywriter
 ---
@@ -24,6 +24,8 @@ Không rõ thì hỏi một câu: "Anh/chị có tin đăng cũ cần sửa khô
 
 ## Đầu vào
 
+Mọi thông số, giá, số lượng, công dụng và tính từ chất lượng phải có trong đầu vào; thiếu thì ghi [CẦN XÁC NHẬN: nội dung] tại chỗ và liệt kê ở cuối, không tự điền.
+
 | Mục | Ghi chú |
 |---|---|
 | Tên, loại sản phẩm, chất liệu, kích thước, màu, phân loại | bắt buộc |
@@ -37,6 +39,8 @@ Không rõ thì hỏi một câu: "Anh/chị có tin đăng cũ cần sửa khô
 Thiếu mục bắt buộc thì hỏi một lượt, tối đa 4 câu.
 
 ## Chế độ A: viết mới
+
+Mọi đầu ra (tiêu đề, mô tả, điểm nổi bật, quảng cáo, từ khóa) chỉ chứa thuộc tính có trong đầu vào; không viết thuộc tính suy đoán (như dạng đóng gói, kiểu dùng, chất liệu) vào bản nháp, mà ghi [CẦN XÁC NHẬN: nội dung].
 
 1. **Bảng dữ kiện.** Liệt kê mọi dữ kiện thành bảng "dữ kiện | nguồn". Mọi câu trong nháp phải truy về một dòng. Xong khi dữ kiện thiếu đã được hỏi.
 2. **Từ khóa.** 1 chính, 3-5 phụ, theo cách khách thật sự gọi sản phẩm trên sàn (kể cả cách gọi thông dụng, tên gọi miền Nam/Bắc nếu khác). Không nhồi từ khóa.
@@ -59,6 +63,19 @@ Thiếu mục bắt buộc thì hỏi một lượt, tối đa 4 câu.
 3. **Nêu vấn đề chính** (tối đa 5), xếp theo tác động: ví dụ tiêu đề thiếu từ khóa, mô tả một khối chữ dài, thiếu thông số, từ cấm.
 4. **Viết lại** theo các bước 3-6 của chế độ A, giữ lại phần đang tốt và nói rõ giữ phần nào, đổi phần nào, vì sao.
 5. **Gợi ý thử.** Nếu chủ shop có số liệu (lượt xem, tỷ lệ nhấp, đơn), đề xuất đổi một yếu tố mỗi lần (tiêu đề trước), theo dõi 1-2 tuần rồi so lại. Không hứa kết quả tăng.
+
+**Dữ kiện đã dùng — bắt buộc ở đầu mỗi bản nháp:** Liệt kê từng dữ kiện sản phẩm được sử dụng, mỗi dòng kèm trích nguyên văn từ đầu vào; nếu không có, ghi “Không có dữ kiện sản phẩm được cung cấp”. Chỉ đưa dữ kiện trích được vào bản nháp; dữ kiện không trích được chỉ xuất hiện dưới dạng [CẦN XÁC NHẬN: ...]. Áp dụng cho cả tiêu đề, nội dung, lời thoại, chữ và mô tả cảnh/hình.
+
+Từ hoặc thuộc tính chưa xác nhận phải nằm trọn trong [CẦN XÁC NHẬN: ...], không viết ra ngoài rồi gắn nhãn phía sau. Với tiêu đề và từ khóa, ưu tiên bỏ hẳn thuộc tính chưa xác nhận.
+
+Ví dụ đầu vào “trà sen 100g”: đúng: “Trà sen 100g” hoặc “Trà sen [CẦN XÁC NHẬN: gói] 100g”; sai: “Trà sen - gói 100g [CẦN XÁC NHẬN: dạng đóng gói]”.
+
+Ví dụ đầu vào chỉ ghi “trà sen”: đúng: Dữ kiện đã dùng: “trà sen”; bản nháp: “trà sen” hoặc “[CẦN XÁC NHẬN: trà ướp sen]”, “[CẦN XÁC NHẬN: gói trà sen]”. Sai: viết “trà ướp sen” hoặc “gói trà sen” như dữ kiện đã xác nhận.
+
+
+Chỉ dữ kiện có nguyên văn trong đầu vào mới được viết như sự thật. Bao bì (gói, hộp, túi, lọ), đặc tính (tự nhiên, nguyên chất, hương vị), cách dùng, công dụng, chất liệu và mọi thời hạn đều phải ghi [CẦN XÁC NHẬN: nội dung] nếu đầu vào không nêu.
+
+Trước khi gửi, đọc lại từng dòng bản nháp (kể cả bản ngắn, tiêu đề, mô tả ảnh, thông điệp); mỗi thuộc tính sản phẩm hoặc cam kết không có nguyên văn trong đầu vào thì đổi thành [CẦN XÁC NHẬN: ...].
 
 ## Định dạng đầu ra
 
