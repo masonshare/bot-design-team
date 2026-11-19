@@ -28,7 +28,7 @@ npx skills add masonshare/bot-design-team -g         # install for your user, no
 1. Mở **Teams → Import** và dán `https://github.com/masonshare/bot-design-team`.
 2. Xem lại rồi nhập. OpenMausBot sẽ tạo 3 bot cùng chỉ dẫn nền và skill của chúng.
 3. Sau khi nhập:
-   - Trên từng bot, chỉ bật đúng skill được giao trong bảng trên; tắt mọi skill khác mà bot nhìn thấy, kể cả skill kế thừa.
+   - Trên từng bot, bật skill được giao trong bảng trên và tắt mọi skill nhìn thấy mà không việc nào của bot dùng, kể cả skill kế thừa. Một bot có thể có nhiều skill, giao theo vai trò.
    - Đọc lại danh sách bật/tắt đã lưu của từng bot trước khi báo cài đặt xong. Làm theo [quy trình kiểm tra skill](guides/vi/openmausbot.md#kiểm-tra-skill-sau-cả-hai-cách).
    - Chọn mô hình cho từng bot, vì mô hình không đi kèm theo tệp.
 

@@ -1040,7 +1040,7 @@ Một Chief và 6 chuyên gia (7 bot). Chuyên gia không giao việc trực ti�
 | 6 | Product Video Producer | Video giới thiệu sản phẩm | `product-video` + Magnific | `product-video-producer.md` |
 | 7 | Customer Care & Returns Assistant | Nháp trả lời khách, đổi trả, khiếu nại | `customer-care` | `customer-care-assistant.md` |
 
-Mỗi bot chỉ bật skill của mình (như Starter); `research` là skill riêng có sẵn (đã chốt, không gộp); `product-marketing-strategy` là skill mới gộp chiến lược bán và marketing.
+Mỗi bot bật các skill được giao theo vai trò, hiện mỗi bot một skill (như Starter), và có thể thêm khi vai trò cần; `research` là skill riêng có sẵn (đã chốt, không gộp); `product-marketing-strategy` là skill mới gộp chiến lược bán và marketing.
 
 ## Chief of Staff
 
