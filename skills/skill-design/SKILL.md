@@ -4,7 +4,7 @@ description: Turns a workflow, SOP or body of knowledge into a valid Agent Skill
 license: MIT
 metadata:
   author: Masonshare
-  version: "1.0.0"
+  version: "1.1.0"
   language: en (Vietnamese edition in references/vi.md)
 ---
 
@@ -13,6 +13,30 @@ metadata:
 Turn a workflow, SOP or body of knowledge into a skill that an agent loads on the right prompt and follows the same way every run. Work loop: clarify, research, plan, build, verify. Reply in the user's language; Vietnamese users get Vietnamese output (full edition in [references/vi.md](references/vi.md)).
 
 A **gate** is a stop where the user approves before work continues. Gates in this skill: before installing anything found online, before overwriting an existing skill, before publishing.
+
+## What a skill is
+
+An **Agent Skill** is a folder with a `SKILL.md` (YAML frontmatter with `name` and `description`, then Markdown steps) and optional `scripts/`, `references/` and `assets/`. Agents load it by **progressive disclosure**: the `description` is always in context, the `SKILL.md` body loads when a prompt matches, and other files load only when the agent reads or runs them.
+
+Where a skill runs (checked against the official docs and this machine on 2026-11-18):
+
+| Platform | Where the skill lives or how it gets in |
+|---|---|
+| Claude Code | Folder `~/.claude/skills/<name>/SKILL.md` (personal), `.claude/skills/<name>/SKILL.md` (project) or a plugin. No upload. |
+| Claude.ai | Zip upload in settings. Custom skills need Pro, Max, Ultra, Team or Enterprise with code execution on. |
+| Claude API | Upload through `/v1/skills`, then list `skill_ids` in the `container` parameter with the code execution tool. Workspace-wide; the container has no network. |
+| Agent SDK | Files on disk under `.claude/skills/`, found through `settingSources` and the `skills` option. No API registers a skill in code. |
+| OpenMausBot | Folder `workspaces/<botId>/skills/<name>/SKILL.md` in the data folder, owned by one bot (seen on this machine). The import UI and which files an import keeps: not verified; one import here kept only SKILL.md. |
+
+Custom skills do not sync across Claude surfaces: upload or copy to each one separately.
+
+| Thing | What it is | When it loads | Use it for |
+|---|---|---|---|
+| Prompt | One message of instructions | That turn only | A one-off task |
+| Soul (standing instructions) | A bot's fixed role, voice and gates | Every turn, ranks above skills | Who the bot is and what it never does |
+| AGENTS.md / CLAUDE.md | A project's always-on rules | Every session | Short facts and rules |
+| Skill | A reusable procedure with steps and checks | Description always, body on a match | A repeating workflow done the same way each run |
+| Bot | An agent with a soul, model, folder and approval level | Runs when addressed | The worker that carries skills |
 
 ## Step 1. Intake (clarify)
 
@@ -163,6 +187,9 @@ When passing work to another bot or the user, send 5 fields in order: Goal (one 
 
 - Anthropic, "Skill authoring best practices": https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices
 - Agent Skills specification: https://agentskills.io/specification
+- Anthropic, "Agent Skills overview" (platforms, loading levels, sharing scope): https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
+- Claude Code, "Extend Claude with skills" (locations, CLAUDE.md contrast): https://code.claude.com/docs/en/skills
+- Claude Agent SDK, "Extend agents with skills": https://code.claude.com/docs/en/agent-sdk/skills
 - obra/superpowers, "writing-skills" (test-first idea for skills): https://github.com/obra/superpowers
 - vercel-labs/skills (`npx skills`, find-skills): https://github.com/vercel-labs/skills
 - Skills directory: https://skills.sh
