@@ -1,6 +1,6 @@
 # Stage prompt kit 0-5B
 
-Ready-to-paste prompts for the Prompt Architect process by Masonshare. Each stage maps to a step in SKILL.md. Replace every `[ ]` with your own text; the words inside the brackets are examples. Reply in the user's language; translate the prompts when needed.
+Ready-to-paste prompts for the Prompt Architect process by Masonshare. Stages 0-4 map to steps 1-5 of this skill's SKILL.md; stage 5 (Feedback Loop) maps to the prompt-test skill. Replace every `[ ]` with your own text; the words inside the brackets are examples. Reply in the user's language; translate the prompts when needed.
 
 Use the kit in two ways:
 - As the bot: run a stage yourself and show the user the result.
