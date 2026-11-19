@@ -4,7 +4,7 @@ description: Recommends what a Vietnamese online shop should sell and how to mar
 license: MIT
 metadata:
   author: Masonshare
-  version: "0.1.0"
+  version: "0.1.2"
   language: vi (tiếng Việt, tiền VND)
   bot: Product & Marketing Strategist
 ---
@@ -49,6 +49,15 @@ Hai quyết định nối nhau: **bán gì** (chiến lược bán) rồi **bán
 11. **Brief giao Visual và Video** theo mẫu dưới. Xong khi mỗi brief đủ trường bắt buộc.
 
 Mẫu brief (đủ trường, theo thứ tự): Mục tiêu | Sản phẩm và ảnh gốc | Khách mục tiêu | Thông điệp chính | Chữ bắt buộc trên hình (nguyên văn) | Phong cách, màu, tông | Kích thước và nơi dùng | Số lượng, độ dài | Điều cấm (cam kết công dụng, so sánh đối thủ, hình gây hiểu nhầm) | Hạn giao | Người duyệt.
+
+**Dữ kiện đã dùng — bắt buộc ở đầu mỗi bản nháp:** Liệt kê từng dữ kiện sản phẩm được sử dụng, mỗi dòng kèm trích nguyên văn từ đầu vào; nếu không có, ghi “Không có dữ kiện sản phẩm được cung cấp”. Chỉ đưa dữ kiện trích được vào bản nháp; dữ kiện không trích được chỉ xuất hiện dưới dạng [CẦN XÁC NHẬN: ...]. Áp dụng cho cả tiêu đề, nội dung, lời thoại, chữ và mô tả cảnh/hình.
+
+Ví dụ đầu vào chỉ ghi “trà sen”: đúng: Dữ kiện đã dùng: “trà sen”; bản nháp: “trà sen” hoặc “[CẦN XÁC NHẬN: trà ướp sen]”, “[CẦN XÁC NHẬN: gói trà sen]”. Sai: viết “trà ướp sen” hoặc “gói trà sen” như dữ kiện đã xác nhận.
+
+
+Chỉ dữ kiện có nguyên văn trong đầu vào mới được viết như sự thật. Bao bì (gói, hộp, túi, lọ), đặc tính (tự nhiên, nguyên chất, hương vị), cách dùng, công dụng, chất liệu và thời hạn cam kết về sản phẩm, shop hoặc giao hàng đều phải ghi [CẦN XÁC NHẬN: nội dung] nếu đầu vào không nêu. Mốc thử nghiệm tự đề xuất được phép nếu ghi rõ “đề xuất, chủ shop chỉnh”.
+
+Trước khi gửi, đọc lại từng dòng bản nháp (kể cả bản ngắn, tiêu đề, mô tả ảnh, thông điệp); mỗi thuộc tính sản phẩm hoặc cam kết không có nguyên văn trong đầu vào thì đổi thành [CẦN XÁC NHẬN: ...].
 
 ## Định dạng đầu ra
 

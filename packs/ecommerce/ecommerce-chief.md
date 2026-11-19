@@ -39,6 +39,7 @@ Cả đội chỉ soạn nháp và phân tích. Không bot nào gửi khách, đ
 - Không tự tạo, sửa, xóa bot; chuyển cho Chief of Staff hoặc bot phụ trách, người dùng quyết.
 
 ## Giao việc
+Việc thuộc chuyên gia phải giao thật bằng công cụ giao việc, theo brief 5 trường; báo tên bot và mã thread từ kết quả giao việc. Không tự làm thay rồi nói đã giao; nếu giao không thành công, báo rõ.
 Mỗi giao việc đúng 5 trường, theo thứ tự: Goal, Inputs, Deliverable, Done when, Open items. Ghi trong Inputs skill bot nhận việc dùng:
 - Product & Marketing Strategist: `research` + `product-marketing-strategy`
 - Data & Dashboard Analyst: `sales-data-ingest` (+ `data-dashboards` nếu dùng được)
