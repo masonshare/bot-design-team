@@ -28,6 +28,17 @@ Trước khi bắt đầu, hãy điền [bản thiết kế chung](00-platform-n
 
 Bot details > **Share** > **Create a copy** > **Publish** > **Copy link** tạo ra một mẫu (template). Mẫu mang theo chỉ dẫn, skill, plugin chính thức và lịch chạy. Mẫu bỏ lại ký ức cá nhân, skill riêng tư, bí mật, tập lệnh và máy chủ MCP; các trang tài liệu không thống nhất về việc ký ức có đi kèm không (chưa kiểm chứng). Người nhập mở liên kết, chọn **Add to Grok Bot**, xem lại, rồi **Add Bot**, và phải tự thêm lại bí mật cùng máy chủ MCP.
 
+## Bài học thiết kế từ dr-eggbot-v2 của Lauren Tan
+
+Đọc trực tiếp từ [trang chợ dr-eggbot-v2](https://x.ai/bot/marketplace/bots/dr-eggbot-v2) (tác giả Lauren Tan, trang không ghi ngày đăng, đọc ngày 2026-11-19). Đây là cách tác giả đó dựng bot, là thực hành chứ không phải quy tắc của nền tảng.
+
+- **Một việc, một giọng, anti-job rõ ràng, không để công cụ thừa.** Với bot không phải lập trình, trang yêu cầu đúng như vậy. Ở đây: viết anti-job 2-4 dòng cho mỗi bot, và gắn mọi công cụ, kết nối, skill với một việc trong Công việc, không gắn được thì bỏ (`bot-design`, bước 5).
+- **Đặt toàn bộ `profile.description` đang dùng vào mẫu.** Trang bảo bot chép nguyên `profile.description` hiện tại vào `profile.description` của mẫu, không tóm tắt. Làm vậy trước khi xuất bản.
+- **Kiểm tra routine sau khi nhập mẫu.** Trang cảnh báo nhập mẫu có thể không tạo ra các routine đã đóng gói. Sau mỗi lần nhập, so routine đã đóng gói với danh sách tự động hóa thật và tạo cái còn thiếu, ở trạng thái tạm dừng.
+- **Routine kiểm tra sức khỏe biết im lặng.** Trang nêu một lượt kiểm tra token và lãng phí hằng tuần, không nói gì khi không có đề xuất, và không tạo gì từ báo cáo cho đến khi người dùng chọn. Mẫu tùy chọn nằm ở `skills/bot-design/references/healthcheck-routine.md`; không thuộc gói starter.
+
+Chưa nhận: poteto-mode làm chuẩn cho bot lập trình (trang có nhắc tên nhưng repo này không định nghĩa, nên chưa kiểm chứng), và mọi nội dung từ bài nói hay bài đăng mà tôi chưa đọc được.
+
 ## Kiểm tra bot chạy đúng
 
 - Nhờ Bot nhắc lại nhiệm vụ và các quy tắc duyệt của nó.
