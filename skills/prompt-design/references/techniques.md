@@ -58,12 +58,12 @@ Anthropic's overview lists techniques roughly in the order to try them, and reco
 
 | Need | Technique | Where it lands in the process |
 |---|---|---|
-| Fix the output shape | Few-shot example | Step 2 Gold Standard goes into the prompt as the example |
-| Reduce invented facts | Ask for missing info, verification chain | Step 3 Reality Check, optional verification link in a chain |
-| Complex task | Decomposition | Step 5 prompt chain |
-| Several candidate ideas | Tree of thoughts | One 3-prompt cluster inside a chain |
-| Strict quality | Self-refine, test set | Step 7 Feedback Loop |
-| Long input | Document first, question last, tags | Step 5 draft layout |
+| Fix the output shape | Few-shot example | The Gold Standard (step 2) goes into the prompt as the example |
+| Reduce invented facts | Ask for missing info, verification chain | Reality Check (step 3), optional verification link in prompt-chain |
+| Complex task | Decomposition | Hand over to prompt-chain |
+| Several candidate ideas | Tree of thoughts | One 3-prompt cluster inside a prompt-chain |
+| Strict quality | Self-refine, test set | prompt-test (feedback loop) |
+| Long input | Document first, question last, tags | Draft layout (step 5) |
 
 ## Sources
 

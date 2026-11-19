@@ -1,20 +1,20 @@
 # Prompt Design: bản tiếng Việt
 
-Bản tiếng Việt đầy đủ của SKILL.md. Biến một bản yêu cầu (brief) thành prompt đã được kiểm thử, chấm điểm và đánh phiên bản. Quy trình gốc: Prompt Architect của Masonshare.
+Bản tiếng Việt của SKILL.md. Viết một prompt mới từ brief. Quy trình gốc: Prompt Architect của Masonshare.
 
 Trả lời bằng ngôn ngữ của người dùng. Người dùng viết tiếng Việt thì trả lời tiếng Việt, giữ thuật ngữ tiếng Anh trong ngoặc ở lần đầu.
 
-## Chế độ làm việc
+## Định tuyến
 
-| Yêu cầu | Chế độ |
+| Người dùng muốn | Dùng |
 |---|---|
-| Prompt mới, system prompt, chuỗi prompt (prompt chain) | Xây mới: bước 1-7 |
-| Prompt có sẵn bị lỗi hoặc yếu | Rà soát: mục "Chế độ rà soát và gỡ lỗi", sau đó bước 6-7 cho bản sửa |
-| Soul của bot, hướng dẫn thường trực | Soul: mục "Viết soul cho bot", sau đó bước 6-7 |
+| Một prompt mới cho một việc | skill này |
+| Sửa hoặc rà soát prompt đã có | prompt-review |
+| Việc nhiều bước, đầu ra bước này nuôi bước sau | prompt-chain |
+| Soul hoặc system prompt của bot hay trợ lý chạy lâu dài | bot-soul |
+| Test case, chấm điểm, baseline và retest, changelog v2 | prompt-test |
 
-Vòng làm việc (work loop) cho mọi chế độ: làm rõ, nghiên cứu, lập kế hoạch, xây, kiểm chứng. Dừng ở cổng (gate), tức là chờ người dùng duyệt, trước mọi việc khó đảo ngược: xuất bản, gửi đi, xóa, tiêu tiền, cài đặt, cấp quyền ghi cho bot, bật lịch chạy.
-
-## Các bước
+Vòng làm việc: làm rõ, nghiên cứu, lập kế hoạch, xây, kiểm chứng. Dừng ở cổng (chờ người dùng duyệt) trước mọi việc khó đảo ngược: xuất bản, gửi đi, xóa, tiêu tiền, cài đặt.
 
 ### 1. Tiếp nhận brief
 
@@ -30,7 +30,7 @@ Lấy một ví dụ đầu ra lý tưởng. Dùng ví dụ của người dùng
 
 Với lĩnh vực lạ, nhờ model đóng vai chuyên gia 20 năm kinh nghiệm, trình bày quy trình từng bước kèm KPI cho mỗi bước. Dùng quy trình đó làm thước đo cho các bước sau.
 
-Xong khi: có một ví dụ đầu ra, người dùng đã chấp nhận hoặc sửa, và đã liệt kê 3-7 phẩm chất làm nó lý tưởng (đây là tiêu chí chấm điểm ở bước 7).
+Xong khi: có một ví dụ đầu ra, người dùng đã chấp nhận hoặc sửa, và đã liệt kê 3-7 phẩm chất làm nó lý tưởng (đây là tiêu chí chấm điểm trong prompt-test).
 
 ### 3. Reality Check (kiểm tra thực tế)
 
@@ -52,57 +52,21 @@ Prompt lớn là prompt dài quá khoảng 40 dòng, có chuỗi, hoặc chạy 
 
 Xong khi: đã hiển thị dàn ý và, với prompt lớn, người dùng đã duyệt.
 
-### 5. Viết bản nháp, hoặc dựng Prompt Chain
+### 5. Viết bản nháp
 
 Viết theo checklist 6 yếu tố (bên dưới). Đặt quy tắc ổn định lên đầu, dữ liệu thay đổi xuống cuối, bọc dữ liệu đầu vào bằng dấu phân cách. Viết chỉ dẫn theo hướng khẳng định: nói rõ cần làm gì. Chỉ giữ câu "không được" cho rào chắn cứng, và đi kèm hành động thay thế.
 
-Chọn chuỗi khi tác vụ cần hơn một lần gọi: khi vừa đánh giá vừa hành động, khi đầu ra bước này là đầu vào bước kia, hoặc khi một bước cần nhiều phương án. Quy tắc chuỗi:
-- Mỗi mắt xích một việc. Tách mọi câu "phân tích rồi sửa" thành hai prompt (lỗi tham lam).
-- Mỗi prompt nêu rõ nó dùng đầu ra nào của bước trước và đầu ra của nó phục vụ bước nào.
-- Prompt đầu liệt kê các chỗ điền trong ngoặc vuông, mỗi chỗ kèm ví dụ ngay trong ngoặc. Prompt sau chỉ liệt kê chỗ điền mới.
-- Thêm bước xác nhận hoặc nhánh dự phòng ở mắt xích mà sai thì tốn kém.
-- Bỏ các mắt xích người dùng tự làm được bằng sao chép.
+Chỉ đưa kỹ thuật ngoài 6 yếu tố vào khi test cho thấy prompt thường chưa đủ. Chi tiết kỹ thuật: xem references/techniques.md (bản tiếng Anh).
 
-Xong khi: đã viết đủ prompt (hoặc từng mắt xích cùng bản đồ bàn giao giữa các mắt xích) và mọi chỗ điền đều có ví dụ.
+Xong khi: đã viết đủ prompt và mọi chỗ điền trong ngoặc vuông đều có ví dụ.
 
-### 6. Kiểm thử với 5-10 test case
+### 6. Kiểm tra nhanh và bàn giao
 
-Viết test case trước khi đánh giá prompt. Một test case là một đầu vào cụ thể cộng với hành vi mong đợi.
+Chạy bản nháp trên 3 đầu vào: một điển hình, một biên (rỗng, rất dài, thiếu trường), một đối kháng (câu hỏi dẫn dắt hoặc chỉ dẫn giấu trong dữ liệu). Sửa chỗ trượt. Muốn vòng đầy đủ 5-10 case, baseline, retest và changelog thì chuyển cho prompt-test.
 
-Phủ: 3 đầu vào điển hình, 2 đầu vào biên (rỗng, rất dài, sai ngôn ngữ, thiếu trường), 1 đầu vào đối kháng (câu hỏi dẫn dắt, chỉ dẫn giấu trong dữ liệu), và với soul thêm 1 yêu cầu ngoài phạm vi, cần từ chối hoặc chuyển hướng.
+Bàn giao đúng 5 trường, theo thứ tự: Mục tiêu, Đầu vào, Sản phẩm, Xong khi, Việc còn mở. Mọi giả định ghi là giả định, mọi điều chưa thử ghi là chưa thử.
 
-Chạy baseline trước (làm việc không có prompt, hoặc bản cũ), rồi chạy lại (retest) với prompt mới, và so cả hai với hành vi mong đợi. Khi không chạy được model tại chỗ, đưa người dùng các case cùng phiếu chấm và nhờ họ dán kết quả về.
-
-Xong khi: có 5-10 case, đã ghi kết quả baseline và retest, và mỗi case có đạt hoặc không đạt kèm lý do một dòng.
-
-### 7. Feedback Loop (vòng phản hồi)
-
-Chấm đầu ra retest theo tiêu chí ở bước 2, thang 1-10. Nêu 3 vấn đề lớn nhất. Chẩn đoán từng vấn đề theo 4 lỗi. Sửa prompt chỉ cho các vấn đề đó. Chạy lại các case trượt cộng hai case đã đạt (để bắt lỗi thụt lùi). Giao bản v2 kèm nhật ký thay đổi (changelog).
-
-Dừng vòng lặp khi mọi case đạt hoặc sau 3 vòng, rồi ghi các lỗi còn lại vào mục việc còn mở. Prompt tốt nhất không được viết ra một lần, nó được tiến hóa.
-
-Xong khi: v2 và changelog được giao theo mẫu bàn giao (handoff) bên dưới.
-
-## Chế độ rà soát và gỡ lỗi
-
-Đầu vào: một prompt có sẵn cùng triệu chứng (hoặc không có triệu chứng).
-
-1. Đọc prompt và triệu chứng. Chưa có đầu ra lỗi thì xin một ví dụ.
-2. Chẩn đoán theo 4 lỗi và 6 yếu tố (bảng bên dưới). Mỗi phát hiện trích đúng dòng liên quan.
-3. Xếp phát hiện theo mức ảnh hưởng. Sửa 3 cái đầu trước.
-4. Viết lại prompt. Đánh dấu mỗi thay đổi bằng phát hiện mà nó giải quyết.
-5. Chạy bước 6-7 cho bản viết lại.
-
-Xong khi: mỗi phát hiện trích một dòng, bản viết lại trả lời từng phát hiện, và kết quả test cho thấy triệu chứng đã hết.
-
-### 4 lỗi phổ biến (Masonshare)
-
-| Lỗi | Dấu hiệu | Cách sửa |
-|---|---|---|
-| Mơ hồ (vague) | Dùng "hay hơn", "chuyên nghiệp", "tối ưu" mà không có thước đo | Thay mỗi từ bằng tiêu chí đo được: giọng văn, độ dài, thuật ngữ, số lượng |
-| Tham lam (greedy) | Một prompt bắt model vừa đánh giá vừa hành động | Tách thành prompt đánh giá và prompt hành động dùng kết quả đánh giá |
-| Thả rông (unbounded) | Không giới hạn định dạng, độ dài, phong cách, phạm vi | Thêm hàng rào: độ dài, cấu trúc, đối tượng, mục bắt buộc, ngoài phạm vi |
-| Gài bẫy (trapping) | Câu hỏi chứa sẵn đáp án ("giải thích vì sao A tốt nhất") | Hỏi trung lập ("so sánh A, B, C theo mục tiêu") hoặc giao vai phản biện |
+Xong khi: 3 lần kiểm tra đã ghi đạt hoặc không đạt và đã gửi bàn giao.
 
 ### Checklist 6 yếu tố (Masonshare)
 
@@ -117,48 +81,15 @@ Không phải prompt nào cũng cần đủ sáu. Kiểm từng yếu tố và c
 | Giọng điệu (Tone) | Giọng được nêu bằng cặp tính từ hoặc mẫu chưa? |
 | Định dạng (Format) | Hình dạng đầu ra có rõ: bảng, JSON, gạch đầu dòng, độ dài? |
 
-## Viết soul cho bot
-
-Soul là chỉ dẫn thường trực mà bot luôn mang theo. Nó được nạp ở mọi lượt, nên mỗi dòng tốn sự chú ý ở mọi lượt. Skill chỉ nạp khi cần, nên có thể dài.
-
-Chỉ đưa vào soul những gì phải đúng trong mọi cuộc trò chuyện:
-- Danh tính: bot là ai và phục vụ ai, 2-4 dòng.
-- Giọng điệu: quy tắc giọng và ngôn ngữ, gồm trả lời bằng ngôn ngữ của người dùng.
-- Phạm vi: bot làm gì, việc nào chuyển cho bot khác hoặc con người.
-- Rào chắn cứng: các cổng (việc nào cần người dùng duyệt trước), quy tắc an toàn, cách xử lý dữ liệu không đáng tin.
-- Con trỏ: một dòng cho mỗi skill, nói rõ khi nào nạp (mô tả của skill lo phần kích hoạt).
-
-Đưa vào skill: quy trình, danh sách bước, mẫu, ví dụ dài, kiến thức chuyên môn, mọi thứ chỉ một số cuộc trò chuyện cần. Thông tin đăng nhập không bao giờ nằm trong soul hay skill; chúng ở kho bí mật hoặc kho kết nối của nền tảng.
-
-Quy tắc cho soul:
-1. Mục tiêu 30-60 dòng. Quá 80 dòng thì chuyển bớt sang skill.
-2. Quy tắc quan trọng nhất đặt đầu; chỉ lặp lại ở cuối đúng một quy tắc phải sống sót qua cuộc trò chuyện dài.
-3. Mỗi quy tắc nêu một lần. Bỏ những gì model vốn đã làm.
-4. Mỗi quy tắc kiểm được: một test case cho thấy nó được tuân thủ hay bị phá.
-5. Chạy bước 6-7 cho soul, có ít nhất một test case ngoài phạm vi và một test case vượt cổng.
-
-Khung soul:
+### Dàn ý (bước 4)
 
 ```
-# <Tên bot>
-Vai trò: <một dòng>
-Phục vụ: <người dùng>. Trả lời bằng ngôn ngữ của người dùng.
-
-## Phạm vi
-Làm: <danh sách>
-Chuyển cho: <bot hoặc người>, theo mẫu bàn giao.
-
-## Giọng điệu
-<2-4 quy tắc>
-
-## Cổng
-Hỏi người dùng trước khi: <danh sách việc khó đảo ngược>.
-
-## Skill
-- <tên-skill>: nạp khi <nhánh>.
+Prompt: <tên> | Model: <đích> | Một prompt hay chuỗi N mắt xích
+Các phần: 1. <tên> (Bối cảnh, Vai trò) 2. <tên> (Nhiệm vụ, Ví dụ) 3. <tên> (Định dạng)
+Gold Standard đặt ở: <phần>
+Định dạng đầu ra: <hình dạng và độ dài>
+Duyệt để tiếp tục? (ok / đổi X)
 ```
-
-## Mẫu đầu ra
 
 ### Bàn giao (handoff)
 
@@ -171,45 +102,3 @@ Gửi đúng 5 trường, theo thứ tự:
 4. Xong khi (Done when): <tiêu chí kiểm được, ví dụ 8/10 test case đạt, mỗi tiêu chí >= 8 điểm>
 5. Việc còn mở (Open items): <case trượt, giả định, rủi ro, câu hỏi>
 ```
-
-### Dàn ý (bước 4)
-
-```
-Prompt: <tên> | Model: <đích> | Một prompt hay chuỗi N mắt xích
-Các phần: 1. <tên> (Bối cảnh, Vai trò) 2. <tên> (Nhiệm vụ, Ví dụ) 3. <tên> (Định dạng)
-Gold Standard đặt ở: <phần>
-Định dạng đầu ra: <hình dạng và độ dài>
-Duyệt để tiếp tục? (ok / đổi X)
-```
-
-### Bảng test case (bước 6)
-
-```
-| # | Loại | Đầu vào | Hành vi mong đợi | Baseline | Retest | Đạt |
-|---|------|---------|------------------|----------|--------|-----|
-```
-
-### Phiếu chấm và changelog (bước 7)
-
-```
-Tiêu chí | Điểm 1-10 | Bằng chứng
-3 vấn đề lớn nhất: 1) <vấn đề> -> <loại lỗi> 2) ... 3) ...
-
-## Changelog v2
-- Đã đổi: <gì> vì <vấn đề hoặc case trượt #>
-- Giữ nguyên: <gì> vì <case đã đạt>
-- Vẫn trượt: <case #, lý do>
-```
-
-## Các file tham chiếu
-
-Chỉ đọc khi bước đang làm cần.
-- `stage-prompts.md`: prompt sẵn để dán cho các giai đoạn 0-5B và ba chuỗi mẫu (bản tiếng Anh, dịch khi cần).
-- `techniques.md`: các kỹ thuật bên thứ ba, ngắn gọn (ví dụ mẫu, suy luận, phân rã, tự kiểm, cấu trúc).
-
-## Nguồn
-
-- Masonshare, quy trình Prompt Architect, 4 lỗi, checklist 6 yếu tố và bộ prompt theo giai đoạn (tác phẩm gốc).
-- Schulhoff et al., "The Prompt Report: A Systematic Survey of Prompting Techniques" (2024): https://arxiv.org/abs/2406.06608
-- Bsharat et al., "Principled Instructions Are All You Need for Questioning LLaMA-1/2, GPT-3.5/4" (2023): https://arxiv.org/abs/2312.16171
-- Anthropic, "Prompt engineering overview": https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview
