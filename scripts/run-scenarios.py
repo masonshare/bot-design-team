@@ -476,9 +476,12 @@ def pass_rates(results):
     return rates
 
 
-def below_gate(results, threshold):
-    """Scenario ids whose pass rate is under the threshold (fraction 0..1)."""
-    return [sid for sid, (p, n) in pass_rates(results).items() if p / n < threshold]
+def below_gate(results, threshold, scenario_ids=()):
+    """Scenario ids whose pass rate is under the threshold (fraction 0..1).
+    Scenarios in scenario_ids that never ran count as 0%."""
+    rates = pass_rates(results)
+    bad = [sid for sid, (p, n) in rates.items() if p / n < threshold]
+    return bad + [sid for sid in scenario_ids if sid not in rates and threshold > 0]
 
 
 def select_scenarios(pack_dir, only=None, full=False):
@@ -490,7 +493,8 @@ def pct(p, n):
     return f"{round(100 * p / n)}%" if n else "n/a"
 
 
-def render_results(agent, version, today, results, note="", repeat=1, gate=None):
+def render_results(agent, version, today, results, note="", repeat=1, gate=None, expected=None,
+                   scenario_ids=()):
     n = len(results)
     p = sum(r["status"] == "PASS" for r in results)
     f = sum(r["status"] == "FAIL" for r in results)
@@ -506,9 +510,13 @@ def render_results(agent, version, today, results, note="", repeat=1, gate=None)
     if repeat > 1 or gate is not None:
         lines.append(f"- Pass rate ({agent}): {p}/{n} ({pct(p, n)}); repeat {repeat} per scenario")
     if gate is not None:
-        bad = below_gate(results, gate)
+        bad = below_gate(results, gate, scenario_ids)
+        short = expected is not None and n < expected
+        lines.append(f"- Runs: expected {expected if expected is not None else n}, done {n}"
+                     + (" (INCOMPLETE: the run stopped early)" if short else ""))
         lines.append(f"- Gate (every scenario pass rate >= {gate:g}): "
-                     + ("PASS" if not bad else "FAIL: " + ", ".join(bad)))
+                     + ("PASS" if not bad and not short else
+                        "FAIL: " + ", ".join(bad + (["incomplete run"] if short else []))))
     if repeat > 1:
         lines += ["", "| Scenario | Passed | Pass rate |", "|---|---|---|"]
         lines += [f"| {sid} | {pp}/{nn} | {pct(pp, nn)} |" for sid, (pp, nn) in rates.items()]
@@ -534,8 +542,8 @@ def render_results(agent, version, today, results, note="", repeat=1, gate=None)
     return "\n".join(lines)
 
 
-def render_gap(agent, today, reason):
-    return (f"# Scenario results: {agent} ({today})\n\n- Ran 0. GAP: {reason}\n\n"
+def render_gap(agent, today, reason, runs=""):
+    return (f"# Scenario results: {agent} ({today})\n\n- Ran 0. GAP: {reason}\n{runs}\n"
             "Owner steps: see docs/scenario-testing.md (install and log in, then re-run "
             f"`python scripts/run-scenarios.py --agent {agent}`). No results are recorded here "
             "because none were produced.\n")
@@ -589,6 +597,7 @@ def main(argv=None):
             render_gap(args.agent, today, f"`{args.agent}` CLI not found on PATH"))
         print(f"GAP recorded in {out}")
         return 2
+    expected = len(scenarios) * args.repeat
     results = []
     stop = False
     for s in scenarios:
@@ -605,20 +614,25 @@ def main(argv=None):
             break
     note = "full run" if args.full else ("subset: " + ", ".join(only) if only else "smoke subset only")
     if results and all(r["status"] == "ERROR" for r in results):
+        runs = f"- Runs: expected {expected}, done {len(results)}" + NL if args.gate is not None else ""
         text = render_gap(args.agent, today, "every agent call failed (not authenticated or "
-                          "unavailable): " + one_line(results[0]["detail"], 300))
+                          "unavailable): " + one_line(results[0]["detail"], 300), runs)
     else:
-        text = render_results(args.agent, version, today, results, note, args.repeat, args.gate)
+        text = render_results(args.agent, version, today, results, note, args.repeat, args.gate,
+                              expected, [s["id"] for s in scenarios])
     with open(out, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(text)
     print(f"results: {out}")
     if not results:
         return 1
     if args.gate is not None:
-        bad = below_gate(results, args.gate)
-        if bad:
-            print(f"gate {args.gate:g} FAILED: {', '.join(bad)}", file=sys.stderr)
-        return 1 if bad else 0
+        bad = below_gate(results, args.gate, [s["id"] for s in scenarios])
+        short = len(results) < expected
+        if bad or short:
+            print(f"gate {args.gate:g} FAILED: {', '.join(bad)}"
+                  + (f" (incomplete: expected {expected} runs, done {len(results)})" if short else ""),
+                  file=sys.stderr)
+        return 1 if bad or short else 0
     return 0 if all(r["status"] == "PASS" for r in results) else 1
 
 

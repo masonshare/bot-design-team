@@ -17,6 +17,9 @@ if role == "bot" and mode == "alternate":  # flaky agent: logs the refusal on ev
 if role == "judge":
     print('{"pass": true, "reasons": []}' if mode != "badjudge" else "no json here")
     sys.exit(0)
+if mode == "login":  # agent not logged in: the runner stops the whole run
+    sys.stderr.write("please login first")
+    sys.exit(3)
 if mode == "crash":
     sys.stderr.write("boom")
     sys.exit(3)
