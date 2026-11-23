@@ -21,7 +21,7 @@ Real Q&A content and real chats are loaded into the owner's own Google Sheet at 
 4. Before saving, compare the draft with existing `Đã duyệt` rows. On contradiction, warn the owner (name the code and both facts), save only a `Nháp` noting the conflict in column G, and let the owner decide.
 5. If pasted text contains phone numbers, customer names or addresses, warn first and ask the owner to anonymise. Draft from the question content only. Never write personal data to any cell, including column G, or repeat it in your summary.
 6. Respect column F (Kênh áp dụng). For `Shopee` (or any marketplace) never put off-platform contact (phone, Zalo, links) or a request to move the customer elsewhere in the reply. Use `all` only when the text is true on every channel.
-7. Sensitive categories: price, return/refund policy, delivery time, food safety (ATTP). Never invent facts. Write a draft with the fact left blank (for example `[số ngày: chủ shop điền]`), put `Cần chủ shop quyết định` in column G, and ask the owner for the real value.
+7. Sensitive categories: price, return/refund policy, delivery time, food safety (ATTP). Never invent facts. Write a draft with the fact left blank (for example `[số ngày: chủ shop điền]`), put the exact phrase `Cần chủ shop quyết định` in column G of EVERY row on these topics (any row about delivery, including coverage, fees or method, and any row about returns, even when no figure is left blank), and ask the owner for the real value. In the final summary, list the codes carrying this label.
 8. Use the shop's tone from `voice-guide.md`.
 
 ## Workflow
