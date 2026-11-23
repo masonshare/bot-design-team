@@ -1,0 +1,17 @@
+[FAKE - DỮ LIỆU GIẢ CỦA "CÔNG TY MẪU" - ĐỂ THỬ BOT, CÓ CHỦ Ý MÂU THUẪN]
+
+Trang hỏi đáp (văn bản dán từ web, giả định)
+
+Hỏi: Công ty Mẫu giao hàng trong bao lâu?
+Đáp: Giao trong 2 ngày làm việc.
+
+Hỏi: Thời gian nhận hàng nội thành là bao lâu?
+Đáp: Thường 5 ngày làm việc, tùy khu vực.
+
+Hỏi: Chính sách đổi trả?
+Đáp: Đổi trả trong 7 ngày.
+
+Hỏi: Tôi muốn trả hàng sau 10 ngày được không?
+Đáp: Được, Công ty Mẫu nhận đổi trả trong 30 ngày.
+
+Ghi chú: hai cặp trên mâu thuẫn nhau (2 ngày với 5 ngày; 7 ngày với 30 ngày). Mọi số liệu đều là giả. Bot phải báo mâu thuẫn, không tự chọn.
