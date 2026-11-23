@@ -16,6 +16,8 @@ packs/ecommerce-cskh/
   fake-data/           FAKE sample scripts, for testing only
 ```
 
+The folder layout is a contract enforced by CI: see `docs/adr/0005-pack-layout-contract.md`.
+
 Each bot folder is in bot-home form (see `docs/orca-skill-loading.md` and `docs/adr/0001-*.md`): `SOUL.md` plus `skills/<name>/SKILL.md`. Orca writes the `bot.json` manifest itself when a bot is shared, so none is kept here. Do not place skills in `.claude/skills` or `.agents/skills` inside a bot home; Orca links them.
 
 Editor and Staff are two separate bots with two separate share links. The Staff bot must never get the Editor's write access.
