@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Check SKILL.md frontmatter (name + description present, name == directory name)
-for skills/**/SKILL.md and packs/*/skills/**/SKILL.md, and that pack skills sit at
-packs/<pack>/skills/<name>/SKILL.md or packs/<pack>/<bot>/skills/<name>/SKILL.md. Missing packs/ is fine. Stdlib only."""
+for skills/**/SKILL.md and every SKILL.md anywhere under packs/, and that pack skills sit at
+packs/<pack>/skills/<name>/SKILL.md or packs/<pack>/<bot>/skills/<name>/SKILL.md. Missing packs/ is fine. Stdlib only.
+
+The placement rules implement the pack layout contract in docs/adr/0005-pack-layout-contract.md;
+change that ADR first, then this file, scripts/check-layout.sh and scripts/tests/run.sh together."""
 import sys
 from pathlib import Path
 
@@ -9,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
 from cskh_common import split_frontmatter  # noqa: E402
 
 root = Path(__file__).resolve().parent.parent
-files = sorted(root.glob("skills/**/SKILL.md")) + sorted(root.glob("packs/**/skills/**/SKILL.md"))
+files = sorted(root.glob("skills/**/SKILL.md")) + sorted(root.glob("packs/**/SKILL.md"))
 bad = 0
 
 

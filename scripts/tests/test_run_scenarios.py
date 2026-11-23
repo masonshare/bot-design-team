@@ -169,5 +169,78 @@ class EndToEndWithStub(unittest.TestCase):
         self.assertIn("| t9-sensitive-price | PASS |", text)
 
 
+class RepeatAndGate(unittest.TestCase):
+    SID = "t9-sensitive-price"
+
+    def cli(self, mode, *extra):
+        """Run main() against the stub. Returns (exit code, results text, judge call count)."""
+        d = tempfile.mkdtemp()
+        self.addCleanup(rs.cleanup, d)
+        out, log, counter = (os.path.join(d, n) for n in ("out.md", "judge.log", "counter"))
+        old = dict(os.environ)
+        os.environ.update(SCENARIO_AGENT_STUB=STUB, STUB_MODE=mode, STUB_JUDGE_LOG=log,
+                          STUB_COUNTER=counter)
+        try:
+            code = rs.main(["--agent", "claude", "--only", self.SID, "--out", out, *extra])
+        finally:
+            os.environ.clear()
+            os.environ.update(old)
+        calls = len(open(log).read().split()) if os.path.exists(log) else 0
+        return code, open(out, encoding="utf-8").read(), calls
+
+    def test_judge_skipped_when_deterministic_check_failed(self):
+        code, text, calls = self.cli("good")  # bot does not log the refusal -> det check fails
+        self.assertEqual(calls, 0)
+        self.assertEqual(code, 1)
+        self.assertIn("| t9-sensitive-price | FAIL |", text)
+
+    def test_judge_called_when_deterministic_checks_pass(self):
+        code, _, calls = self.cli("append-dx")
+        self.assertEqual((code, calls), (0, 1))
+
+    def test_repeat_records_rate_per_scenario_and_agent(self):
+        _, text, calls = self.cli("alternate", "--repeat", "4")
+        self.assertIn("| t9-sensitive-price | 2/4 | 50% |", text)
+        self.assertIn("- Pass rate (claude): 2/4 (50%)", text)
+        self.assertEqual(calls, 2)  # judge only on the 2 runs whose checks passed
+
+    def test_gate_exit_code_follows_threshold(self):
+        self.assertEqual(self.cli("alternate", "--repeat", "4", "--gate", "0.5")[0], 0)
+        self.assertEqual(self.cli("alternate", "--repeat", "4", "--gate", "0.75")[0], 1)
+        self.assertEqual(self.cli("append-dx", "--repeat", "2", "--gate", "1")[0], 0)
+
+    def test_gate_threshold_must_be_a_fraction(self):
+        with self.assertRaises(SystemExit):
+            self.cli("good", "--gate", "17")
+
+    def test_gate_fails_when_run_stops_early(self):
+        # Login failure stops the run after the first call: 2 scenarios x 3 repeats expected, 1 done.
+        code, text, _ = self.cli("login", "--only", "t9-unknown-nonsensitive-chua-duyet",
+                                 "--repeat", "3", "--gate", "0")
+        self.assertEqual(code, 1)
+        self.assertIn("expected 6, done 1", text)
+
+    def test_gate_fails_when_scenarios_never_ran(self):
+        # First run passes, then a login error stops the run: the second scenario never ran (0%).
+        d = tempfile.mkdtemp()
+        self.addCleanup(rs.cleanup, d)
+        done = [{"id": "a", "status": "PASS", "detail": "", "det": [], "judge": None, "reply": ""}]
+        self.assertEqual(rs.below_gate(done, 0.5, ["a", "b"]), ["b"])
+        text = rs.render_results("claude", "x", "2026-01-01", done, "", 1, 0.5, expected=2)
+        self.assertIn("expected 2, done 1", text)
+        self.assertIn("FAIL", text)
+
+    def test_complete_gate_run_reports_counts_and_passes(self):
+        code, text, _ = self.cli("append-dx", "--repeat", "2", "--gate", "1")
+        self.assertEqual(code, 0)
+        self.assertIn("expected 2, done 2", text)
+
+    def test_default_is_smoke_and_full_needs_flag(self):
+        self.assertEqual(sorted(s["id"] for s in rs.select_scenarios(PACK, None, False)), sorted(rs.SMOKE))
+        self.assertEqual(len(rs.select_scenarios(PACK, None, True)), len(rs.load_scenarios(PACK)))
+        self.assertEqual([s["id"] for s in rs.select_scenarios(PACK, ["t10-draft-always-nhap"], False)],
+                         ["t10-draft-always-nhap"])
+
+
 if __name__ == "__main__":
     unittest.main()
