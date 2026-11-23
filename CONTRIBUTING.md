@@ -27,4 +27,12 @@ Allowlist (nothing else is exempt):
 
 Shared parsing (front matter, phone regex) lives in `scripts/lib/cskh_common.py`. GitHub Actions runs the tests below, then `sh scripts/ci.sh`, on every push and on pull requests to `main`.
 
-Tests: `bash scripts/tests/run.sh` (failing-case tests for the checks, plus unit tests of `scripts/run-scenarios.py` with a stub agent; CI never calls a real agent). Keep `AGENTS.md` and `CLAUDE.md` byte-identical. Dispatching pipeline skills to a worker: `docs/agents/dispatch-pipeline-skills.md`.
+Tests: `bash scripts/tests/run.sh` (failing-case tests for the checks, plus unit tests of `scripts/run-scenarios.py` with a stub agent; CI never calls a real agent). It builds one pristine temp copy and resets it between cases, so it runs in about 35 s on Windows (Git Bash); it was about 150 s with a full copy per case. Keep `AGENTS.md` and `CLAUDE.md` byte-identical. Dispatching pipeline skills to a worker: `docs/agents/dispatch-pipeline-skills.md`.
+
+## Pack layout contract
+
+Where pack skills, docs pages, fake data, scenarios and results live is defined once, in `docs/adr/0005-pack-layout-contract.md`. CI rules and pack tickets both follow it; change the ADR first if a ticket needs a different layout.
+
+## Merge gate
+
+After every merge into an integration branch, run `sh scripts/ci.sh` (about 1 s) and fix any failure before dispatching more work. Parallel tickets can each pass alone and still break each other once merged, so do not wait for GitHub CI to find it. Before opening a PR also run `bash scripts/tests/run.sh` (about 35 s; run it in the background if your tool has a 120 s timeout).

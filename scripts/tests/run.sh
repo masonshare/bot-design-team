@@ -7,10 +7,19 @@ TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 pass=0; failn=0
 
+# One pristine copy is built once (committed in its own throwaway repo); fresh()
+# only resets it: reset --hard restores mutated/deleted files, clean drops files
+# a case added. No per-case full-repo copy (that took >120 s on Windows).
+PRISTINE=0
 fresh() {
-  rm -rf "$TMP/r"; mkdir "$TMP/r"
-  (cd "$SRC" && git ls-files -z --cached --others --exclude-standard | xargs -0 -I{} cp --parents {} "$TMP/r/" 2>/dev/null)
-  (cd "$TMP/r" && git init -q && git add -A >/dev/null 2>&1)
+  if [ $PRISTINE -eq 0 ]; then
+    mkdir -p "$TMP/r"
+    (cd "$SRC" && git ls-files -z --cached --others --exclude-standard | tar --null -T - -cf - 2>/dev/null) | tar -xf - -C "$TMP/r"
+    (cd "$TMP/r" && git init -q && git add -A >/dev/null 2>&1 && git -c user.name=t -c user.email=t@t commit -qm pristine >/dev/null 2>&1)
+    PRISTINE=1
+  else
+    (cd "$TMP/r" && git reset -q --hard && git clean -fdxq)
+  fi
 }
 # expect <name> <0|1>: run ci.sh in the current temp copy
 expect() {
@@ -47,6 +56,7 @@ c_pack_ok() { mk_skill "$PK/cskh-intake/SKILL.md" cskh-intake d; cp "$TMP/r/docs
 c_bot_pack_ok() { mk_skill "$TMP/r/packs/ecommerce-cskh/staff/skills/cskh-lookup/SKILL.md" cskh-lookup d; }
 c_pack_bad_name() { mk_skill "$PK/cskh-intake/SKILL.md" wrong d; }
 c_pack_no_desc() { mkdir -p "$PK/cskh-intake"; printf -- '---\nname: cskh-intake\n---\n' > "$PK/cskh-intake/SKILL.md"; }
+c_pack_misplaced() { mk_skill "$TMP/r/packs/ecommerce-cskh/staff/cskh-x/SKILL.md" cskh-x d; }
 c_pack_bad_depth() { mk_skill "$PK/x/y/SKILL.md" y d; }
 
 c_leak_phone() { printf 'Lien he: %s
@@ -99,6 +109,7 @@ t "legacy path rejected" c_legacy_path 1
 t "pack skill name mismatch rejected" c_pack_bad_name 1
 t "pack skill missing description rejected" c_pack_no_desc 1
 t "pack skill wrong depth rejected" c_pack_bad_depth 1
+t "pack skill outside a skills/ folder rejected" c_pack_misplaced 1
 t "planted phone rejected" c_leak_phone 1
 t "planted +84 phone rejected" c_leak_phone84 1
 t "planted named chat transcript rejected" c_leak_chat 1
