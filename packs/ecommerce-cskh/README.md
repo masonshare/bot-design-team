@@ -46,6 +46,8 @@ Google Sheets read and write scope is enough. No Drive-wide or Gmail access is n
 
 ## Rollout: owner, then pilot, then team
 
+Step-by-step checklist with exit criteria: [`docs/pilot-rollout-checklist.md`](../../docs/pilot-rollout-checklist.md).
+
 1. Owner: builds the Sheet, runs the Editor bot, approves a first batch of scripts (status `Đã duyệt`, with approver and date).
 2. Pilot: one staff member uses the Staff bot for about a week. Review the `Đề xuất` tab daily, fix wrong answers, add missing scripts.
 3. Team: share the Staff bot link with the rest of the staff once the pilot's answers are acceptable.
