@@ -169,5 +169,56 @@ class EndToEndWithStub(unittest.TestCase):
         self.assertIn("| t9-sensitive-price | PASS |", text)
 
 
+class RepeatAndGate(unittest.TestCase):
+    SID = "t9-sensitive-price"
+
+    def cli(self, mode, *extra):
+        """Run main() against the stub. Returns (exit code, results text, judge call count)."""
+        d = tempfile.mkdtemp()
+        self.addCleanup(rs.cleanup, d)
+        out, log, counter = (os.path.join(d, n) for n in ("out.md", "judge.log", "counter"))
+        old = dict(os.environ)
+        os.environ.update(SCENARIO_AGENT_STUB=STUB, STUB_MODE=mode, STUB_JUDGE_LOG=log,
+                          STUB_COUNTER=counter)
+        try:
+            code = rs.main(["--agent", "claude", "--only", self.SID, "--out", out, *extra])
+        finally:
+            os.environ.clear()
+            os.environ.update(old)
+        calls = len(open(log).read().split()) if os.path.exists(log) else 0
+        return code, open(out, encoding="utf-8").read(), calls
+
+    def test_judge_skipped_when_deterministic_check_failed(self):
+        code, text, calls = self.cli("good")  # bot does not log the refusal -> det check fails
+        self.assertEqual(calls, 0)
+        self.assertEqual(code, 1)
+        self.assertIn("| t9-sensitive-price | FAIL |", text)
+
+    def test_judge_called_when_deterministic_checks_pass(self):
+        code, _, calls = self.cli("append-dx")
+        self.assertEqual((code, calls), (0, 1))
+
+    def test_repeat_records_rate_per_scenario_and_agent(self):
+        _, text, calls = self.cli("alternate", "--repeat", "4")
+        self.assertIn("| t9-sensitive-price | 2/4 | 50% |", text)
+        self.assertIn("- Pass rate (claude): 2/4 (50%)", text)
+        self.assertEqual(calls, 2)  # judge only on the 2 runs whose checks passed
+
+    def test_gate_exit_code_follows_threshold(self):
+        self.assertEqual(self.cli("alternate", "--repeat", "4", "--gate", "0.5")[0], 0)
+        self.assertEqual(self.cli("alternate", "--repeat", "4", "--gate", "0.75")[0], 1)
+        self.assertEqual(self.cli("append-dx", "--repeat", "2", "--gate", "1")[0], 0)
+
+    def test_gate_threshold_must_be_a_fraction(self):
+        with self.assertRaises(SystemExit):
+            self.cli("good", "--gate", "17")
+
+    def test_default_is_smoke_and_full_needs_flag(self):
+        self.assertEqual(sorted(s["id"] for s in rs.select_scenarios(PACK, None, False)), sorted(rs.SMOKE))
+        self.assertEqual(len(rs.select_scenarios(PACK, None, True)), len(rs.load_scenarios(PACK)))
+        self.assertEqual([s["id"] for s in rs.select_scenarios(PACK, ["t10-draft-always-nhap"], False)],
+                         ["t10-draft-always-nhap"])
+
+
 if __name__ == "__main__":
     unittest.main()
