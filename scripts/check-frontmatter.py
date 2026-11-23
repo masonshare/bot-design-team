@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check SKILL.md frontmatter (name + description present, name == directory name)
 for skills/**/SKILL.md and packs/*/skills/**/SKILL.md, and that pack skills sit at
-packs/<pack>/skills/<name>/SKILL.md. Missing packs/ is fine. Stdlib only."""
+packs/<pack>/skills/<name>/SKILL.md or packs/<pack>/<bot>/skills/<name>/SKILL.md. Missing packs/ is fine. Stdlib only."""
 import re
 import sys
 from pathlib import Path
@@ -19,8 +19,8 @@ def fail(f, msg):
 
 for f in files:
     rel = f.relative_to(root).parts
-    if rel[0] == "packs" and not (len(rel) == 5 and rel[2] == "skills"):
-        fail(f, "pack skill must be packs/<pack>/skills/<name>/SKILL.md")
+    if rel[0] == "packs" and not ((len(rel) == 5 and rel[2] == "skills") or (len(rel) == 6 and rel[3] == "skills")):
+        fail(f, "pack skill must be packs/<pack>/skills/<name>/SKILL.md or packs/<pack>/<bot>/skills/<name>/SKILL.md")
     if rel[0] == "skills" and len(rel) != 4:
         fail(f, "skill must be skills/<bucket>/<name>/SKILL.md")
     lines = f.read_text(encoding="utf-8").splitlines()

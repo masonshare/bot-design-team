@@ -41,6 +41,7 @@ c_agents_differ() { echo "extra" >> "$TMP/r/AGENTS.md"; }
 c_legacy_ref() { echo "see $(printf 'bot%s' mrr) and $(printf 'Gr%s' ok)" >> "$TMP/r/README.md"; }
 c_legacy_path() { mkdir -p "$TMP/r/guides"; echo x > "$TMP/r/guides/a.md"; }
 c_pack_ok() { mk_skill "$PK/cskh-intake/SKILL.md" cskh-intake d; }
+c_bot_pack_ok() { mk_skill "$TMP/r/packs/ecommerce-cskh/staff/skills/cskh-lookup/SKILL.md" cskh-lookup d; }
 c_pack_bad_name() { mk_skill "$PK/cskh-intake/SKILL.md" wrong d; }
 c_pack_no_desc() { mkdir -p "$PK/cskh-intake"; printf -- '---\nname: cskh-intake\n---\n' > "$PK/cskh-intake/SKILL.md"; }
 c_pack_bad_depth() { mk_skill "$PK/x/y/SKILL.md" y d; }
@@ -77,6 +78,7 @@ c_scenario_nofake() { mkdir -p "$TMP/r/packs/ecommerce-cskh/scenarios"; printf '
 
 t "baseline passes (no packs/ present)" c_baseline 0
 t "pack skill valid is accepted" c_pack_ok 0
+t "bot-folder pack skill is accepted" c_bot_pack_ok 0
 t "missing name rejected" c_no_name 1
 t "name != directory rejected" c_wrong_name 1
 t "missing description rejected" c_no_desc 1

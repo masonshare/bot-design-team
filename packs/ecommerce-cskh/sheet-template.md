@@ -42,6 +42,7 @@ The Staff bot's inbox. One row per question the knowledge base could not answer,
 | E | Mã gần nhất | Closest script code, if any |
 | F | Người hỏi | Staff member who asked |
 | G | Trạng thái xử lý | `Mới` or `Đã xử lý` |
+| H | Số lần hỏi | Times this same question was asked. Starts at `1`; the Staff bot adds 1 instead of adding a duplicate row (see `staff/skills/cskh-no-script`) |
 
 The owner or the Editor bot turns useful rows into `Nháp` scripts in tab `Kịch bản`.
 
