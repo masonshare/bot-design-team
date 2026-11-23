@@ -63,5 +63,12 @@ t "pack skill name mismatch rejected" c_pack_bad_name 1
 t "pack skill missing description rejected" c_pack_no_desc 1
 t "pack skill wrong depth rejected" c_pack_bad_depth 1
 
+PY=$(command -v python || command -v python3)
+if "$PY" -W ignore "$SRC/scripts/tests/test_run_scenarios.py" >"$TMP/unit.log" 2>&1; then
+  echo "PASS run-scenarios unit tests (stub agent)"; pass=$((pass+1))
+else
+  echo "FAIL run-scenarios unit tests"; tail -20 "$TMP/unit.log"; failn=$((failn+1))
+fi
+
 echo "$pass passed, $failn failed"
 [ $failn -eq 0 ]
