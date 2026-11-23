@@ -21,7 +21,7 @@ A ready-made two-bot pack for a Vietnamese e-commerce shop (Shopee, Zalo, hotlin
 | Editor | Helps the owner draft and clean up scripts; drafts are always `Nháp` and only the owner approves | [`cskh-draft`](docs/skills/cskh-draft.md) |
 | Staff | Helps staff answer customers from approved scripts only; read-only on scripts | [`cskh-lookup`](docs/skills/cskh-lookup.md), [`cskh-no-script`](docs/skills/cskh-no-script.md) |
 
-The pack ships with FAKE sample data and replayable behaviour scenarios, no real data. See the pack README for the Sheet layout, Google permissions and rollout.
+The pack ships with FAKE sample data and replayable behaviour scenarios, no real data. See the pack README for the Sheet layout, Google permissions and rollout, and the [pilot rollout checklist](docs/pilot-rollout-checklist.md) for the owner, pilot and team stages.
 
 ## Direction
 
