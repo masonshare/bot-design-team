@@ -75,5 +75,4 @@ If the bot runs alone, bot-routine; then bot-access; then bot-score. Hand off wi
 ## Sources
 
 - Masonshare, bot profile 13-criteria checklist and bot-type starter frames (original).
-- Grok Bot marketplace pages for the missing-data labels and ledgers, https://x.ai/bot/marketplace/bots/follow-through-agent and https://x.ai/bot/marketplace/bots/office-ops-desk. UNVERIFIED: read on 2026-11-19 through a summarising fetch; the `UNVERIFIED` label is this repository's own term.
 - Anthropic, "Skill authoring best practices", https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices.

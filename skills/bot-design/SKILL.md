@@ -1,6 +1,6 @@
 ---
 name: bot-design
-description: Front door for designing one AI bot or a small team of bots on any platform (OpenMausBot, Grok Bot, others). Use when the request covers the whole job or the stage is unclear, for example create a bot, plan a bot team, turn an idea into a bot someone can set up. Holds the shared rules (work loop, approval gates, 5-field handoff) and routes each stage to its own skill (bot-interview, bot-shape, bot-profile, bot-routine, bot-access, bot-score, bot-package). Not for a single stage the user already names, which goes straight to that stage skill. Vietnamese triggers - thiết kế bot, tạo bot mới, lên kế hoạch đội bot, tôi muốn có một bot, từ ý tưởng thành bot.
+description: Front door for designing one AI bot or a small team of bots on any platform (Orca). Use when the request covers the whole job or the stage is unclear, for example create a bot, plan a bot team, turn an idea into a bot someone can set up. Holds the shared rules (work loop, approval gates, 5-field handoff) and routes each stage to its own skill (bot-interview, bot-shape, bot-profile, bot-routine, bot-access, bot-score, bot-package). Not for a single stage the user already names, which goes straight to that stage skill. Vietnamese triggers - thiết kế bot, tạo bot mới, lên kế hoạch đội bot, tôi muốn có một bot, từ ý tưởng thành bot.
 license: MIT
 metadata:
   author: Masonshare
@@ -26,7 +26,7 @@ Work loop: clarify, research, plan, build, verify. Stop at a **gate** (the user 
 | 4 | Routines | bot-routine | A five-part spec per unattended run (only when the bot runs alone) |
 | 5 | Access | bot-access | Permissions, connections and secret handling at least privilege |
 | 6 | Score and test | bot-score | Scorecard, test cases, evidence per conclusion |
-| 7 | Package | bot-package | A team.md or manual setup steps, rollout order, summary |
+| 7 | Package | bot-package | Manual setup steps or an Orca share link, rollout order, summary |
 
 Run one stage at a time, in order, starting at the first stage whose output the user has not approved. Pass each result on in the handoff format below. Skip stage 4 when the bot has no unattended runs. For a single stage the user names ("score this profile"), run only that stage's skill.
 
@@ -40,7 +40,7 @@ Run the stage yourself from this summary, then tell the user which skill would d
 4. Routines: every routine has an owner (a named person), a trigger, allowed actions, an escalation path and a stop condition; start it paused.
 5. Access: least privilege. Read before write. A gate before every send, publish, delete, spend, install, commit or push. Credentials only in the platform's secret store.
 6. Score: report designed, applied, read back and behaviour tested as four separate states, each conclusion with its evidence; run 5-10 test cases, baseline first then retest; score the 14 checklist items 0 or 1 each (13 profile items plus the always-applicable test item), counting only applicable items; aim for 80%.
-7. Package: for OpenMausBot write a team.md and note that only each skill's SKILL.md travels on import; for other platforms write numbered manual steps. Roll out one bot first, routines paused, the team last.
+7. Package: write numbered manual steps for Orca, or share the bot with Orca's bot share link; note that only each skill's SKILL.md may travel. Roll out one bot first, routines paused, the team last.
 
 ## Shared rules
 

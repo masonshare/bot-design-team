@@ -47,4 +47,3 @@ Bàn giao cho bot-profile, mỗi lần một bot, bằng đúng 5 mục theo th�
 ## Nguồn
 
 - Masonshare, quy trình thiết kế bot (nguyên bản).
-- Tài liệu OpenMausBot, https://docs.openmausbot.com/docs/features/chat-and-teams (đội, Chief of Staff).

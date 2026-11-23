@@ -44,8 +44,8 @@ Done when: every action the bot can take has a tier.
 - Money limits live in the platform's settings, not in prompt text.
 - Credentials go only in the platform's secret or connection store. Keep secrets, webhook URLs and auth notes out of prompts, skills, memory, chat and files; ask the user to add them through the secret store.
 - Several labelled accounts for one app beat duplicate bots.
-- Local computer control: the Grok Bot docs default it to "Ask every time", not "blocked". Choose "Never allow" for any bot whose Job does not need the local machine.
-- A routine that waits for approval must not depend on a late answer: cards expire (30 minutes in the Grok Bot docs) and the safe result of an expired card is that nothing happens.
+- Local computer control: do not assume it is blocked by default. Choose "Never allow" for any bot whose Job does not need the local machine.
+- A routine that waits for approval must not depend on a late answer: cards can expire and the safe result of an expired card is that nothing happens.
 - Bots on one account share one cloud computer. It is not a security boundary between bots: never rely on it to keep one bot's files or secrets from another.
 
 ### 4. Show the worst case
@@ -65,5 +65,3 @@ bot-score. Hand off with exactly 5 fields, in this order: Goal, Inputs, Delivera
 ## Sources
 
 - Masonshare, risk tiers and least-privilege rules (original).
-- Grok Bot docs, computer and apps (local computer default, shared cloud computer, approval card expiry), https://docs.x.ai/grok-bot/computer-and-apps.
-- Lauren Tan, dr-eggbot-v2 marketplace page (no leftover tools), https://x.ai/bot/marketplace/bots/dr-eggbot-v2.

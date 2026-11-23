@@ -1,6 +1,6 @@
 ---
 name: skill-package
-description: Validates a skill folder against the Agent Skills spec and packages it for sharing, with a version bump, a changelog entry and the right layout for npx skills add, GitHub, team import or a zip upload. Use when the user wants a skill checked before shipping, asks how to publish or share a skill, how to pick the version number, or where a skill goes on Claude Code, Claude.ai, the API or OpenMausBot. Vietnamese triggers - kiểm tra skill theo chuẩn, đóng gói skill, xuất bản skill, ghi changelog, npx skills add.
+description: Validates a skill folder against the Agent Skills spec and packages it for sharing, with a version bump, a changelog entry and the right layout for npx skills add, GitHub or a zip upload. Use when the user wants a skill checked before shipping, asks how to publish or share a skill, how to pick the version number, or where a skill goes on Claude Code, Claude.ai, the API or Orca. Vietnamese triggers - kiểm tra skill theo chuẩn, đóng gói skill, xuất bản skill, ghi changelog, npx skills add.
 license: MIT
 metadata:
   author: Masonshare
@@ -61,11 +61,10 @@ Repo layout: `skills/<name>/SKILL.md`, plus `references/`, `scripts/`, `evals/`.
 | Claude.ai | Zip upload in settings. Custom skills need Pro, Max, Ultra, Team or Enterprise with code execution on. |
 | Claude API | Upload through `/v1/skills`, then list `skill_ids` in the `container` parameter with the code execution tool. Workspace-wide; the container has no network. |
 | Agent SDK | Files on disk under `.claude/skills/`, found through `settingSources` and the `skills` option. |
-| OpenMausBot | Folder `workspaces/<botId>/skills/<name>/SKILL.md`, owned by one bot. |
 
 Custom skills do not sync across Claude surfaces: upload or copy to each one. Checked against the official docs on 2026-11-18.
 
-What an import carries (unverified, from the owner's experience): an import through the team file `team.md` brings only SKILL.md; an import from GitHub brings `references/` and `scripts/` too. Treat both as unproven until one import is checked. Because of the first case, every SKILL.md must run alone; tell the user which files will be lost if only SKILL.md travels.
+What an import carries (unverified, from the owner's experience): a share may bring only SKILL.md; an install from GitHub brings `references/` and `scripts/` too. Treat both as unproven until one import is checked. Because of the first case, every SKILL.md must run alone; tell the user which files will be lost if only SKILL.md travels.
 
 Done when: the layout is listed and the target platform's route is stated with its limits.
 

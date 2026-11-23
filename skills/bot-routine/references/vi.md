@@ -30,13 +30,13 @@ Xong khi: đủ năm phần cho mỗi routine, với chủ sở hữu có tên.
 
 ### 3. Viết hướng dẫn cho lần chạy
 
-Văn bản routine phải chạy được khi không có ngữ cảnh chat: nói rõ đọc gì, tạo ra gì, ghi ở đâu, và không đụng vào gì. Đầu ra là bản nháp; routine không gửi, xóa hay chi tiền. Trạng thái cần tin được qua các lần chạy (đã gửi gì, còn chờ gì) nằm trong một sổ cái (ledger) có tên, có người chịu trách nhiệm và có ngày: đọc đầu lần chạy, ghi thêm cuối lần chạy; khi sổ cái và chat mâu thuẫn thì sổ cái thắng. Thẻ duyệt có thể hết hạn (30 phút theo tài liệu Grok Bot): lần chạy chờ duyệt không được phụ thuộc vào câu trả lời đến muộn, và thẻ hết hạn thì không có gì xảy ra.
+Văn bản routine phải chạy được khi không có ngữ cảnh chat: nói rõ đọc gì, tạo ra gì, ghi ở đâu, và không đụng vào gì. Đầu ra là bản nháp; routine không gửi, xóa hay chi tiền. Trạng thái cần tin được qua các lần chạy (đã gửi gì, còn chờ gì) nằm trong một sổ cái (ledger) có tên, có người chịu trách nhiệm và có ngày: đọc đầu lần chạy, ghi thêm cuối lần chạy; khi sổ cái và chat mâu thuẫn thì sổ cái thắng. Thẻ duyệt có thể hết hạn: lần chạy chờ duyệt không được phụ thuộc vào câu trả lời đến muộn, và thẻ hết hạn thì không có gì xảy ra.
 
 Xong khi: người chưa từng thấy chat vẫn chạy được văn bản này và ra đúng đầu ra mong muốn.
 
 ### 4. Tạo ở trạng thái tạm dừng, thử, rồi mới bật
 
-Tạo ở trạng thái tạm dừng. Chạy tay hai lần và đọc cả hai kết quả. Sau đó nhờ người dùng duyệt việc bật (gate). Sau khi nhập vào OpenMausBot, so sánh các routine khai báo trong `team.md` với các tự động hóa thật sự có; thêm cái còn thiếu (ở trạng thái tạm dừng) và báo mọi chỗ khác nhau.
+Tạo ở trạng thái tạm dừng. Chạy tay hai lần và đọc cả hai kết quả. Sau đó nhờ người dùng duyệt việc bật (gate). Sau khi chia sẻ hoặc cài đặt, so sánh các routine đã khai báo với các tự động hóa thật sự có; thêm cái còn thiếu (ở trạng thái tạm dừng) và báo mọi chỗ khác nhau.
 
 Xong khi: hai lần chạy tay đã đọc và ghi lại, và người dùng đã quyết định có bật hay không.
 
@@ -56,6 +56,3 @@ bot-access cho quyền hạn, hoặc bot-score khi quyền đã xong. Bàn giao 
 
 ## Nguồn
 
-- Hướng dẫn Grok Bot cho Linear và các bot chợ overheard, follow-through-agent (năm phần của một routine), https://x.ai/bot/guides/grok-bot-for-linear. CHƯA KIỂM CHỨNG (UNVERIFIED): đọc ngày 2026-11-19 qua bản tóm tắt tự động; trích dẫn có thể là diễn đạt lại.
-- Lauren Tan, trang chợ dr-eggbot-v2 (routine kiểm tra sức khỏe), https://x.ai/bot/marketplace/bots/dr-eggbot-v2.
-- Tài liệu Grok Bot, máy tính và ứng dụng (thẻ duyệt hết hạn), https://docs.x.ai/grok-bot/computer-and-apps.

@@ -49,11 +49,10 @@ Cấu trúc trong repo: `skills/<tên>/SKILL.md`, kèm `references/`, `scripts/`
 | Claude.ai | Tải lên tệp zip trong phần cài đặt. Skill tùy biến cần gói Pro, Max, Ultra, Team hoặc Enterprise và bật code execution. |
 | Claude API | Tải lên qua `/v1/skills`, rồi liệt kê `skill_ids` trong tham số `container` cùng công cụ code execution. Dùng chung cả workspace; container không có mạng. |
 | Agent SDK | Tệp trên đĩa trong `.claude/skills/`, được tìm qua `settingSources` và tùy chọn `skills`. |
-| OpenMausBot | Thư mục `workspaces/<botId>/skills/<name>/SKILL.md`, thuộc về một bot. |
 
 Skill tùy biến không đồng bộ giữa các nền tảng Claude: tải lên hoặc sao chép riêng cho từng nơi. Đã đối chiếu tài liệu chính thức ngày 2026-11-18.
 
-Việc nhập mang theo những gì (chưa kiểm chứng, theo kinh nghiệm của chủ sở hữu): nhập qua tệp nhóm `team.md` chỉ mang SKILL.md; nhập từ GitHub mang cả `references/` và `scripts/`. Coi cả hai là chưa được chứng minh cho đến khi kiểm một lần nhập thật. Vì trường hợp đầu, mọi SKILL.md phải chạy được một mình; nói cho người dùng biết tệp nào sẽ mất nếu chỉ SKILL.md đi theo.
+Việc nhập mang theo những gì (chưa kiểm chứng, theo kinh nghiệm của chủ sở hữu): một lần chia sẻ có thể chỉ mang SKILL.md; cài từ GitHub mang cả `references/` và `scripts/`. Coi cả hai là chưa được chứng minh cho đến khi kiểm một lần nhập thật. Vì trường hợp đầu, mọi SKILL.md phải chạy được một mình; nói cho người dùng biết tệp nào sẽ mất nếu chỉ SKILL.md đi theo.
 
 Xong khi: cấu trúc đã liệt kê và đường đi của nền tảng đích được nêu kèm giới hạn.
 

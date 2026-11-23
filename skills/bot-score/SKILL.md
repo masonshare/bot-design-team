@@ -83,7 +83,7 @@ Done when: checklist and test results are reported separately, each conclusion w
 
 ## Next stage
 
-bot-package once the user accepts the result. Hand off with exactly 5 fields, in this order: Goal, Inputs, Deliverable, Done when, Open items. If bot-package is not installed, tell the user the next stage is packaging (team file or manual steps) and offer to do it.
+bot-package once the user accepts the result. Hand off with exactly 5 fields, in this order: Goal, Inputs, Deliverable, Done when, Open items. If bot-package is not installed, tell the user the next stage is packaging (manual steps or an Orca share link) and offer to do it.
 
 ## Reference files
 
@@ -94,4 +94,3 @@ bot-package once the user accepts the result. Hand off with exactly 5 fields, in
 ## Sources
 
 - Masonshare, 13-criteria checklist and scorecard (original).
-- Grok Bot marketplace pages for evidence per conclusion and bloat, https://x.ai/bot/marketplace/bots/haggle-bot and https://x.ai/bot/marketplace/bots/alfred. UNVERIFIED: read on 2026-11-19 through a summarising fetch; the `UNVERIFIED` label is this repository's own term.

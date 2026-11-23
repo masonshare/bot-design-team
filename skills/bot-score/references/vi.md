@@ -83,4 +83,3 @@ bot-package khi người dùng chấp nhận kết quả. Bàn giao bằng đún
 ## Nguồn
 
 - Masonshare, bộ 13 tiêu chí và bảng điểm (nguyên bản).
-- Các trang chợ Grok Bot về bằng chứng gắn từng kết luận và về bot phình, https://x.ai/bot/marketplace/bots/haggle-bot và https://x.ai/bot/marketplace/bots/alfred. CHƯA KIỂM CHỨNG (UNVERIFIED): đọc ngày 2026-11-19 qua bản tóm tắt tự động; nhãn `UNVERIFIED` là thuật ngữ riêng của repo này.

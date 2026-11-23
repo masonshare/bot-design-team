@@ -40,7 +40,7 @@ Ask all of these in one message, each with a default so the user can answer fast
 - Frequency: on request, on a schedule, or on an event.
 - Risks: what a wrong action costs (money, reputation, data).
 - Budget: model cost tolerance, time to set up, who maintains it.
-- Platform: OpenMausBot, Grok Bot or other.
+- Platform: Orca (this repo targets Orca only).
 
 Done when: each field has an answer or an agreed assumption written in the brief.
 

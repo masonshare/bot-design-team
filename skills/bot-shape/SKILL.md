@@ -61,4 +61,3 @@ Hand off to bot-profile, one bot at a time, with exactly 5 fields, in this order
 ## Sources
 
 - Masonshare, bot design process (original).
-- OpenMausBot documentation, https://docs.openmausbot.com/docs/features/chat-and-teams (teams, Chief of Staff).
