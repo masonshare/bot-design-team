@@ -16,7 +16,7 @@ For each scenario it:
 1. Builds a throwaway sandbox: the bot's `SOUL.md` as `CLAUDE.md` (Claude Code) or `AGENTS.md` (Codex), its skills in `.claude/skills/<name>` or `.agents/skills/<name>`, `voice-guide.md`, `sheet-template.md`, and CSV stand-ins for the Google Sheet (`sheet/kich-ban.csv` = tab `Kịch bản` of the scripts file, `sheet/de-xuat.csv` = the separate `Đề xuất CSKH` file) copied from `fake-data/`.
 2. Enforces the access model: staff may write only `de-xuat.csv` (the `Đề xuất CSKH` file) and the scripts file `kich-ban.csv` is read-only for them; editor may write only `kich-ban.csv`. The other file is read-only, and the CSVs are diffed after the run anyway.
 3. Runs the agent headlessly (no network, only file tools for Claude Code, workspace-write sandbox for Codex) with the scenario message.
-4. Grades twice: deterministic checks on the CSV diff and reply (for example `Kịch bản` unchanged for staff, new editor rows are `Nháp` with no approver, `Đề xuất` row appended or count +1, no phone/name in new rows), then a second headless call to the same agent as a strict judge returning JSON `{pass, reasons}` on the `## Expect` and `## Must not` bullets. A scenario passes only if both agree.
+4. Grades twice: deterministic checks on the CSV diff and reply (for example `Kịch bản` unchanged for staff, new editor rows are `Nháp` with no approver, `Đề xuất` row appended or count +1, no phone/name in new rows), then a second headless call to the same agent as a strict judge returning JSON `{pass, reasons}` on the `## Expect` and `## Must not` bullets. A scenario passes only if both agree; the judge is skipped when a deterministic check already failed.
 5. An agent or judge failure is `ERROR`, never a pass. Nothing is ever simulated.
 
 Results are written to `packs/ecommerce-cskh/scenarios/results/<agent>-<date>.md` (commit them; they hold FAKE data only, local paths are scrubbed).
@@ -24,13 +24,25 @@ Results are written to `packs/ecommerce-cskh/scenarios/results/<agent>-<date>.md
 ## How to run
 
 ```
-python scripts/run-scenarios.py --agent claude            # all scenarios
-python scripts/run-scenarios.py --agent codex --smoke     # 4-scenario smoke subset
+python scripts/run-scenarios.py --agent claude            # default: 4-scenario smoke subset (cheap)
+python scripts/run-scenarios.py --agent claude --full     # every scenario: needs the explicit --full
 python scripts/run-scenarios.py --agent claude --only t9-sensitive-price --only t8-approved-right-channel
+python scripts/run-scenarios.py --agent codex --full --repeat 3 --gate 1.0   # the #29 staff handoff gate
 python scripts/run-scenarios.py --agent codex --dry-run   # build sandboxes only, no agent call (add --keep to inspect)
 ```
 
-Exit code 0 only if every scenario ran and passed. Each scenario costs two short agent calls (about 1 minute for the pair), so run the smoke subset first.
+Flags:
+
+- Default (no selector) = the smoke subset. A full run costs many tokens, so it needs `--full`. `--only <id>` (repeatable) picks scenarios and wins over the default; `--smoke` is kept as an explicit alias of the default; `--full` cannot be combined with `--only` or `--smoke`.
+- `--repeat N`: run each scenario N times (default 1). The results file then has a table with the pass rate per scenario (`2/3 | 67%`) and a line with the pass rate for the agent as a whole (`Pass rate (codex): 49/51 (96%)`). Use it to measure flaky scenarios instead of re-running by hand.
+- `--gate T`: T is a fraction from 0 to 1 (`1.0` = every run of every scenario must pass, `0.8` = at least 80% per scenario); anything outside 0..1 is rejected. If any scenario's pass rate is below T the runner exits non-zero, names the scenarios, and the results file says `Gate ... FAIL`. `ERROR` counts as not passed. Without `--gate`, exit code 0 means every run passed.
+- Order of grading: the cheap deterministic checks run first; the judge call is made only when they all pass. A scenario that fails a deterministic check is `FAIL` without a judge call (the results file says `judge: skipped`), which saves one agent call per failure.
+
+Each scenario run costs two short agent calls (about 1 minute for the pair), so run the smoke subset first, and `--repeat` multiplies the cost.
+
+### How this serves the staff handoff gate (#29)
+
+The gate is 17/17 across at least 3 consecutive full runs. `--full --repeat 3 --gate 1.0` checks exactly that bar in one command: all 17 scenarios, each run 3 times, exit 0 only if every run passed (pass rate 100% for every scenario). The runs go scenario by scenario (not suite by suite) and land in one results file, which is committed as the evidence. Any non-zero exit, error or gap means the gate is not met; fix the cause and start the count again. Any change to a bot instruction or skill also restarts the count. Real-agent runs are never part of CI.
 
 ## Owner steps per agent
 
@@ -46,7 +58,7 @@ The top of a results file gives the agent version and counts (pass, fail, error)
 
 ## Tests of the runner itself
 
-`scripts/tests/test_run_scenarios.py` tests the sandbox builder, the checks and the judge parser with a stub agent (`SCENARIO_AGENT_STUB` points at a script that stands in for the agent). It runs from `scripts/tests/run.sh`. CI never calls a real agent.
+`scripts/tests/test_run_scenarios.py` tests the sandbox builder, the checks, the judge parser, `--repeat`/`--gate` (pass rates, exit code, judge not called after a deterministic failure) and the smoke default with a stub agent (`SCENARIO_AGENT_STUB` points at a script that stands in for the agent). It runs from `scripts/tests/run.sh`. CI never calls a real agent.
 
 ## Latest status
 

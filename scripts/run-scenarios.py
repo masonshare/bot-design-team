@@ -6,8 +6,15 @@ headlessly, then grades: deterministic checks on the CSV diff and reply, plus an
 (a second headless call to the same agent) for the `## Expect` / `## Must not` bullets.
 
 Usage:
-  python scripts/run-scenarios.py --agent claude [--only ID ...] [--dry-run] [--keep]
-  python scripts/run-scenarios.py --agent codex  [--smoke]
+  python scripts/run-scenarios.py --agent claude                 # default: 4-scenario smoke subset
+  python scripts/run-scenarios.py --agent claude --only ID ...   # chosen scenarios
+  python scripts/run-scenarios.py --agent codex  --full          # every scenario (costs tokens)
+  python scripts/run-scenarios.py --agent codex  --full --repeat 3 --gate 1.0
+
+--repeat N runs each scenario N times; the results file records the pass rate per scenario and
+per agent. --gate T (a fraction 0..1, e.g. 1.0 = every run must pass, 0.8 = at least 80%) makes the
+exit code non-zero when any scenario's pass rate is below T. ERROR counts as not passed.
+The judge is only called when every deterministic check passed.
 
 Test seam: set SCENARIO_AGENT_STUB to a script path. The runner then calls
 `python <stub>` (cwd = sandbox, env SCENARIO_ROLE=bot|judge, prompt on stdin, reply on
@@ -411,6 +418,9 @@ def run_one(scn, agent, pack_dir, timeout, today, keep=False):
                     "reply": ""}
         after = snapshot(sandbox)
         det = det_checks(scn, before, after, reply)
+        if not all(c[1] for c in det):  # cheap checks first: no judge call (saves tokens)
+            return {"id": scn["id"], "status": "FAIL", "detail": "", "det": det, "judge": None,
+                    "reply": reply, "judge_skipped": True}
         jdir = mkdtemp("scn-judge-", agent)
         try:
             jok, jtext = invoke(agent, "judge", judge_prompt(scn, reply, sheet_diff(before, after), before),
@@ -452,11 +462,35 @@ def one_line(s, n=600):
     return s if len(s) <= n else s[:n] + " ..."
 
 
-def render_results(agent, version, today, results, note=""):
+def pass_rates(results):
+    """Ordered {scenario id: (passed, runs)} over all runs."""
+    rates = {}
+    for r in results:
+        p, n = rates.get(r["id"], (0, 0))
+        rates[r["id"]] = (p + (r["status"] == "PASS"), n + 1)
+    return rates
+
+
+def below_gate(results, threshold):
+    """Scenario ids whose pass rate is under the threshold (fraction 0..1)."""
+    return [sid for sid, (p, n) in pass_rates(results).items() if p / n < threshold]
+
+
+def select_scenarios(pack_dir, only=None, full=False):
+    """--only wins; else the whole pack only with an explicit --full; else the smoke subset."""
+    return load_scenarios(pack_dir, only or (None if full else SMOKE))
+
+
+def pct(p, n):
+    return f"{round(100 * p / n)}%" if n else "n/a"
+
+
+def render_results(agent, version, today, results, note="", repeat=1, gate=None):
     n = len(results)
     p = sum(r["status"] == "PASS" for r in results)
     f = sum(r["status"] == "FAIL" for r in results)
     e = sum(r["status"] == "ERROR" for r in results)
+    rates = pass_rates(results)
     lines = [f"# Scenario results: {agent} ({today})", "",
              f"- Agent: {agent} {version or '(version unknown)'}",
              "- Data: FAKE only. Grading: deterministic CSV/reply checks plus an LLM judge call.",
@@ -464,15 +498,28 @@ def render_results(agent, version, today, results, note=""):
              "not counted as pass)."]
     if note:
         lines.append(f"- Note: {note}")
-    lines += ["", "| Scenario | Result |", "|---|---|"]
-    lines += [f"| {r['id']} | {r['status']} |" for r in results]
+    if repeat > 1 or gate is not None:
+        lines.append(f"- Pass rate ({agent}): {p}/{n} ({pct(p, n)}); repeat {repeat} per scenario")
+    if gate is not None:
+        bad = below_gate(results, gate)
+        lines.append(f"- Gate (every scenario pass rate >= {gate:g}): "
+                     + ("PASS" if not bad else "FAIL: " + ", ".join(bad)))
+    if repeat > 1:
+        lines += ["", "| Scenario | Passed | Pass rate |", "|---|---|---|"]
+        lines += [f"| {sid} | {pp}/{nn} | {pct(pp, nn)} |" for sid, (pp, nn) in rates.items()]
+    else:
+        lines += ["", "| Scenario | Result |", "|---|---|"]
+        lines += [f"| {r['id']} | {r['status']} |" for r in results]
     lines.append("")
-    for r in results:
-        lines += [f"## {r['id']}: {r['status']}", ""]
+    for k, r in enumerate(results):
+        run = f" (run {sum(x['id'] == r['id'] for x in results[:k + 1])})" if repeat > 1 else ""
+        lines += [f"## {r['id']}{run}: {r['status']}", ""]
         if r["detail"]:
             lines += [f"- Error: {one_line(r['detail'], 400)}"]
         for name, ok, d in r["det"]:
             lines.append(f"- check [{'ok' if ok else 'FAIL'}] {name}" + (f" ({d})" if d else ""))
+        if r.get("judge_skipped"):
+            lines.append("- judge: skipped (a deterministic check failed)")
         if r["judge"]:
             lines.append(f"- judge: {'pass' if r['judge'][0] else 'fail'}")
             lines += [f"  - {one_line(x, 300)}" for x in r["judge"][1]]
@@ -493,17 +540,29 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument("--agent", choices=["claude", "codex"], required=True)
     ap.add_argument("--only", action="append", help="scenario id (repeatable)")
-    ap.add_argument("--smoke", action="store_true", help="run the 4-scenario smoke subset")
+    ap.add_argument("--smoke", action="store_true", help="run the 4-scenario smoke subset (the default)")
+    ap.add_argument("--full", action="store_true",
+                    help="run every scenario (needed for a full run; the default is the smoke subset)")
+    ap.add_argument("--repeat", type=int, default=1, metavar="N",
+                    help="run each scenario N times and record pass rates (default 1)")
+    ap.add_argument("--gate", type=float, metavar="T",
+                    help="exit non-zero if any scenario's pass rate < T (fraction 0..1, 1.0 = all runs pass)")
     ap.add_argument("--dry-run", action="store_true", help="build sandboxes only, no agent call")
     ap.add_argument("--keep", action="store_true", help="keep sandboxes (prints paths)")
     ap.add_argument("--pack", default=PACK)
     ap.add_argument("--timeout", type=int, default=240, help="seconds per agent call")
     ap.add_argument("--out", help="results file (default packs/<pack>/scenarios/results/<agent>-<date>.md)")
     args = ap.parse_args(argv)
+    if args.repeat < 1:
+        ap.error("--repeat must be >= 1")
+    if args.gate is not None and not 0 <= args.gate <= 1:
+        ap.error("--gate is a fraction between 0 and 1 (e.g. 1.0 or 0.8), not a percentage or count")
+    if args.full and (args.smoke or args.only):
+        ap.error("--full cannot be combined with --smoke or --only")
     pack_dir = os.path.join(ROOT, "packs", args.pack)
     today = datetime.date.today().isoformat()
-    only = SMOKE if args.smoke else args.only
-    scenarios = load_scenarios(pack_dir, only)
+    only = args.only
+    scenarios = select_scenarios(pack_dir, only, args.full)
     if args.dry_run:
         for s in scenarios:
             d = mkdtemp(f"scn-{s['id']}-", args.agent)
@@ -526,24 +585,36 @@ def main(argv=None):
         print(f"GAP recorded in {out}")
         return 2
     results = []
+    stop = False
     for s in scenarios:
-        r = run_one(s, args.agent, pack_dir, args.timeout, today, args.keep)
-        print(f"{r['status']:5} {r['id']}" + (f"  {one_line(r['detail'], 160)}" if r["detail"] else ""),
-              flush=True)
-        results.append(r)
-        if r["status"] == "ERROR" and "login" in r["detail"].lower():
-            print("agent appears not logged in; stopping", file=sys.stderr)
+        for _ in range(args.repeat):
+            r = run_one(s, args.agent, pack_dir, args.timeout, today, args.keep)
+            print(f"{r['status']:5} {r['id']}" + (f"  {one_line(r['detail'], 160)}" if r["detail"] else ""),
+                  flush=True)
+            results.append(r)
+            if r["status"] == "ERROR" and "login" in r["detail"].lower():
+                print("agent appears not logged in; stopping", file=sys.stderr)
+                stop = True
+                break
+        if stop:
             break
-    note = "smoke subset only" if args.smoke else ("subset: " + ", ".join(only) if only else "")
+    note = "full run" if args.full else ("subset: " + ", ".join(only) if only else "smoke subset only")
     if results and all(r["status"] == "ERROR" for r in results):
         text = render_gap(args.agent, today, "every agent call failed (not authenticated or "
                           "unavailable): " + one_line(results[0]["detail"], 300))
     else:
-        text = render_results(args.agent, version, today, results, note)
+        text = render_results(args.agent, version, today, results, note, args.repeat, args.gate)
     with open(out, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(text)
     print(f"results: {out}")
-    return 0 if results and all(r["status"] == "PASS" for r in results) else 1
+    if not results:
+        return 1
+    if args.gate is not None:
+        bad = below_gate(results, args.gate)
+        if bad:
+            print(f"gate {args.gate:g} FAILED: {', '.join(bad)}", file=sys.stderr)
+        return 1 if bad else 0
+    return 0 if all(r["status"] == "PASS" for r in results) else 1
 
 
 if __name__ == "__main__":
