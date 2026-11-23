@@ -104,5 +104,12 @@ t "non-FAKE file in fake-data rejected" c_nonfake_in_fakedir 1
 t "scenario file with FAKE token accepted" c_scenario_fake_ok 0
 t "scenario file without FAKE rejected" c_scenario_nofake 1
 
+PY=$(command -v python || command -v python3)
+if "$PY" -W ignore "$SRC/scripts/tests/test_run_scenarios.py" >"$TMP/unit.log" 2>&1; then
+  echo "PASS run-scenarios unit tests (stub agent)"; pass=$((pass+1))
+else
+  echo "FAIL run-scenarios unit tests"; tail -20 "$TMP/unit.log"; failn=$((failn+1))
+fi
+
 echo "$pass passed, $failn failed"
 [ $failn -eq 0 ]

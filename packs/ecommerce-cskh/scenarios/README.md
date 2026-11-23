@@ -37,3 +37,7 @@ Rules:
 Load the named data file as the Sheet (pasted CSV or a copy of the template Sheet), start the bot, set the channel, send the `## Message`, and check each bullet.
 
 `scripts/check-scenarios.sh` only checks that the files parse and point at real data.
+
+## Automated run
+
+`python scripts/run-scenarios.py --agent claude|codex` replays every scenario headlessly and writes `results/<agent>-<date>.md`. See `docs/scenario-testing.md`.
