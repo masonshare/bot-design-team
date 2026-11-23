@@ -27,9 +27,9 @@ for f in sorted(files):
         errs.append("id does not match file name")
     if meta.get("bot") not in ("staff", "editor"):
         errs.append("bot must be staff|editor")
-    if meta.get("channel") not in ("Shopee", "Zalo", "hotline", "none"):
+    if meta.get("channel") not in ("Shopee", "Zalo", "hotline", "all", "none"):
         errs.append("bad channel")
-    d = os.path.join(os.path.dirname(os.path.dirname(f)), "fake-data", meta.get("data", ""))
+    d = os.path.join(os.path.dirname(os.path.dirname(f)), "fake-data", re.sub(r"^fake-data/", "", meta.get("data", "")))
     if not os.path.isfile(d):
         errs.append(f"data file not found: {meta.get('data')}")
     body = m.group(2)

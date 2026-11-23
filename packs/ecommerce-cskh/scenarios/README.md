@@ -27,8 +27,8 @@ Rules:
 - Front matter has exactly the keys `id`, `bot`, `data`, `channel`.
 - `id` equals the file name without `.md`.
 - `bot` is `staff` or `editor`.
-- `data` names an existing file in `fake-data/`.
-- `channel` is `Shopee`, `Zalo`, `hotline`, or `none` (for editor scenarios).
+- `data` names an existing file in `fake-data/` (a leading `fake-data/` is tolerated).
+- `channel` is `Shopee`, `Zalo`, `hotline`, or `all` or `none` (editor scenarios).
 - Sections `## Message`, `## Expect`, `## Must not` appear once each, in that order. `## Expect` and `## Must not` hold bullet lists.
 - Expectations must be observable: what the reply says, which script code it came from, which sheet tabs change (or `no sheet change`).
 
