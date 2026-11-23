@@ -7,10 +7,19 @@ TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 pass=0; failn=0
 
+# One pristine copy is built once (committed in its own throwaway repo); fresh()
+# only resets it: reset --hard restores mutated/deleted files, clean drops files
+# a case added. No per-case full-repo copy (that took >120 s on Windows).
+PRISTINE=0
 fresh() {
-  rm -rf "$TMP/r"; mkdir "$TMP/r"
-  (cd "$SRC" && git ls-files -z --cached --others --exclude-standard | xargs -0 -I{} cp --parents {} "$TMP/r/" 2>/dev/null)
-  (cd "$TMP/r" && git init -q && git add -A >/dev/null 2>&1)
+  if [ $PRISTINE -eq 0 ]; then
+    mkdir -p "$TMP/r"
+    (cd "$SRC" && git ls-files -z --cached --others --exclude-standard | tar --null -T - -cf - 2>/dev/null) | tar -xf - -C "$TMP/r"
+    (cd "$TMP/r" && git init -q && git add -A >/dev/null 2>&1 && git -c user.name=t -c user.email=t@t commit -qm pristine >/dev/null 2>&1)
+    PRISTINE=1
+  else
+    (cd "$TMP/r" && git reset -q --hard && git clean -fdxq)
+  fi
 }
 # expect <name> <0|1>: run ci.sh in the current temp copy
 expect() {
@@ -47,6 +56,7 @@ c_pack_ok() { mk_skill "$PK/cskh-intake/SKILL.md" cskh-intake d; cp "$TMP/r/docs
 c_bot_pack_ok() { mk_skill "$TMP/r/packs/ecommerce-cskh/staff/skills/cskh-lookup/SKILL.md" cskh-lookup d; }
 c_pack_bad_name() { mk_skill "$PK/cskh-intake/SKILL.md" wrong d; }
 c_pack_no_desc() { mkdir -p "$PK/cskh-intake"; printf -- '---\nname: cskh-intake\n---\n' > "$PK/cskh-intake/SKILL.md"; }
+c_pack_misplaced() { mk_skill "$TMP/r/packs/ecommerce-cskh/staff/cskh-x/SKILL.md" cskh-x d; }
 c_pack_bad_depth() { mk_skill "$PK/x/y/SKILL.md" y d; }
 
 c_leak_phone() { printf 'Lien he: %s
@@ -99,6 +109,7 @@ t "legacy path rejected" c_legacy_path 1
 t "pack skill name mismatch rejected" c_pack_bad_name 1
 t "pack skill missing description rejected" c_pack_no_desc 1
 t "pack skill wrong depth rejected" c_pack_bad_depth 1
+t "pack skill outside a skills/ folder rejected" c_pack_misplaced 1
 t "planted phone rejected" c_leak_phone 1
 t "planted +84 phone rejected" c_leak_phone84 1
 t "planted named chat transcript rejected" c_leak_chat 1
@@ -109,6 +120,58 @@ t "FAKE- file in fake-data accepted" c_fake_dir_ok 0
 t "non-FAKE file in fake-data rejected" c_nonfake_in_fakedir 1
 t "scenario file with FAKE token accepted" c_scenario_fake_ok 0
 t "scenario file without FAKE rejected" c_scenario_nofake 1
+
+SH="$TMP/r/packs/ecommerce-cskh"
+c_col_template() { sed -i 's/| G | Lưu ý nội bộ |/| G | Ghi chú |/' "$SH/sheet-template.md"; }
+c_col_template_dx() { sed -i 's/| H | Số lần hỏi |/| H | Lần hỏi |/' "$SH/sheet-template.md"; }
+c_col_csv() { sed -i '1s/Trạng thái,/Status,/' "$SH/fake-data/FAKE-kich-ban-cong-ty-mau.csv"; }
+c_col_csv_dx() { sed -i '1s/,Số lần hỏi/,Số lần hỏi,Thừa/' "$SH/fake-data/FAKE-de-xuat-cong-ty-mau.csv"; }
+c_col_const() { sed -i '/^KB_COLUMNS/s/Lưu ý nội bộ/Ghi chú/' "$TMP/r/scripts/run-scenarios.py"; }
+c_col_const_dx() { sed -i '/^DX_COLUMNS/s/Mã gần nhất/Mã/' "$TMP/r/scripts/run-scenarios.py"; }
+c_term_skill() { printf 'Hỏi %s duyệt.
+' "$(printf 'chủ dự %s' án)" >> "$TMP/r/skills/design/skill-test/SKILL.md"; }
+c_term_soul() { printf 'Gửi %s.
+' "$(printf 'Chủ Dự %s' Án)" >> "$SH/staff/SOUL.md"; }
+c_term_docs() { printf 'Gửi %s.
+' "$(printf 'chủ dự %s' án)" >> "$TMP/r/docs/skills/bot-soul.md"; }
+c_term_adr_ok() { mkdir -p "$TMP/r/docs/adr"; printf 'Ví dụ tránh: %s.
+' "$(printf 'chủ dự %s' án)" >> "$TMP/r/docs/adr/0099-x.md"; }
+c_term_marker_ok() { printf 'Không dùng %s (avoid-ok).
+' "$(printf 'chủ dự %s' án)" >> "$TMP/r/docs/skills/bot-soul.md"; }
+c_avoid_missing() { sed -i '/^## Avoid/,$d' "$TMP/r/GLOSSARY.md"; }
+c_pyc_tracked() { mkdir -p "$TMP/r/scripts/lib/__pycache__"; echo x > "$TMP/r/scripts/lib/__pycache__/a.cpython-3.pyc"; (cd "$TMP/r" && git add -f scripts/lib/__pycache__/a.cpython-3.pyc); }
+c_pyc_loose() { echo x > "$TMP/r/scripts/stray.pyc"; (cd "$TMP/r" && git add -f scripts/stray.pyc); }
+c_pyc_untracked_ok() { mkdir -p "$TMP/r/scripts/lib/__pycache__"; echo x > "$TMP/r/scripts/lib/__pycache__/a.cpython-3.pyc"; }
+c_soul_cols() { printf 'Các cột: Mã, Nhóm, Tình huống.
+' >> "$SH/staff/SOUL.md"; }
+c_soul_cols_dx() { printf 'Đề xuất có Ngày, Kênh, Người hỏi.
+' >> "$SH/editor/SOUL.md"; }
+c_soul_status() { printf 'Trạng thái: Nháp, Đã duyệt, Hết hạn.
+' >> "$SH/editor/SOUL.md"; }
+c_soul_nopointer() { sed -i 's/cskh-draft/x/g' "$SH/editor/SOUL.md"; }
+c_soul_two_ok() { printf 'Nháp hoặc Hết hạn thì không dùng; Mã và Nhóm xem skill cskh-lookup.
+' >> "$SH/staff/SOUL.md"; }
+
+t "template header drift rejected" c_col_template 1
+t "template Đề xuất header drift rejected" c_col_template_dx 1
+t "scripts CSV header drift rejected" c_col_csv 1
+t "Đề xuất CSV extra column rejected" c_col_csv_dx 1
+t "run-scenarios KB_COLUMNS drift rejected" c_col_const 1
+t "run-scenarios DX_COLUMNS drift rejected" c_col_const_dx 1
+t "avoided term in a skill rejected" c_term_skill 1
+t "avoided term in a SOUL (any case) rejected" c_term_soul 1
+t "avoided term in docs rejected" c_term_docs 1
+t "avoided term in docs/adr accepted" c_term_adr_ok 0
+t "avoided term on avoid-ok line accepted" c_term_marker_ok 0
+t "GLOSSARY.md without Avoid section rejected" c_avoid_missing 1
+t "tracked __pycache__ file rejected" c_pyc_tracked 1
+t "tracked stray .pyc rejected" c_pyc_loose 1
+t "untracked ignored __pycache__ accepted" c_pyc_untracked_ok 0
+t "SOUL restating sheet columns rejected" c_soul_cols 1
+t "SOUL restating Đề xuất columns rejected" c_soul_cols_dx 1
+t "SOUL defining status vocabulary rejected" c_soul_status 1
+t "SOUL without a skill pointer rejected" c_soul_nopointer 1
+t "SOUL naming two statuses or two columns accepted" c_soul_two_ok 0
 
 PY=$(command -v python || command -v python3)
 if "$PY" -W ignore "$SRC/scripts/tests/test_run_scenarios.py" >"$TMP/unit.log" 2>&1; then

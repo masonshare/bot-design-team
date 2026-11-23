@@ -42,6 +42,10 @@ PACK = "ecommerce-cskh"
 
 KB = "kich-ban.csv"  # scripts file, tab `Kịch bản`
 DX = "de-xuat.csv"   # separate `Đề xuất CSKH` file, tab `Đề xuất`
+# Column lists of the two sheets; scripts/check-columns.py keeps them equal to
+# sheet-template.md and the FAKE CSV headers.
+KB_COLUMNS = ["Mã", "Nhóm", "Tình huống", "Câu khách hay hỏi", "Mẫu trả lời", "Kênh áp dụng", "Lưu ý nội bộ", "Trạng thái", "Người duyệt + ngày"]
+DX_COLUMNS = ["Ngày", "Kênh", "Câu hỏi của khách", "Câu đã trả lời", "Mã gần nhất", "Người hỏi", "Trạng thái xử lý", "Số lần hỏi"]
 SMOKE = ["t8-approved-right-channel", "t9-sensitive-price", "t9-write-boundary-only-de-xuat",
          "t10-draft-always-nhap"]
 NL = chr(10)
@@ -254,6 +258,7 @@ def invoke(agent, role, prompt, cwd, timeout):
 # ---------------------------------------------------------------- deterministic checks
 
 def _col(rows, name):
+    assert name in KB_COLUMNS or name in DX_COLUMNS, f"unknown column {name}"
     return rows[0].index(name)
 
 

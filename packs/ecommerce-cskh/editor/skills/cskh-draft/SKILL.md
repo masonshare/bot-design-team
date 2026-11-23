@@ -28,6 +28,6 @@ Real Q&A content and real chats are loaded into the owner's own Google Sheet at 
 
 1. Read the pasted text. Run the personal-data check (rule 5) first.
 2. Read existing rows in `Kịch bản` for codes, duplicates and contradictions (rule 4).
-3. Draft one row per situation with all columns A to H. Codes follow the group prefix and continue the existing numbering. See `references/draft-format.md`.
+3. Draft one row per situation with all columns A to I. Codes follow the group prefix and continue the existing numbering. See `references/draft-format.md`.
 4. Seeding from a Q&A page: see `references/qa-seeding.md`. List its inconsistencies; never pick one side.
 5. Write rows to the Sheet as `Nháp`. Finish with a short Vietnamese summary: new `Nháp` codes, warnings, items needing the owner's decision, questions.
