@@ -41,7 +41,7 @@ Xong khi: tìm trong thư mục các khóa, token, URL chứa bí mật và đư
 
 ### 3. Cấu trúc và nơi skill chạy
 
-Cấu trúc trong repo: `skills/<tên>/SKILL.md`, kèm `references/`, `scripts/`, `evals/`. Trình cài tự tìm thấy `skills/<tên>/SKILL.md`. Xem trước bằng `npx skills add <chủ-sở-hữu>/<repo> --list`.
+Cấu trúc trong repo: `skills/<tên>/SKILL.md`, kèm `references/`, `scripts/`, `evals/`. Trình cài tự tìm thấy `skills/<tên>/SKILL.md`, cả khi skill nằm trong thư mục nhóm như `skills/design/<tên>/SKILL.md`. Xem trước bằng `npx skills add <chủ-sở-hữu>/<repo> --list`.
 
 | Nền tảng | Skill vào bằng cách nào |
 |---|---|
