@@ -50,6 +50,12 @@ Google Sheets read and write scope is enough. No Drive-wide or Gmail access is n
 2. Pilot: one staff member uses the Staff bot for about a week. Review the `Đề xuất` tab daily, fix wrong answers, add missing scripts.
 3. Team: share the Staff bot link with the rest of the staff once the pilot's answers are acceptable.
 
+## Editor skill: cskh-draft
+
+`editor/skills/cskh-draft/` drafts scripts from pasted chats, questions or the public Q&A page. Drafts are always `Nháp`; only the owner approves. Scenarios for it are in `scenarios/t10-*.md`.
+
+Data rule: the real Q&A content and real chats are loaded into the owner's own Google Sheet at runtime only. This repo holds FAKE data only; tests use `fake-data/FAKE-qa-khong-nhat-quan.txt` and `fake-data/FAKE-chat-khach.txt`.
+
 ## Testing with fake data
 
 `fake-data/` holds files for the fictional "Công ty Mẫu". Every file name and every row is marked FAKE. Import the CSVs into a test Sheet to try the bots. Prices, days and policies in them are invented. `FAKE-qa-khong-nhat-quan.txt` is a deliberately inconsistent Q&A page, to check that the bots flag contradictions instead of picking one.

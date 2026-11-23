@@ -21,7 +21,7 @@ for d in skills/design/*/; do
     grep -qxF "$h" "$page" || { echo "$page lacks: $h"; fail=1; }
   done
 done
-python skills/design/skill-package/scripts/validate_skill.py skills/design/skill-design >/dev/null || { echo "validate_skill.py failed"; fail=1; }
-python skills/design/bot-score/scripts/score_bot.py skills/design/bot-score/references/sample-profile.md >/dev/null || { echo "score_bot.py failed"; fail=1; }
+"${PYTHON:-python}" skills/design/skill-package/scripts/validate_skill.py skills/design/skill-design >/dev/null || { echo "validate_skill.py failed"; fail=1; }
+"${PYTHON:-python}" skills/design/bot-score/scripts/score_bot.py skills/design/bot-score/references/sample-profile.md >/dev/null || { echo "score_bot.py failed"; fail=1; }
 [ $fail -eq 0 ] && echo "ok"
 exit $fail
