@@ -44,3 +44,7 @@ The top of a results file gives the agent version and counts (pass, fail, error)
 ## Tests of the runner itself
 
 `scripts/tests/test_run_scenarios.py` tests the sandbox builder, the checks and the judge parser with a stub agent (`SCENARIO_AGENT_STUB` points at a script that stands in for the agent). It runs from `scripts/tests/run.sh`. CI never calls a real agent.
+
+## Latest status
+
+Results files `*-2026-11-23-review-fixes.md`: claude 17/17 pass, codex 14/17 pass. The gate is NOT met for codex: `t10-pii-in-pasted-chat`, `t9-repeated-question-dedupe` and `t9-write-boundary-only-de-xuat` failed on judge strictness (see reasons in the file; the last two passed in the earlier run, so they vary between runs). The earlier `claude-2026-11-23.md` and `codex-2026-11-23.md` are the pre-fix baseline (16/17 and 5/17).
