@@ -15,10 +15,10 @@ fresh() {
   if [ $PRISTINE -eq 0 ]; then
     mkdir -p "$TMP/r"
     (cd "$SRC" && git ls-files -z --cached --others --exclude-standard | tar --null -T - -cf - 2>/dev/null) | tar -xf - -C "$TMP/r"
-    (cd "$TMP/r" && git init -q && git add -A >/dev/null 2>&1 && git -c user.name=t -c user.email=t@t commit -qm pristine >/dev/null 2>&1)
+    (cd "$TMP/r" && git init -q && git add -A >/dev/null 2>&1       && git -c user.name=t -c user.email=t@t -c commit.gpgsign=false commit -qm pristine >/dev/null 2>&1)       || { echo "ABORT: could not create the pristine commit; test state would leak" >&2; exit 2; }
     PRISTINE=1
   else
-    (cd "$TMP/r" && git reset -q --hard && git clean -fdxq)
+    (cd "$TMP/r" && git reset -q --hard && git clean -fdxq)       || { echo "ABORT: reset/clean of the pristine copy failed; test state would leak" >&2; exit 2; }
   fi
 }
 # expect <name> <0|1>: run ci.sh in the current temp copy

@@ -33,6 +33,10 @@ Rules:
 - `scripts/check-frontmatter.py`: rules 1, 2, 5.
 - `scripts/check-layout.sh`: rule 3 and the buckets of rule 5.
 - `scripts/check-no-real-data.py` and `scripts/check-scenarios.sh`: fake data, scenarios.
+- `scripts/check-columns.py`: the `Kịch bản` / `Đề xuất` column lists agree across the template, FAKE CSV headers and `run-scenarios.py`.
+- `scripts/check-glossary-avoid.py`: terms under `## Avoid` in `GLOSSARY.md` do not appear in `.md` files (ADRs exempt).
+- `scripts/check-no-build-artifacts.sh`: no tracked `__pycache__/` or `*.pyc`.
+- `scripts/check-soul-rules.py`: bot SOULs point at their skills and do not restate sheet columns or status vocabulary.
 - `scripts/tests/run.sh`: one failing case per rule.
 
 To change the layout: change this ADR first, then the checks and their failing-case tests in the same change, and announce it to open tickets before merging.

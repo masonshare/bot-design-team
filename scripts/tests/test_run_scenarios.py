@@ -213,6 +213,28 @@ class RepeatAndGate(unittest.TestCase):
         with self.assertRaises(SystemExit):
             self.cli("good", "--gate", "17")
 
+    def test_gate_fails_when_run_stops_early(self):
+        # Login failure stops the run after the first call: 2 scenarios x 3 repeats expected, 1 done.
+        code, text, _ = self.cli("login", "--only", "t9-unknown-nonsensitive-chua-duyet",
+                                 "--repeat", "3", "--gate", "0")
+        self.assertEqual(code, 1)
+        self.assertIn("expected 6, done 1", text)
+
+    def test_gate_fails_when_scenarios_never_ran(self):
+        # First run passes, then a login error stops the run: the second scenario never ran (0%).
+        d = tempfile.mkdtemp()
+        self.addCleanup(rs.cleanup, d)
+        done = [{"id": "a", "status": "PASS", "detail": "", "det": [], "judge": None, "reply": ""}]
+        self.assertEqual(rs.below_gate(done, 0.5, ["a", "b"]), ["b"])
+        text = rs.render_results("claude", "x", "2026-01-01", done, "", 1, 0.5, expected=2)
+        self.assertIn("expected 2, done 1", text)
+        self.assertIn("FAIL", text)
+
+    def test_complete_gate_run_reports_counts_and_passes(self):
+        code, text, _ = self.cli("append-dx", "--repeat", "2", "--gate", "1")
+        self.assertEqual(code, 0)
+        self.assertIn("expected 2, done 2", text)
+
     def test_default_is_smoke_and_full_needs_flag(self):
         self.assertEqual(sorted(s["id"] for s in rs.select_scenarios(PACK, None, False)), sorted(rs.SMOKE))
         self.assertEqual(len(rs.select_scenarios(PACK, None, True)), len(rs.load_scenarios(PACK)))
