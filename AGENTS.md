@@ -11,3 +11,11 @@ Default five labels: needs-triage, needs-info, ready-for-agent, ready-for-human,
 ### Domain docs
 
 Single-context: one `GLOSSARY.md` and `docs/adr/` at repo root. See `docs/agents/domain.md`.
+
+## Hard rule: Orca-only, no real data
+
+This repo is public and targets Orca only. Never commit real company data (scripts, prices, chats, customer names, phone numbers, staff details) or secrets. Use fake examples only. Legacy OpenMausBot and Grok material lives only at the git tag v0-openmausbot.
+
+CI enforces this with `scripts/check-no-real-data.py` (run via `scripts/ci.sh`). It fails on phone-number-like strings, chat lines with personal names, and price lists (3+ priced lines) unless they are FAKE-marked. Allowed: files `packs/*/fake-data/FAKE-*`, any line containing the token `FAKE`, `packs/*/scenarios/` files containing `FAKE`, and `scripts/tests/`. See `CONTRIBUTING.md`.
+
+CLAUDE.md must stay byte-identical to this file.
