@@ -9,6 +9,7 @@ run() { echo "== $1"; shift; "$@" || fail=1; }
 run "SKILL.md frontmatter (skills/ and packs/)" "$PYTHON" scripts/check-frontmatter.py
 run "layout and docs pages" sh scripts/check-layout.sh
 run "legacy leftovers and AGENTS.md == CLAUDE.md" sh scripts/check-no-legacy.sh
+run "scenario files parse" sh scripts/check-scenarios.sh
 run "no real company data (leak scan)" "$PYTHON" scripts/check-no-real-data.py
 if [ $fail -eq 0 ]; then echo "CI OK"; else echo "CI FAILED"; fi
 exit $fail

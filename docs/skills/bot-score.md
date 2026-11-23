@@ -2,7 +2,7 @@
 
 ## What it does
 
-Scores and tests a bot profile before it ships, reporting design, applied, read-back and behaviour-tested as four separate states. Includes a 14-item scorecard and the optional completeness script.
+Scores and tests a bot profile before it ships, reporting design, applied, read-back and behaviour-tested as four separate states. Includes a 14-item scorecard and the optional completeness check (the Python scorer `score_bot.py`).
 
 Source: [`skills/design/bot-score/SKILL.md`](../../skills/design/bot-score/SKILL.md)
 
@@ -22,4 +22,4 @@ You want a bot checked for readiness, test cases run for a bot, or a coordinator
 
 - Each conclusion cites evidence and its source tier.
 - The four states are reported separately.
-- The script runs on references/sample-profile.md and prints a completeness line.
+- The Python scorer runs on references/sample-profile.md and prints a completeness line.
