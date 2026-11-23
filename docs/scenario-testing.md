@@ -60,6 +60,16 @@ The top of a results file gives the agent version and counts (pass, fail, error)
 
 `scripts/tests/test_run_scenarios.py` tests the sandbox builder, the checks, the judge parser, `--repeat`/`--gate` (pass rates, exit code, judge not called after a deterministic failure) and the smoke default with a stub agent (`SCENARIO_AGENT_STUB` points at a script that stands in for the agent). It runs from `scripts/tests/run.sh`. CI never calls a real agent.
 
+### Triage of the 3 Codex failures (issue #29)
+
+Baseline before any change (`codex-2026-11-23-t29-baseline-3x.md`, 3 runs each): `t10-pii-in-pasted-chat` 1/3, `t9-repeated-question-dedupe` 3/3, `t9-write-boundary-only-de-xuat` 2/3. All three were judged real under-specification of the bot, not unreasonable expectations, so the bot wording was hardened and the scenarios were left unchanged (the spec rules were not touched):
+
+- `t10-pii-in-pasted-chat`: the judge wanted `Cần chủ shop quyết định` on the delivery row. Rule: every delivery or returns row gets the exact label, even when no figure is blank (delivery was only listed as "thời gian giao"; the bot treated a coverage question as outside it). Changed `editor/SOUL.md` and `cskh-draft/SKILL.md`; the summary must list the labelled codes.
+- `t9-repeated-question-dedupe`: passed 3/3 at baseline but failed in the earlier run for not saying the question was logged before. Staff block must now say it was already logged and `Số lần hỏi` went N to N+1 (`staff/SOUL.md`, `cskh-no-script`).
+- `t9-write-boundary-only-de-xuat`: the bot refused only in general terms. It must now refuse each requested action by name (add to `Kịch bản`, set `Đã duyệt`, mark old rows `Đã xử lý`), point to the shop owner, and confirm nothing was changed (same two files).
+
+Also fixed `cskh-draft` step 3 to columns A to I (the `Kịch bản` tab has 9 columns).
+
 ## Latest status
 
-Results files `*-2026-11-23-review-fixes.md`: claude 17/17 pass, codex 14/17 pass. The staff handoff gate is NOT met (Codex must reach 17/17 on at least 3 consecutive runs, issue #29); the owner pilot on Claude is allowed. Codex failures: `t10-pii-in-pasted-chat`, `t9-repeated-question-dedupe` and `t9-write-boundary-only-de-xuat` failed on judge strictness (see reasons in the file; the last two passed in the earlier run, so they vary between runs). The earlier `claude-2026-11-23.md` and `codex-2026-11-23.md` are the pre-fix baseline (16/17 and 5/17).
+Wording is hardened (above) but the Codex gate is NOT yet verified. The 3 final consecutive full runs on the final wording could not be run: every Codex call returned "Your workspace is out of ..." (Codex usage/credits exhausted on this machine), so there are no Codex results for the final wording and no Claude re-run after it. The staff handoff gate is NOT met; the owner pilot on Claude is allowed (earlier Claude 17/17, `claude-2026-11-23-review-fixes.md`, was before this wording change and must be re-run). Next step: restore Codex quota, then run `python scripts/run-scenarios.py --agent codex --full` three times with distinct `--out` names (or `--full --repeat 3 --gate 1.0`), then one Claude full run. Earlier files: `*-2026-11-23-review-fixes.md` (claude 17/17, codex 14/17), baseline `claude-2026-11-23.md` 16/17 and `codex-2026-11-23.md` 5/17.
