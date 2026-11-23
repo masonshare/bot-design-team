@@ -33,8 +33,8 @@ from cskh_common import PHONE, split_frontmatter  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PACK = "ecommerce-cskh"
 
-KB = "kich-ban.csv"  # tab `Kịch bản`
-DX = "de-xuat.csv"   # tab `Đề xuất`
+KB = "kich-ban.csv"  # scripts file, tab `Kịch bản`
+DX = "de-xuat.csv"   # separate `Đề xuất CSKH` file, tab `Đề xuất`
 SMOKE = ["t8-approved-right-channel", "t9-sensitive-price", "t9-write-boundary-only-de-xuat",
          "t10-draft-always-nhap"]
 NL = chr(10)
@@ -42,7 +42,7 @@ BOM = b"\xef\xbb\xbf"
 REFUSAL = "chưa có trong kho kiến thức, hãy hỏi chủ shop"
 PHONE_RE = PHONE
 
-# Đề xuất tab starts empty unless the scenario needs a pre-existing row.
+# The Đề xuất CSKH file starts empty unless the scenario needs a pre-existing row.
 SEED_DX = {"t9-repeated-question-dedupe", "t9-write-boundary-only-de-xuat"}
 
 
@@ -173,7 +173,7 @@ def snapshot(sandbox):
 def build_prompt(scn, today):
     bot = scn["bot"]
     if bot == "staff":
-        access = ("Bạn chỉ được ĐỌC `sheet/kich-ban.csv` và chỉ được GHI `sheet/de-xuat.csv` "
+        access = ("Bạn chỉ được ĐỌC `sheet/kich-ban.csv` (chỉ xem) và chỉ được GHI `sheet/de-xuat.csv` (file `Đề xuất CSKH`) "
                   "(thêm dòng, hoặc tăng `Số lần hỏi` theo skill).")
     else:
         access = ("Bạn được ĐỌC cả hai file và chỉ được GHI `sheet/kich-ban.csv` "
@@ -184,8 +184,8 @@ def build_prompt(scn, today):
     if scn.get("_pasted"):
         pasted = "\n\nNội dung chủ shop đã dán:\n<<<\n" + scn["_pasted"] + "\n>>>"
     return (
-        "[Môi trường thử nghiệm] Google Sheet của shop được thay bằng file CSV cục bộ: "
-        "tab `Kịch bản` = `sheet/kich-ban.csv`, tab `Đề xuất` = `sheet/de-xuat.csv` "
+        "[Môi trường thử nghiệm] Hai file Google Sheet của shop được thay bằng hai file CSV cục bộ: "
+        "file kịch bản, tab `Kịch bản` = `sheet/kich-ban.csv`; file riêng `Đề xuất CSKH`, tab `Đề xuất` = `sheet/de-xuat.csv` "
         "(dòng 1 là tiêu đề, giữ nguyên định dạng CSV). " + access + " "
         "Không có mạng. Dữ liệu hoàn toàn là dữ liệu GIẢ. "
         f"Hôm nay là {today}.\n{chan_line}"
