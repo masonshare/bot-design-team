@@ -27,7 +27,7 @@ Allowlist (nothing else is exempt):
 
 Shared parsing (front matter, phone regex) lives in `scripts/lib/cskh_common.py`. GitHub Actions runs the tests below, then `sh scripts/ci.sh`, on every push and on pull requests to `main`.
 
-Tests: `bash scripts/tests/run.sh` (failing-case tests for the checks, plus unit tests of `scripts/run-scenarios.py` with a stub agent; CI never calls a real agent). It builds one pristine temp copy and resets it between cases, so it runs in about 35 s on Windows (Git Bash); it was about 150 s with a full copy per case. Keep `AGENTS.md` and `CLAUDE.md` byte-identical.
+Tests: `bash scripts/tests/run.sh` (failing-case tests for the checks, plus unit tests of `scripts/run-scenarios.py` with a stub agent; CI never calls a real agent). It builds one pristine temp copy and resets it between cases, so it runs in about 35 s on Windows (Git Bash); it was about 150 s with a full copy per case. Keep `AGENTS.md` and `CLAUDE.md` byte-identical. Dispatching pipeline skills to a worker: `docs/agents/dispatch-pipeline-skills.md`.
 
 ## Pack layout contract
 

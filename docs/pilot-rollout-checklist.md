@@ -21,10 +21,10 @@ The gate has two levels (decision D on PR #28). See `docs/scenario-testing.md`.
 |---|---|---|---|
 | 0.1 | agent | `sh scripts/ci.sh` | Exits 0 |
 | 0.2 | owner | Log in to Claude Code (`claude auth status`) and Codex (`codex login status`) | Both report logged in |
-| 0.3 | agent | `python scripts/run-scenarios.py --agent claude --smoke`, then without `--smoke` | Results file for `claude` shows 0 fail, 0 error |
-| 0.4 | agent | Same for `--agent codex`. Not required to start stage 1; required before stage 2 (see 0.6) | Results file for `codex` shows 0 fail, 0 error |
+| 0.3 | agent | `python scripts/run-scenarios.py --agent claude` (smoke subset), then `python scripts/run-scenarios.py --agent claude --full` | Results file for `claude` shows 0 fail, 0 error |
+| 0.4 | agent | Same for `--agent codex` (smoke, then `--full`). Not required to start stage 1; required before stage 2 (see 0.6) | Results file for `codex` shows 0 fail, 0 error |
 | 0.5 | owner | Open both results files in `packs/ecommerce-cskh/scenarios/results/` | No recorded gap; counts match 0.3 and 0.4 |
-| 0.6 | agent | Staff handoff gate: run the full Codex suite 3 times in a row (more if any run fails; the count restarts after a failure or after any change to a bot instruction or skill) | 3 consecutive results files for `codex`, each 17/17 pass, 0 fail, 0 error (issue #29) |
+| 0.6 | agent | Staff handoff gate: run `python scripts/run-scenarios.py --agent codex --full --repeat 3 --gate 1.0` (the full Codex suite 3 times; exit code 0 = gate met; repeat more if any run fails; the count restarts after a failure or after any change to a bot instruction or skill) | Exit 0; results file for `codex` shows 17/17 scenarios at 3/3 (100%), 0 fail, 0 error (issue #29) |
 
 Exit criteria for the owner pilot (stage 1): `sh scripts/ci.sh` green and Claude passes every scenario (a missing results file or a recorded gap means not met); Codex may still be at 14/17.
 
