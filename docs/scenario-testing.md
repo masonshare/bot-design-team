@@ -4,14 +4,17 @@ Behavioural tests for the two bots (staff, editor) against FAKE data, run on bot
 
 ## Ship gate
 
-The pack is not shippable to staff until every scenario passes on BOTH agents (results files for `claude` and `codex` show 0 fail, 0 error). A missing results file, or one that records a gap, means the gate is not met.
+The gate has two levels. A missing results file, or one that records a gap, means the level is not met.
+
+- Owner pilot: may proceed with the Claude-based owner bot (every scenario passes on `claude`: 0 fail, 0 error) while Codex is at 14/17.
+- Staff handoff: BEFORE the bot is handed to ONE staff member (staff run Codex), the Codex suite must pass 17/17 stably, meaning at least 3 consecutive full runs each with 0 fail, 0 error. Tracked in issue #29 (Tighten the 3 Codex-failing scenarios). Any change to a bot instruction or skill restarts the count.
 
 ## What the runner does
 
 For each scenario it:
 
-1. Builds a throwaway sandbox: the bot's `SOUL.md` as `CLAUDE.md` (Claude Code) or `AGENTS.md` (Codex), its skills in `.claude/skills/<name>` or `.agents/skills/<name>`, `voice-guide.md`, `sheet-template.md`, and CSV stand-ins for the Google Sheet (`sheet/kich-ban.csv` = tab `Kịch bản`, `sheet/de-xuat.csv` = tab `Đề xuất`) copied from `fake-data/`.
-2. Enforces the access model: staff may write only `de-xuat.csv`; editor may write only `kich-ban.csv`. The other file is read-only, and the CSVs are diffed after the run anyway.
+1. Builds a throwaway sandbox: the bot's `SOUL.md` as `CLAUDE.md` (Claude Code) or `AGENTS.md` (Codex), its skills in `.claude/skills/<name>` or `.agents/skills/<name>`, `voice-guide.md`, `sheet-template.md`, and CSV stand-ins for the Google Sheet (`sheet/kich-ban.csv` = tab `Kịch bản` of the scripts file, `sheet/de-xuat.csv` = the separate `Đề xuất CSKH` file) copied from `fake-data/`.
+2. Enforces the access model: staff may write only `de-xuat.csv` (the `Đề xuất CSKH` file) and the scripts file `kich-ban.csv` is read-only for them; editor may write only `kich-ban.csv`. The other file is read-only, and the CSVs are diffed after the run anyway.
 3. Runs the agent headlessly (no network, only file tools for Claude Code, workspace-write sandbox for Codex) with the scenario message.
 4. Grades twice: deterministic checks on the CSV diff and reply (for example `Kịch bản` unchanged for staff, new editor rows are `Nháp` with no approver, `Đề xuất` row appended or count +1, no phone/name in new rows), then a second headless call to the same agent as a strict judge returning JSON `{pass, reasons}` on the `## Expect` and `## Must not` bullets. A scenario passes only if both agree.
 5. An agent or judge failure is `ERROR`, never a pass. Nothing is ever simulated.
@@ -47,4 +50,4 @@ The top of a results file gives the agent version and counts (pass, fail, error)
 
 ## Latest status
 
-Results files `*-2026-11-23-review-fixes.md`: claude 17/17 pass, codex 14/17 pass. The gate is NOT met for codex: `t10-pii-in-pasted-chat`, `t9-repeated-question-dedupe` and `t9-write-boundary-only-de-xuat` failed on judge strictness (see reasons in the file; the last two passed in the earlier run, so they vary between runs). The earlier `claude-2026-11-23.md` and `codex-2026-11-23.md` are the pre-fix baseline (16/17 and 5/17).
+Results files `*-2026-11-23-review-fixes.md`: claude 17/17 pass, codex 14/17 pass. The staff handoff gate is NOT met (Codex must reach 17/17 on at least 3 consecutive runs, issue #29); the owner pilot on Claude is allowed. Codex failures: `t10-pii-in-pasted-chat`, `t9-repeated-question-dedupe` and `t9-write-boundary-only-de-xuat` failed on judge strictness (see reasons in the file; the last two passed in the earlier run, so they vary between runs). The earlier `claude-2026-11-23.md` and `codex-2026-11-23.md` are the pre-fix baseline (16/17 and 5/17).

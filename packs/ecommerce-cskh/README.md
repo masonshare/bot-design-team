@@ -38,9 +38,11 @@ Bots run on the customer's own machine and under the customer's own AI subscript
 | Who | Sheet access | Why |
 |---|---|---|
 | Owner | Owner / editor | Approves scripts, manages tabs |
-| Editor bot (signed in as the owner or an editor) | Edit on tab `Kịch bản` | Writes `Nháp` rows only |
-| Staff members | View-only share of the whole Sheet | Read approved scripts |
-| Staff bot | Read tab `Kịch bản`; append rows to tab `Đề xuất` only | Logs unknown questions |
+| Editor bot (signed in as the owner or an editor) | Edit on tab `Kịch bản` (scripts file); read `Đề xuất CSKH` | Writes `Nháp` rows only |
+| Staff members | View-only on the scripts file; editor on the separate `Đề xuất CSKH` file | Read approved scripts; log unknown questions |
+| Staff bot (signed in as the staff member) | Read the scripts file; append rows to the `Đề xuất CSKH` file only | Logs unknown questions |
+
+The `Đề xuất` tab is its own Google Sheet file (`Đề xuất CSKH`) because Google shares per file, not per tab. See `sheet-template.md`.
 
 Google Sheets read and write scope is enough. No Drive-wide or Gmail access is needed.
 
@@ -49,7 +51,7 @@ Google Sheets read and write scope is enough. No Drive-wide or Gmail access is n
 Step-by-step checklist with exit criteria: [`docs/pilot-rollout-checklist.md`](../../docs/pilot-rollout-checklist.md).
 
 1. Owner: builds the Sheet, runs the Editor bot, approves a first batch of scripts (status `Đã duyệt`, with approver and date).
-2. Pilot: one staff member uses the Staff bot for about a week. Review the `Đề xuất` tab daily, fix wrong answers, add missing scripts.
+2. Pilot: one staff member uses the Staff bot for about a week. Review the `Đề xuất CSKH` file daily, fix wrong answers, add missing scripts.
 3. Team: share the Staff bot link with the rest of the staff once the pilot's answers are acceptable.
 
 ## Editor skill: cskh-draft

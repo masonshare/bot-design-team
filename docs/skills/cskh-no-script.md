@@ -2,7 +2,7 @@
 
 ## What it does
 
-Handles a customer question that has no usable approved script (a match that is `Nháp`, `Hết hạn`, for another channel or unsigned counts as no match). It first classifies the question. For ordinary topics it drafts a short provisional reply that starts with `(chưa duyệt)` and states no specific fact. For the four sensitive topics (price or promotion, return or refund, delivery-time commitment, food safety or ATTP) it invents nothing, not even a hedged answer, and replies only `chưa có trong kho kiến thức, hãy hỏi chủ shop`. Every question handled this way is logged to tab `Đề xuất`: a new row, or +1 on `Số lần hỏi` if the same question is already there and not `Đã xử lý`. That is the only write it may do.
+Handles a customer question that has no usable approved script (a match that is `Nháp`, `Hết hạn`, for another channel or unsigned counts as no match). It first classifies the question. For ordinary topics it drafts a short provisional reply that starts with `(chưa duyệt)` and states no specific fact. For the four sensitive topics (price or promotion, return or refund, delivery-time commitment, food safety or ATTP) it invents nothing, not even a hedged answer, and replies only `chưa có trong kho kiến thức, hãy hỏi chủ shop`. Every question handled this way is logged to the separate `Đề xuất CSKH` Google Sheet file (tab `Đề xuất`): a new row, or +1 on `Số lần hỏi` if the same question is already there and not `Đã xử lý`. That is the only write it may do; the scripts file stays read-only for staff.
 
 Pack: [`ecommerce-cskh`](../../packs/ecommerce-cskh/README.md), Staff bot. Source: [`packs/ecommerce-cskh/staff/skills/cskh-no-script/SKILL.md`](../../packs/ecommerce-cskh/staff/skills/cskh-no-script/SKILL.md)
 
@@ -27,11 +27,11 @@ It runs after [`cskh-lookup`](cskh-lookup.md) finds nothing. Scenarios in [`pack
 
 **What goes in `Câu hỏi của khách`?** The question without names, phone numbers, addresses or order codes.
 
-**Who reads `Đề xuất`?** The shop owner, who turns repeated questions into approved scripts (see [`cskh-draft`](cskh-draft.md)).
+**Who reads `Đề xuất CSKH`?** The shop owner, who turns repeated questions into approved scripts (see [`cskh-draft`](cskh-draft.md)).
 
 ## It's working if
 
 - Non-sensitive replies start with `(chưa duyệt)` and contain no invented number, date or policy.
 - Sensitive questions get the refusal line and no figures, not even "usually".
 - Each handled question leaves exactly one new `Đề xuất` row, or a +1 on an open duplicate, with `Trạng thái xử lý` = `Mới` for new rows.
-- Tab `Kịch bản` and all other `Đề xuất` cells are untouched.
+- The scripts file (tab `Kịch bản`) and all other `Đề xuất` cells are untouched.

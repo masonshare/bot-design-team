@@ -1,6 +1,6 @@
 ---
 name: cskh-no-script
-description: Handle a customer question that has no approved script. Gives a provisional reply marked "chưa duyệt" for ordinary topics, refuses to invent anything for price, return/refund, delivery-time commitments and food safety (ATTP), and logs every such question to the Đề xuất tab. Use when cskh-lookup finds no matching Đã duyệt script.
+description: Handle a customer question that has no approved script. Gives a provisional reply marked "chưa duyệt" for ordinary topics, refuses to invent anything for price, return/refund, delivery-time commitments and food safety (ATTP), and logs every such question to the separate `Đề xuất CSKH` file (tab `Đề xuất`). Use when cskh-lookup finds no matching Đã duyệt script.
 ---
 
 # cskh-no-script: no approved script matches
@@ -25,14 +25,16 @@ If unsure, treat as sensitive. Anything else is non-sensitive.
 - Keep the channel rules of `cskh-lookup` (never move a Shopee customer off-platform).
 - Output uses the two blocks of `cskh-lookup`. Block 2 names the closest script code (if any), says no approved script matched, says whether the reply is `chưa duyệt` or a refusal, and says the question was logged. For a sensitive topic, block 2 also tells the staff explicitly: `hãy hỏi chủ shop`. If a near-match script exists but was not used (other channel, `Nháp`, `Hết hạn`, unsigned), name its code and say it was NOT used and why.
 
-## 3. Log to `Đề xuất` (always)
+## 3. Log to `Đề xuất CSKH` (always)
+
+The log lives in its own Google Sheet file, `Đề xuất CSKH`, tab `Đề xuất`, not in the scripts file. Staff are editors on that file only.
 
 Every question handled here is logged, sensitive or not. Columns A to H: `Ngày`, `Kênh`, `Câu hỏi của khách`, `Câu đã trả lời` (the provisional text, or `chưa có trong kho kiến thức, hãy hỏi chủ shop`), `Mã gần nhất`, `Người hỏi`, `Trạng thái xử lý` = `Mới`, `Số lần hỏi` = `1`.
 
-- Read `Đề xuất` first. If a row already asks the same thing (same meaning) and is not `Đã xử lý`, do not add a row: add 1 to its `Số lần hỏi` and leave its other cells unchanged.
+- Read the `Đề xuất` tab of `Đề xuất CSKH` first. If a row already asks the same thing (same meaning) and is not `Đã xử lý`, do not add a row: add 1 to its `Số lần hỏi` and leave its other cells unchanged.
 - If the matching row is `Đã xử lý`, append a new row.
 - No personal data in `Câu hỏi của khách`: strip names, phone numbers, addresses, order codes.
 
 ## 4. Write boundary
 
-The only writes you may do: append a row to tab `Đề xuất`, or add 1 to `Số lần hỏi` of an existing row there. Never write to `Kịch bản` or any other tab or file, and never change other cells of `Đề xuất`. If asked to (for example "thêm vào kịch bản", "đánh dấu đã xử lý"), refuse briefly and point to the shop owner. You still log the customer's question to `Đề xuất`.
+You read the scripts file read-only. The only writes you may do: append a row to tab `Đề xuất` of the `Đề xuất CSKH` file, or add 1 to `Số lần hỏi` of an existing row there. Never write to the scripts file (`Kịch bản`) or any other tab or file, and never change other cells of `Đề xuất`. If asked to (for example "thêm vào kịch bản", "đánh dấu đã xử lý"), refuse briefly and point to the shop owner. You still log the customer's question to `Đề xuất`.

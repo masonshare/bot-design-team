@@ -1,6 +1,13 @@
 # Google Sheet template: kho kiến thức CSKH
 
-Create one Google Sheet with two tabs. Tab names are exact.
+Create TWO Google Sheet files in the owner's own Google account. Names and tab names are exact.
+
+| File | Tab | Who edits |
+|---|---|---|
+| Scripts file (any name, for example `Kịch bản CSKH`) | `Kịch bản` | Owner and Editor bot. Staff: view-only |
+| `Đề xuất CSKH` | `Đề xuất` | Staff (and the Staff bot as the signed-in staff member). Owner reads and manages |
+
+Google shares per file, never per tab. That is why `Đề xuất` is its own file: staff can then be editors there and stay view-only on the scripts.
 
 ## Tab 1: `Kịch bản`
 
@@ -29,9 +36,9 @@ One row per script. Row 1 holds these headers, in this order.
 - `all`: any channel.
 - `Shopee`, `Zalo`, `hotline`: only that channel. A `Shopee` script is not used on the other channels.
 
-## Tab 2: `Đề xuất`
+## File 2, tab `Đề xuất` (file `Đề xuất CSKH`)
 
-The Staff bot's inbox. One row per question the knowledge base could not answer, or answered only provisionally.
+The Staff bot's inbox, in its own file named `Đề xuất CSKH` with a single tab `Đề xuất`. One row per question the knowledge base could not answer, or answered only provisionally.
 
 | Column | Header | Content |
 |---|---|---|
@@ -44,11 +51,13 @@ The Staff bot's inbox. One row per question the knowledge base could not answer,
 | G | Trạng thái xử lý | `Mới` or `Đã xử lý` |
 | H | Số lần hỏi | Times this same question was asked. Starts at `1`; the Staff bot adds 1 instead of adding a duplicate row (see `staff/skills/cskh-no-script`) |
 
-The owner or the Editor bot turns useful rows into `Nháp` scripts in tab `Kịch bản`.
+The owner reviews the `Đề xuất CSKH` file (daily during the pilot); the owner or the Editor bot turns useful rows into `Nháp` scripts in tab `Kịch bản` of the scripts file.
 
 ## Access model
 
-- Staff get a view-only share of the Sheet. They cannot edit scripts.
-- The Staff bot reads `Kịch bản` and writes only to `Đề xuất` (append rows). It never edits `Kịch bản`.
+- Scripts file: staff get a view-only share. They cannot edit scripts.
+- `Đề xuất CSKH` file: staff get editor access (this file only). The bot signs in as the staff member, so it can append there.
+- The Staff bot reads the scripts file read-only and writes only to `Đề xuất CSKH` (append a row, or add 1 to `Số lần hỏi`). It never edits `Kịch bản` or changes other `Đề xuất` cells.
+- Known cost: a staff editor could edit or delete rows in `Đề xuất CSKH`. Accepted; the owner reviews the file daily during the pilot and may protect the header row.
 - Only the Editor bot and the owner write to `Kịch bản`. The Editor bot writes `Nháp` only. Only the owner sets `Đã duyệt` and fills column I.
 - Real Sheet IDs, links, prices and chats stay in the owner's Google account and are never committed to this repo.

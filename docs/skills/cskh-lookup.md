@@ -2,7 +2,7 @@
 
 ## What it does
 
-Lets customer-service staff turn a customer question into a ready-to-send Vietnamese reply built from the shop's approved scripts. It reads tab `Kịch bản`, keeps only rows whose channel is `all` or the staff's channel (Shopee, Zalo or hotline), matches the question by meaning, and adapts the `Mẫu trả lời` without changing any fact, number or date. The output has two separate blocks: `Trả lời khách` (the reply only) and `Dành cho nhân viên (không gửi khách)` (script code, status, channel match, `Lưu ý nội bộ`, warnings). It is read-only: it never edits, approves or re-statuses a script.
+Lets customer-service staff turn a customer question into a ready-to-send Vietnamese reply built from the shop's approved scripts. It reads tab `Kịch bản` of the scripts file (read-only for staff), keeps only rows whose channel is `all` or the staff's channel (Shopee, Zalo or hotline), matches the question by meaning, and adapts the `Mẫu trả lời` without changing any fact, number or date. The output has two separate blocks: `Trả lời khách` (the reply only) and `Dành cho nhân viên (không gửi khách)` (script code, status, channel match, `Lưu ý nội bộ`, warnings). It is read-only: it never edits, approves or re-statuses a script.
 
 Pack: [`ecommerce-cskh`](../../packs/ecommerce-cskh/README.md), Staff bot. Source: [`packs/ecommerce-cskh/staff/skills/cskh-lookup/SKILL.md`](../../packs/ecommerce-cskh/staff/skills/cskh-lookup/SKILL.md)
 

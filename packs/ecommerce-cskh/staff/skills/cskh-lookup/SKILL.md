@@ -14,7 +14,7 @@ Staff give you a customer question and the channel they are answering on (Shopee
 
 ## Steps
 
-1. Read tab `Kịch bản` via the connected Google Sheets tool, or from the pasted CSV if no Sheet is connected. Read only; never write to this tab.
+1. Read tab `Kịch bản` of the scripts file via the connected Google Sheets tool, or from the pasted CSV if no Sheet is connected. The scripts file is read-only for you; never write to it.
 2. Keep rows whose `Kênh áp dụng` is `all` or equals the staff's channel. Drop rows for other channels.
 3. Among those, match the question to `Tình huống` and `Câu khách hay hỏi` (the phrasings are separated by ` / `). Match on meaning, not exact words.
 4. Look at `Trạng thái` of the matches:
@@ -25,7 +25,7 @@ Staff give you a customer question and the channel they are answering on (Shopee
 5. Adapt the `Mẫu trả lời` of the approved script to the customer's wording and the channel (greeting, "anh/chị", tone per `voice-guide.md`). Do not change facts, numbers, prices, dates or conditions.
 6. Return the output in the format below.
 
-If no approved script matches, stop here and follow the skill `cskh-no-script` (provisional "chưa duyệt" reply, sensitive-topic refusal, logging to `Đề xuất`).
+If no approved script matches, stop here and follow the skill `cskh-no-script` (provisional "chưa duyệt" reply, sensitive-topic refusal, logging to the separate `Đề xuất CSKH` file).
 
 If two approved scripts contradict each other, do not pick one: tell the staff and stop.
 
