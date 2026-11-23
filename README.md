@@ -12,6 +12,17 @@ Three AI bots and Agent Skills for designing prompts, skills and bots, built for
 
 Each skill also works on its own, without the team.
 
+## Pack: ecommerce-cskh
+
+A ready-made two-bot pack for a Vietnamese e-commerce shop (Shopee, Zalo, hotline), in [`packs/ecommerce-cskh/`](packs/ecommerce-cskh/README.md). The owner keeps approved reply scripts in a Google Sheet.
+
+| Bot | Role | Skills |
+|---|---|---|
+| Editor | Helps the owner draft and clean up scripts; drafts are always `Nháp` and only the owner approves | [`cskh-draft`](docs/skills/cskh-draft.md) |
+| Staff | Helps staff answer customers from approved scripts only; read-only on scripts | [`cskh-lookup`](docs/skills/cskh-lookup.md), [`cskh-no-script`](docs/skills/cskh-no-script.md) |
+
+The pack ships with FAKE sample data and replayable behaviour scenarios, no real data. See the pack README for the Sheet layout, Google permissions and rollout.
+
 ## Direction
 
 This repo is Orca-only. Bots run inside Orca on the user's own machine and subscription, and are shared with Orca's bot share link. The earlier platform-specific material was removed; it stays available at the git tag `v0-openmausbot`.
@@ -36,14 +47,15 @@ Create each bot in Orca, paste its soul from [`bots/`](bots/) and enable the ski
 ```
 bots/          the three souls (standing instructions), English and Vietnamese
 skills/        Agent Skills in buckets: design/ (promoted), in-progress/, deprecated/; each with references/vi.md (Vietnamese edition)
-docs/skills/   one page per promoted skill (what it does, when, questions, how to tell it works)
+packs/         ready-made bot packs (ecommerce-cskh: Editor and Staff bots, FAKE data, scenarios)
+docs/skills/   one page per promoted skill and per pack skill (what it does, when, questions, how to tell it works)
 docs/agents/   notes for coding agents (issue tracker, labels, domain docs)
-scripts/       repo checks
+scripts/       repo checks (run `sh scripts/ci.sh`)
 ```
 
 ## No real data
 
-This repo is public. No real company, customer or staff data goes into it: only fake examples.
+This repo is public. Hard rule: no real company, customer or staff data goes into it, ever. Only fake examples (the pack's sample files are marked FAKE).
 
 ## Credits and license
 
