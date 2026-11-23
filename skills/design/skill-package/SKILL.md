@@ -53,7 +53,7 @@ Done when: a search of the folder for keys, tokens, URLs with secrets and home p
 
 ### 3. Layout and where it runs
 
-Repo layout: `skills/<name>/SKILL.md`, plus `references/`, `scripts/`, `evals/`. The installer finds `skills/<name>/SKILL.md` on its own. Preview with `npx skills add <owner>/<repo> --list`.
+Repo layout: `skills/<name>/SKILL.md`, plus `references/`, `scripts/`, `evals/`. The installer finds `skills/<name>/SKILL.md` on its own, also inside a bucket folder such as `skills/design/<name>/SKILL.md`. Preview with `npx skills add <owner>/<repo> --list`.
 
 | Platform | How the skill gets in |
 |---|---|

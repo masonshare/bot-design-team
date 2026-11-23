@@ -33,7 +33,7 @@ Orca's skill discovery scans these roots in a repo, for every repo added to Orca
 | `.agents/skills` | all agents (the shared root) |
 | `.claude/skills` | Claude Code |
 | `.codex/skills`, `.cursor/skills`, `.github/skills`, `.qoder/skills`, `.opencode/skills` | the named agent |
-| `.factory/skills`, `.continue/skills`, `.trae/skills`, `.grok/skills`, ... | the named agent (from the install-provider table) |
+| `.factory/skills`, `.continue/skills`, `.trae/skills`, ... (more agents) | the named agent (from the install-provider table) |
 
 Facts that matter for this repo:
 
@@ -42,7 +42,7 @@ Facts that matter for this repo:
 - `SKILL.md` front matter uses simple `name:` and `description:` keys. [CODE: `skill-metadata.js`]
 - Global (home) roots are also read: `~/.agents/skills`, `~/.codex/skills`, `~/.claude/skills`, and more. [CODE]
 - `npx skills add <repo>` (the community skills CLI) installs into `.agents/skills` for a project, or `~/.agents/skills` with `-g`, and links agent-specific folders such as `.claude/skills` to it. Orca's own installer does the same. [CODE: `.agents/skills` canonical root with per-agent roots] This is how the README's `npx skills add masonshare/bot-design-team` works.
-- A bot can be linked to project folders ("skill projects"). For agents that read the linked folders, Orca prepares them at chat start. For agents that do not (grok, antigravity, cursor, hermes, kimi, kiro, goose and others), the bot gets a text list of skills instead. [CODE: `bot-skill-projects.js`, `resolveSessionLinkedSkills`]
+- A bot can be linked to project folders ("skill projects"). For agents that read the linked folders, Orca prepares them at chat start. For agents that do not (antigravity, cursor, hermes, kimi, kiro, goose and others), the bot gets a text list of skills instead. [CODE: `bot-skill-projects.js`, `resolveSessionLinkedSkills`]
 - A skill that a linked project links in from outside the project is shared only if the owner ticks it in the share dialog. [CODE: `bot-share-skill-picks.js`]
 
 ### How this very session loads skills [SESSION]
@@ -82,6 +82,21 @@ On the recipient side, the link opens a review dialog showing each part and flag
 3. Keep each skill self-contained: everything it needs in its own folder, at most 5 levels under the root, under 512 files and 32 MiB.
 4. Use only `name:` and `description:` front matter keys with simple values.
 5. Skills must work for any agent: no Claude-only paths, since Staff bots run on Codex.
+
+## 4a. Layout decision for T2 (buckets) and the install path
+
+Authored skills now live in buckets, as in mattpocock/skills: `skills/design/<name>/SKILL.md` (promoted, with a page in `docs/skills/`), `skills/in-progress/<name>/` (not yet promoted) and `skills/deprecated/<name>/` (obsolete). Each skill is still one self-contained folder.
+
+Compatibility check, run on this repo with `npx skills add . --list` (skills CLI 1.x): all 19 skills in `skills/design/` are found, so nested buckets do not break `npx skills add` discovery. The installer copies each skill into the target's flat `.agents/skills/<name>/` (or the agent's own folder), so bucket names do not appear in the installed layout. Orca then sees them as project or global skills as described in section 2. Orca itself does not scan `skills/` or its buckets in a repo; that is unchanged from section 2 (V1 still stands).
+
+Install steps:
+
+1. For other projects: `npx skills add masonshare/bot-design-team` (all skills) or `--skill <name>`. Add `-g` for your user.
+2. For work inside this repo: run `npx skills add . ` from the repo root, which fills `.agents/skills` here.
+3. Skills in `in-progress/` and `deprecated/` are also found by the installer, so install by name only what you intend to use.
+4. Scripts keep paths relative to their own skill folder (`python scripts/score_bot.py profile.md` from `bot-score`, `python scripts/validate_skill.py <folder>` from `skill-package`), so moving a skill between buckets needs no edits.
+
+Check the layout with `sh scripts/check-layout.sh`.
 
 ## 5. What this means for T7 (pack layout)
 
