@@ -40,3 +40,9 @@ Bot chạy trong Orca, trên máy và gói đăng ký của chính người dùn
 **Chỉ soạn nháp**: Quy tắc bot chỉ soạn và phân tích; người dùng tự gửi khách, đăng sản phẩm, đổi giá.
 
 **Dữ liệu giả**: Dữ liệu mẫu bịa trong repo để dùng thử pack; mọi dữ liệu công ty thật nằm ngoài repo.
+
+## Avoid
+
+Từ không chuẩn; `scripts/check-glossary-avoid.py` báo lỗi nếu chúng xuất hiện trong `skills/`, `packs/`, `docs/` hay các file `.md` ở gốc (không phân biệt hoa thường). Ngoại lệ: mục này, `docs/adr/` (ADR được trích làm ví dụ) và dòng có token `avoid-ok`. Mỗi dòng: `từ cần tránh`, rồi từ chuẩn.
+
+- `chủ dự án`: dùng **Chủ shop**.
