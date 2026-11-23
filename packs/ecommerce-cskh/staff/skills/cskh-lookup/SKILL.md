@@ -25,7 +25,7 @@ Staff give you a customer question and the channel they are answering on (Shopee
 5. Adapt the `Mẫu trả lời` of the approved script to the customer's wording and the channel (greeting, "anh/chị", tone per `voice-guide.md`). Do not change facts, numbers, prices, dates or conditions.
 6. Return the output in the format below.
 
-If no approved script matches, follow the no-script rules (added by T9).
+If no approved script matches, stop here and follow the skill `cskh-no-script` (provisional "chưa duyệt" reply, sensitive-topic refusal, logging to `Đề xuất`).
 
 If two approved scripts contradict each other, do not pick one: tell the staff and stop.
 

@@ -16,4 +16,4 @@ Rules:
 - The first block must be safe to copy and send as is: no codes, no status words, no internal note, no warnings.
 - The second block always names the code and status. Add a warning line when the match was `Nháp`, `Hết hạn`, another channel, or contradictory.
 - Never merge the two blocks.
-- Do not add a customer reply when nothing official matched; give only the staff block.
+- When nothing official matched, the rules of skill `cskh-no-script` apply instead.
