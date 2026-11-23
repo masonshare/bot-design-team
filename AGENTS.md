@@ -12,6 +12,10 @@ Default five labels: needs-triage, needs-info, ready-for-agent, ready-for-human,
 
 Single-context: one `GLOSSARY.md` and `docs/adr/` at repo root. See `docs/agents/domain.md`.
 
+### Dispatching pipeline skills
+
+Pipeline skills stay `disable-model-invocation`; the dispatching bot pastes the owner's pre-authorization into the worker task and the worker reads `~/.claude/skills/<name>/SKILL.md` and follows it manually. See `docs/agents/dispatch-pipeline-skills.md`.
+
 ## Hard rule: Orca-only, no real data
 
 This repo is public and targets Orca only. Never commit real company data (scripts, prices, chats, customer names, phone numbers, staff details) or secrets. Use fake examples only. Legacy OpenMausBot and Grok material lives only at the git tag v0-openmausbot.
