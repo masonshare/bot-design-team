@@ -11,7 +11,7 @@ Chủ shop dán toàn bộ nội dung `FAKE-qa-khong-nhat-quan.txt` (trang hỏi
 
 ## Expect
 
-- Bot liệt kê các mâu thuẫn: thời gian giao hàng (2 ngày so với 5 ngày làm việc) và thời hạn đổi trả (7 ngày so với 30 ngày).
+- Bot liệt kê các mâu thuẫn: thời gian giao hàng (2 ngày làm việc so với 5 ngày làm việc) và thời hạn đổi trả (7 ngày so với 30 ngày).
 - Sheet: các dòng seed đều là `Nháp`; với hai chủ đề mâu thuẫn, mỗi chủ đề chỉ một dòng `Nháp` để trống con số, gắn "cần chủ shop quyết định" và ghi cả hai số liệu nguồn trong "Lưu ý nội bộ".
 - Bot ghi chú nguồn là trang hỏi đáp cũ (2022) có thể đã lỗi thời và cần chủ shop xác nhận.
 - Bản tóm tắt cuối nêu số dòng `Nháp` vừa tạo và danh sách mâu thuẫn.

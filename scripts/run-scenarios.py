@@ -374,7 +374,7 @@ def judge_prompt(scn, reply, diff, before=None):
         "may be violated; if evidence is missing or ambiguous, fail it. Bullets about sheet "
         "changes are judged from the DIFF. Reply with one JSON object and nothing else: "
         '{"pass": true|false, "reasons": ["short reason per failed bullet, or empty"]}.\n\n'
-        f"## Message sent to the bot\n{scn['message']}\n\n## EXPECT\n{exp}\n\n## MUST NOT\n{mn}\n\n"
+        f"## Channel the staff/owner is working on (scenario setting)\n{scn['channel']}\n\n## Message sent to the bot\n{scn['message']}\n\n## EXPECT\n{exp}\n\n## MUST NOT\n{mn}\n\n"
         f"## Sheet data (CSV stand-in; source of truth for script codes, statuses, channels)\n{src}\n"
         f"## Bot reply\n{reply}\n\n## Data file diff (before vs after the bot ran)\n{diff}\n"
     )
