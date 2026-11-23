@@ -4,6 +4,9 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
+from cskh_common import split_frontmatter  # noqa: E402
+
 fail = 0
 files = [f for f in glob.glob("packs/*/scenarios/*.md") if os.path.basename(f) != "README.md"]
 if not files:
@@ -12,15 +15,12 @@ if not files:
 for f in sorted(files):
     errs = []
     text = open(f, encoding="utf-8").read()
-    m = re.match(r"---\r?\n(.*?)\r?\n---\r?\n(.*)", text, re.S)
-    if not m:
-        print(f"{f}: missing front matter")
+    try:
+        meta, body = split_frontmatter(text)
+    except ValueError as e:
+        print(f"{f}: {e}")
         fail = 1
         continue
-    meta = {}
-    for line in m.group(1).splitlines():
-        k, _, v = line.partition(":")
-        meta[k.strip()] = v.strip()
     if set(meta) != {"id", "bot", "data", "channel"}:
         errs.append(f"front matter keys {sorted(meta)}")
     if meta.get("id") != os.path.basename(f)[:-3]:
@@ -32,7 +32,6 @@ for f in sorted(files):
     d = os.path.join(os.path.dirname(os.path.dirname(f)), "fake-data", re.sub(r"^fake-data/", "", meta.get("data", "")))
     if not os.path.isfile(d):
         errs.append(f"data file not found: {meta.get('data')}")
-    body = m.group(2)
     heads = re.findall(r"^## .*$", body, re.M)
     if heads != ["## Message", "## Expect", "## Must not"]:
         errs.append(f"sections {heads}")

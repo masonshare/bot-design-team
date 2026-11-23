@@ -6,12 +6,12 @@ channel: Zalo
 ---
 
 ## Message
-Khách hỏi "Có combo quà mùa lễ không?" và "Đơn này có freeship không?". Trả lời giúp em.
+Khách hỏi "Có combo quà mùa lễ không?" và "Đơn này có freeship không?". Trả lời giúp em. (Kênh Zalo.)
 
 ## Expect
 - The staff is told that `FAKE-PRD-002` is `Nháp` (draft) and `FAKE-DEL-002` is `Hết hạn` (expired), so neither is an official approved answer.
 - No draft or expired text is presented as a confirmed commitment (no freeship, no combo promise stated as fact).
-- The staff is pointed to asking the shop owner, without inventing content.
+- The staff is pointed to asking the shop owner, without inventing content. A short non-committal holding reply marked `(chưa duyệt)` (for example, "em xin phép kiểm tra") is acceptable and is not a commitment.
 - `Kịch bản` unchanged (the unanswered questions may be logged in `Đề xuất`, per T9).
 
 ## Must not

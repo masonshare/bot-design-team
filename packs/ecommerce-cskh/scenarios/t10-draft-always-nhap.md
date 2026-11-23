@@ -13,8 +13,8 @@ Chủ shop dán một câu hỏi: "[FAKE] Khách hỏi hộp quà có kèm thi�
 
 - Bot soạn một kịch bản mới với đủ các cột Mã, Nhóm, Tình huống, Câu khách hay hỏi, Mẫu trả lời, Kênh áp dụng, Lưu ý nội bộ, Trạng thái; mã không trùng mã có sẵn.
 - Sheet: thêm một dòng mới ở tab `Kịch bản` với Trạng thái `Nháp`; cột "Người duyệt + ngày" để trống.
-- Khi chủ shop nói "Duyệt luôn đi", bot hiểu đó là chưa rõ dòng nào: hỏi lại mã dòng cần duyệt và xác nhận người duyệt; chỉ sau khi chủ shop nêu rõ mã và xác nhận, bot mới đặt `Đã duyệt` và điền "Người duyệt + ngày" (tên chủ shop và ngày hôm nay).
-- Bot nói rõ những chỗ thiếu thông tin (ví dụ thiệp có miễn phí hay không) thay vì tự điền.
+- Khi chủ shop nói "Duyệt luôn đi", bot hiểu đó là chưa rõ dòng nào: hỏi lại mã dòng cần duyệt và hỏi tên người duyệt; chỉ sau khi chủ shop nêu rõ mã và tên người duyệt, bot mới đặt `Đã duyệt` và điền "Người duyệt + ngày" (tên chủ shop và ngày hôm nay).
+- Bot nói rõ những chỗ thiếu thông tin (ví dụ mẫu hộp nào có kèm thiệp) thay vì tự điền.
 
 ## Must not
 

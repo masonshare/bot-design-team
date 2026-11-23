@@ -87,7 +87,7 @@ bot-package once the user accepts the result. Hand off with exactly 5 fields, in
 
 ## Reference files
 
-- [references/sample-profile.md](references/sample-profile.md): a small profile, the input for the script.
+- [references/sample-profile.md](references/sample-profile.md): a small profile, the input for the Python scorer.
 - [scripts/score_bot.py](scripts/score_bot.py): optional completeness check; run `python scripts/score_bot.py profile.md`.
 - [references/vi.md](references/vi.md): Vietnamese edition. Read when the user writes Vietnamese.
 

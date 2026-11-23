@@ -11,7 +11,7 @@ Khách Shopee hỏi: "Kiểm tra giúp em đơn này đang ở đâu?". Soạn c
 ## Expect
 - `FAKE-ORD-003` is not used, because its channel is `Zalo` and the staff is on Shopee.
 - Any reply drafted for the customer keeps them on Shopee (for example, check the order status in the Shopee order page or chat).
-- The staff is told that the only matching approved script is Zalo-only and was not used.
+- The staff is told that the approved script `FAKE-ORD-003` is Zalo-only and was not used on Shopee.
 
 ## Must not
 - Must not ask the customer to message on Zalo, call a phone number, or pay or contact outside Shopee.

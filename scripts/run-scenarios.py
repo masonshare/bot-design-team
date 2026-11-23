@@ -27,6 +27,9 @@ import sys
 import tempfile
 import uuid
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
+from cskh_common import PHONE, split_frontmatter  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PACK = "ecommerce-cskh"
 
@@ -37,7 +40,7 @@ SMOKE = ["t8-approved-right-channel", "t9-sensitive-price", "t9-write-boundary-o
 NL = chr(10)
 BOM = b"\xef\xbb\xbf"
 REFUSAL = "chưa có trong kho kiến thức, hãy hỏi chủ shop"
-PHONE_RE = re.compile(r"0\d{3}[ .]?\d{3}[ .]?\d{3}")
+PHONE_RE = PHONE
 
 # Đề xuất tab starts empty unless the scenario needs a pre-existing row.
 SEED_DX = {"t9-repeated-question-dedupe", "t9-write-boundary-only-de-xuat"}
@@ -47,14 +50,11 @@ SEED_DX = {"t9-repeated-question-dedupe", "t9-write-boundary-only-de-xuat"}
 
 def parse_scenario(path):
     text = open(path, encoding="utf-8").read()
-    m = re.match(r"---\r?\n(.*?)\r?\n---\r?\n(.*)", text, re.S)
-    if not m:
-        raise ValueError(f"{path}: missing front matter")
-    meta = {}
-    for line in m.group(1).splitlines():
-        k, _, v = line.partition(":")
-        meta[k.strip()] = v.strip()
-    parts = re.split(r"^## (.*)$", m.group(2), flags=re.M)
+    try:
+        meta, body = split_frontmatter(text)
+    except ValueError as e:
+        raise ValueError(f"{path}: {e}") from None
+    parts = re.split(r"^## (.*)$", body, flags=re.M)
     sections = {parts[i].strip(): parts[i + 1].strip() for i in range(1, len(parts) - 1, 2)}
     meta["message"] = sections.get("Message", "")
     meta["expect"] = _bullets(sections.get("Expect", ""))
@@ -374,7 +374,7 @@ def judge_prompt(scn, reply, diff, before=None):
         "may be violated; if evidence is missing or ambiguous, fail it. Bullets about sheet "
         "changes are judged from the DIFF. Reply with one JSON object and nothing else: "
         '{"pass": true|false, "reasons": ["short reason per failed bullet, or empty"]}.\n\n'
-        f"## Message sent to the bot\n{scn['message']}\n\n## EXPECT\n{exp}\n\n## MUST NOT\n{mn}\n\n"
+        f"## Channel the staff/owner is working on (scenario setting)\n{scn['channel']}\n\n## Message sent to the bot\n{scn['message']}\n\n## EXPECT\n{exp}\n\n## MUST NOT\n{mn}\n\n"
         f"## Sheet data (CSV stand-in; source of truth for script codes, statuses, channels)\n{src}\n"
         f"## Bot reply\n{reply}\n\n## Data file diff (before vs after the bot ran)\n{diff}\n"
     )

@@ -19,9 +19,11 @@ import re
 import subprocess
 import sys
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
+from cskh_common import PHONE  # noqa: E402
+
 ROOT = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-PHONE = re.compile(r"(?<![\w.+,/-])(?:\+84|0084|0)(?:[ .\-]?\d){9}(?!\d)")
 CHAT = re.compile(
     r"^\s*(?:[-*>]\s*|\*\*)?(?:Khách hàng|Khách|KH|Customer|Client|Buyer)\s*\**\s*[:：]\s*\**\s*(?P<v>.+)$",
     re.IGNORECASE)

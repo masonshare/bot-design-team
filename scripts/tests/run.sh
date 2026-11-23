@@ -37,10 +37,13 @@ c_outside_bucket() { mk_skill "$TMP/r/skills/stray/SKILL.md" stray d; }
 c_bad_depth() { mk_skill "$TMP/r/skills/in-progress/a/b/SKILL.md" b d; }
 c_no_docs_page() { rm "$TMP/r/docs/skills/bot-soul.md"; }
 c_docs_section() { sed -i '/^## Common questions/d' "$TMP/r/docs/skills/bot-soul.md"; }
+c_pack_docs_section() { sed -i '/^## Common questions/d' "$TMP/r/docs/skills/cskh-lookup.md"; }
+c_pack_no_docs() { rm "$TMP/r/docs/skills/cskh-draft.md"; }
+c_scenario_bad() { sed -i 's/^## Must not/## Nope/' "$TMP/r/packs/ecommerce-cskh/scenarios/t9-sensitive-price.md"; }
 c_agents_differ() { echo "extra" >> "$TMP/r/AGENTS.md"; }
 c_legacy_ref() { echo "see $(printf 'bot%s' mrr) and $(printf 'Gr%s' ok)" >> "$TMP/r/README.md"; }
 c_legacy_path() { mkdir -p "$TMP/r/guides"; echo x > "$TMP/r/guides/a.md"; }
-c_pack_ok() { mk_skill "$PK/cskh-intake/SKILL.md" cskh-intake d; }
+c_pack_ok() { mk_skill "$PK/cskh-intake/SKILL.md" cskh-intake d; cp "$TMP/r/docs/skills/cskh-lookup.md" "$TMP/r/docs/skills/cskh-intake.md"; }
 c_bot_pack_ok() { mk_skill "$TMP/r/packs/ecommerce-cskh/staff/skills/cskh-lookup/SKILL.md" cskh-lookup d; }
 c_pack_bad_name() { mk_skill "$PK/cskh-intake/SKILL.md" wrong d; }
 c_pack_no_desc() { mkdir -p "$PK/cskh-intake"; printf -- '---\nname: cskh-intake\n---\n' > "$PK/cskh-intake/SKILL.md"; }
@@ -72,9 +75,9 @@ c_nonfake_in_fakedir() { printf 'SĐT %s
 c_scenario_fake_ok() { mkdir -p "$TMP/r/packs/ecommerce-cskh/scenarios"; printf '# FAKE scenario
 Khách: Nguyễn Văn An
 SĐT %s
-' "$PH0" > "$TMP/r/packs/ecommerce-cskh/scenarios/s1.md"; }
+' "$PH0" > "$TMP/r/packs/ecommerce-cskh/scenarios/s1.txt"; }
 c_scenario_nofake() { mkdir -p "$TMP/r/packs/ecommerce-cskh/scenarios"; printf 'SĐT %s
-' "$PH0" > "$TMP/r/packs/ecommerce-cskh/scenarios/s1.md"; }
+' "$PH0" > "$TMP/r/packs/ecommerce-cskh/scenarios/s1.txt"; }
 
 t "baseline passes (no packs/ present)" c_baseline 0
 t "pack skill valid is accepted" c_pack_ok 0
@@ -87,6 +90,9 @@ t "skill outside bucket rejected" c_outside_bucket 1
 t "skill too deep rejected" c_bad_depth 1
 t "promoted skill without docs page rejected" c_no_docs_page 1
 t "docs page missing section rejected" c_docs_section 1
+t "pack skill docs page missing section rejected" c_pack_docs_section 1
+t "pack skill without docs page rejected" c_pack_no_docs 1
+t "malformed scenario file rejected" c_scenario_bad 1
 t "AGENTS.md != CLAUDE.md rejected" c_agents_differ 1
 t "legacy leftover text rejected" c_legacy_ref 1
 t "legacy path rejected" c_legacy_path 1

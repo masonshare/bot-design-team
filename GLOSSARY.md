@@ -10,24 +10,26 @@ Bot chạy trong Orca, trên máy và gói đăng ký của chính người dùn
 
 **Skill (kỹ năng)**: Gói hướng dẫn giúp bot thực hiện một loại công việc. Viết trung lập, chạy được trên cả Claude Code và Codex.
 
-**Editor bot (bot biên tập)**: Bot của chủ dự án; nhận chat/câu hỏi thật đã gỡ tên và số điện thoại, soạn kịch bản ở trạng thái `Nháp`. Không tự duyệt.
+**Chủ shop**: Chủ doanh nghiệp, người duy nhất duyệt kịch bản (`Đã duyệt`), đặt `Hết hạn` và ghi tên vào `Người duyệt`. Thuật ngữ chuẩn trong SOUL và tài liệu; "chủ dự án" là cách gọi khác của cùng một người, không dùng thêm trong tài liệu mới.
 
-**Staff bot (bot nhân viên)**: Bot của từng nhân viên, chạy trên Orca và tài khoản Codex/ChatGPT riêng; tra kịch bản `Đã duyệt` ở chế độ chỉ đọc và ghi câu hỏi chưa có đáp án vào `Đề xuất`.
+**Editor bot / bot biên tập**: Bot của chủ shop; nhận chat/câu hỏi thật đã gỡ tên và số điện thoại, soạn kịch bản ở trạng thái `Nháp`. Không tự duyệt.
 
-**Script / kịch bản**: Một mẫu trả lời khách (CSKH) có cấu trúc: Mã, Nhóm, Tình huống, Câu khách hay hỏi, Mẫu trả lời, Kênh áp dụng, Lưu ý nội bộ, Trạng thái, Người duyệt + ngày. `Lưu ý nội bộ` chỉ để nhân viên đọc, không dán vào câu trả lời cho khách.
+**Staff bot / bot nhân viên**: Bot của từng nhân viên, chạy trên Orca và tài khoản Codex/ChatGPT riêng; tra kịch bản `Đã duyệt` ở chế độ chỉ đọc và ghi câu hỏi chưa có đáp án vào `Đề xuất`.
+
+**Kịch bản** (script): Một mẫu trả lời khách (CSKH) có cấu trúc: Mã, Nhóm, Tình huống, Câu khách hay hỏi, Mẫu trả lời, Kênh áp dụng, Lưu ý nội bộ, Trạng thái, Người duyệt + ngày. `Lưu ý nội bộ` chỉ để nhân viên đọc, không dán vào câu trả lời cho khách.
 
 **Trạng thái**: Giá trị của kịch bản.
 - **Nháp**: Bot vừa soạn, chưa được duyệt; không phải đáp án chính thức.
-- **Đã duyệt**: Chủ dự án đã duyệt (ghi người duyệt và ngày); chỉ trạng thái này là chính thức với nhân viên.
+- **Đã duyệt**: Chủ shop đã duyệt (ghi người duyệt và ngày); chỉ trạng thái này là chính thức với nhân viên.
 - **Hết hạn**: Không còn dùng vì chính sách hoặc giá đã đổi.
 
-**Đề xuất**: Tab ghi các câu hỏi nhân viên hỏi mà chưa có kịch bản; chủ dự án xem để biến thành kịch bản mới.
+**Đề xuất**: Tab ghi các câu hỏi nhân viên hỏi mà chưa có kịch bản; chủ shop xem để biến thành kịch bản mới.
 
-**Knowledge base (kho tri thức)**: Tập kịch bản đã duyệt, lưu trong Google Sheet của chủ dự án. Dữ liệu thật chỉ nằm ở đó, không bao giờ vào repo công khai.
+**Knowledge base (kho tri thức)**: Tập kịch bản đã duyệt, lưu trong Google Sheet của chủ shop. Dữ liệu thật chỉ nằm ở đó, không bao giờ vào repo công khai.
 
 **Kênh áp dụng**: Kênh mà kịch bản dùng được: tất cả, Shopee, Zalo hoặc hotline. Kịch bản cho sàn (Shopee) không được dẫn khách ra ngoài sàn.
 
-**Chưa duyệt (câu trả lời tạm)**: Bản trả lời tạm khi chưa có kịch bản, đánh dấu "chưa duyệt". Không được dùng cho giá, đổi trả/hoàn tiền, cam kết thời gian giao và ATTP (an toàn thực phẩm); với bốn mục này bot nói chưa có trong knowledge base và nhắc hỏi chủ dự án.
+**Chưa duyệt (câu trả lời tạm)**: Bản trả lời tạm khi chưa có kịch bản, đánh dấu "chưa duyệt". Không được dùng cho giá, đổi trả/hoàn tiền, cam kết thời gian giao và ATTP (an toàn thực phẩm); với bốn mục này bot nói chưa có trong kho tri thức và nhắc hỏi chủ shop.
 
 **Nghiệm thu**: Đánh giá gói bằng các phép thử và bằng chứng theo tiêu chí đã thống nhất.
 
