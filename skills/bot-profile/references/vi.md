@@ -64,5 +64,4 @@ Nếu bot tự chạy thì bot-routine; rồi bot-access; rồi bot-score. Bàn 
 ## Nguồn
 
 - Masonshare, bộ 13 tiêu chí hồ sơ bot và bộ khung theo thể loại (nguyên bản).
-- Các trang chợ Grok Bot về nhãn thiếu dữ liệu và sổ cái, https://x.ai/bot/marketplace/bots/follow-through-agent và https://x.ai/bot/marketplace/bots/office-ops-desk. CHƯA KIỂM CHỨNG (UNVERIFIED): đọc ngày 2026-11-19 qua bản tóm tắt tự động; nhãn `UNVERIFIED` là thuật ngữ riêng của repo này.
 - Anthropic, "Skill authoring best practices", https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices.

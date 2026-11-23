@@ -30,7 +30,7 @@ Hỏi tất cả trong một tin, mỗi câu kèm gợi ý mặc định để n
 - Tần suất: theo yêu cầu, theo lịch hay theo sự kiện.
 - Rủi ro: làm sai thì thiệt hại gì (tiền, uy tín, dữ liệu).
 - Ngân sách: chi phí mô hình chấp nhận được, thời gian dựng, ai bảo trì.
-- Nền tảng: OpenMausBot, Grok Bot hay nền tảng khác.
+- Nền tảng: Orca (repo này chỉ nhắm tới Orca).
 
 Xong khi: mỗi mục đều có câu trả lời hoặc một giả định đã thống nhất, ghi trong brief.
 

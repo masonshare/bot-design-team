@@ -13,7 +13,4 @@ Ideas from other work, rewritten in our own words. Each skill also lists its sou
 | [vercel-labs/skills](https://github.com/vercel-labs/skills) and [skills.sh](https://skills.sh) | `npx skills` install and skill search |
 | [The Prompt Report, Schulhoff et al. 2024](https://arxiv.org/abs/2406.06608) | prompting techniques |
 | [Bsharat et al. 2023, Principled Instructions Are All You Need](https://arxiv.org/abs/2312.16171) | prompting principles |
-| [milind-soni/openmausbot-teams](https://github.com/milind-soni/openmausbot-teams) | BotMRR Markdown team file format |
-| [Lauren Tan, dr-eggbot-v2 (Grok Bot marketplace)](https://x.ai/bot/marketplace/bots/dr-eggbot-v2) | anti-job, no leftover tools, template description and routine check after import, optional healthcheck routine |
-| [Grok Bot docs, computer and apps](https://docs.x.ai/grok-bot/computer-and-apps) | local computer default "Ask every time", shared cloud computer is not a security boundary, routine approval card expiry |
-| [Grok Bot, templates guide (Matt Palmer)](https://x.ai/bot/guides/templates-for-grok-bot) | what a template carries |
+| Lauren Tan, dr-eggbot-v2 | anti-job, no leftover tools, routine check after setup, optional healthcheck routine |

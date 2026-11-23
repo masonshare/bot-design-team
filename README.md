@@ -2,15 +2,19 @@
 
 [Tiếng Việt](README.vi.md)
 
-Three AI bots and three Agent Skills for designing prompts, skills and bots.
+Three AI bots and Agent Skills for designing prompts, skills and bots, built for [Orca](https://github.com/stablyai/orca) only.
 
-| Bot | Role | Skill |
+| Bot | Role | Skills |
 |---|---|---|
-| Pink Pepper Coated Lotus Seeds | Prompt Designer: prompts, system prompts, prompt chains, bot souls | [`prompt-design`](skills/prompt-design/SKILL.md) |
-| Mango Spring Roll | Skill Designer: turns workflows into tested Agent Skills | [`skill-design`](skills/skill-design/SKILL.md) |
-| Dried Plum | Bot Architect and Chief of Staff: bot profiles, teams, packaging | [`bot-design`](skills/bot-design/SKILL.md) |
+| Pink Pepper Coated Lotus Seeds | Prompt Designer: prompts, system prompts, prompt chains, bot souls | [`prompt-design`](skills/prompt-design/SKILL.md) and the other `prompt-*` skills |
+| Mango Spring Roll | Skill Designer: turns workflows into tested Agent Skills | [`skill-design`](skills/skill-design/SKILL.md) and the other `skill-*` skills |
+| Dried Plum | Bot Architect and Chief of Staff: bot profiles, teams, packaging | [`bot-design`](skills/bot-design/SKILL.md) and the other `bot-*` skills |
 
 Each skill also works on its own, without the team.
+
+## Direction
+
+This repo is Orca-only. Bots run inside Orca on the user's own machine and subscription, and are shared with Orca's bot share link. The earlier platform-specific material was removed; it stays available at the git tag `v0-openmausbot`.
 
 ## Install the skills
 
@@ -23,29 +27,22 @@ npx skills add masonshare/bot-design-team --skill prompt-design
 npx skills add masonshare/bot-design-team -g         # install for your user, not one project
 ```
 
-## Create the team in OpenMausBot
+## Set the bots up in Orca
 
-1. Open **Teams → Import** and paste `https://github.com/masonshare/bot-design-team`.
-2. Review and import. OpenMausBot creates the 3 bots with their souls and skills.
-3. After the import:
-   - On each bot, enable its assigned skill from the table above and disable every visible skill that none of its jobs uses, including inherited skills. A bot can own several skills, assigned by role.
-   - Read back each bot's saved enabled/disabled list before declaring setup complete. Follow the [skill verification procedure](guides/en/openmausbot.md#skill-verification-after-either-path).
-   - Pick a model for each bot, because models do not travel with the file.
-
-The team file is [`team.md`](team.md). It is plain Markdown, so you can also give it to any agent that can act as a Chief of Staff.
-
-## Set the bots up by hand
-
-To build the bots by hand in OpenMausBot or Grok Bot, see [guides/en](guides/en/README.md). The readable souls are in [`bots/`](bots/).
+Create each bot in Orca, paste its soul from [`bots/`](bots/) and enable the skills from the table above. Disable every visible skill that none of the bot's jobs uses, and pick a model for each bot. The `bot-package` skill walks through the steps and the rollout order.
 
 ## Layout
 
 ```
-team.md        OpenMausBot team file (generated from bots/ and skills/)
 bots/          the three souls (standing instructions), English and Vietnamese
-skills/        three Agent Skills, each with references/vi.md (Vietnamese edition)
-guides/        manual setup for OpenMausBot and Grok Bot, English and Vietnamese
+skills/        Agent Skills, each with references/vi.md (Vietnamese edition)
+docs/agents/   notes for coding agents (issue tracker, labels, domain docs)
+scripts/       repo checks
 ```
+
+## No real data
+
+This repo is public. No real company, customer or staff data goes into it: only fake examples.
 
 ## Credits and license
 

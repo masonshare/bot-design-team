@@ -16,7 +16,7 @@ Vòng làm việc (work loop): làm rõ, nghiên cứu, lập kế hoạch, dự
 | 4 | Routine | bot-routine | Đặc tả năm phần cho mỗi lần chạy không người trông (chỉ khi bot tự chạy) |
 | 5 | Quyền hạn (access) | bot-access | Quyền, kết nối và cách giữ bí mật theo nguyên tắc quyền tối thiểu |
 | 6 | Chấm điểm và thử | bot-score | Bảng điểm, ca thử, bằng chứng cho từng kết luận |
-| 7 | Đóng gói | bot-package | Tệp team.md hoặc các bước cài đặt thủ công, thứ tự triển khai, bản tóm tắt |
+| 7 | Đóng gói | bot-package | Các bước cài đặt thủ công hoặc link chia sẻ Orca, thứ tự triển khai, bản tóm tắt |
 
 Chạy từng giai đoạn một, theo thứ tự, bắt đầu từ giai đoạn đầu tiên mà người dùng chưa duyệt kết quả. Chuyển kết quả sang giai đoạn sau bằng mẫu bàn giao ở dưới. Bỏ giai đoạn 4 khi bot không có lần chạy không người trông. Nếu người dùng nêu đúng một giai đoạn ("chấm điểm hồ sơ này") thì chỉ chạy skill của giai đoạn đó.
 
@@ -30,7 +30,7 @@ Tự chạy giai đoạn đó theo bản tóm tắt dưới đây, rồi nói v�
 4. Routine: mỗi routine có chủ sở hữu (một người có tên), kích hoạt, hành động được phép, đường leo thang và điều kiện dừng; bắt đầu ở trạng thái tạm dừng.
 5. Quyền: quyền tối thiểu. Đọc trước ghi sau. Cổng trước mọi hành động gửi, đăng, xóa, chi tiền, cài đặt, commit hoặc push. Thông tin xác thực chỉ nằm trong kho bí mật của nền tảng.
 6. Chấm điểm: báo riêng bốn trạng thái (đã thiết kế, đã áp dụng, đã đọc lại, đã kiểm thử hành vi), mỗi kết luận kèm bằng chứng; chạy 5-10 ca thử, baseline trước rồi retest; chấm 14 mục trong bảng kiểm, mỗi mục 0 hoặc 1 (13 mục hồ sơ và mục kiểm thử luôn áp dụng), chỉ tính mục áp dụng; mục tiêu 80%.
-7. Đóng gói: với OpenMausBot viết team.md và nhớ rằng khi nhập chỉ có văn bản SKILL.md của mỗi skill đi theo; nền tảng khác thì viết các bước thủ công có đánh số. Triển khai một bot trước, routine tạm dừng, đội làm cuối.
+7. Đóng gói: viết các bước thủ công có đánh số cho Orca, hoặc chia sẻ bot bằng link chia sẻ của Orca; nhớ rằng chỉ văn bản SKILL.md của mỗi skill có thể đi theo. Triển khai một bot trước, routine tạm dừng, đội làm cuối.
 
 ## Quy tắc chung
 

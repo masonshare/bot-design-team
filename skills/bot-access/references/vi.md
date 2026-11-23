@@ -34,8 +34,8 @@ Xong khi: mọi hành động bot làm được đều có một mức.
 - Hạn mức tiền nằm trong cài đặt của nền tảng, không viết trong prompt.
 - Thông tin xác thực chỉ đặt trong kho bí mật (secret store) hoặc kho kết nối của nền tảng. Không để bí mật, URL webhook hay ghi chú đăng nhập trong prompt, skill, memory, chat hay tệp; nhờ người dùng nhập qua kho bí mật.
 - Nhiều tài khoản có nhãn rõ cho một ứng dụng thì tốt hơn nhân đôi bot.
-- Điều khiển máy local: tài liệu Grok Bot đặt mặc định là "Ask every time" (hỏi mỗi lần), không phải "chặn". Chọn "Never allow" (không bao giờ cho) với bot mà Công việc không cần máy local.
-- Routine chờ duyệt không được phụ thuộc vào câu trả lời đến muộn: thẻ hết hạn (30 phút theo tài liệu Grok Bot) và kết quả an toàn của thẻ hết hạn là không có gì xảy ra.
+- Điều khiển máy local: đừng giả định mặc định là bị chặn. Chọn "Never allow" (không bao giờ cho) với bot mà Công việc không cần máy local.
+- Routine chờ duyệt không được phụ thuộc vào câu trả lời đến muộn: thẻ có thể hết hạn và kết quả an toàn của thẻ hết hạn là không có gì xảy ra.
 - Các bot trong một tài khoản dùng chung một máy cloud. Nó không phải ranh giới bảo mật giữa các bot: đừng dựa vào nó để giấu tệp hay bí mật của bot này khỏi bot khác.
 
 ### 4. Cho thấy trường hợp xấu nhất
@@ -51,5 +51,3 @@ bot-score. Bàn giao bằng đúng 5 mục theo thứ tự: Mục tiêu (Goal), 
 ## Nguồn
 
 - Masonshare, các mức rủi ro và quy tắc quyền tối thiểu (nguyên bản).
-- Tài liệu Grok Bot, máy tính và ứng dụng (mặc định máy local, máy cloud dùng chung, thẻ duyệt hết hạn), https://docs.x.ai/grok-bot/computer-and-apps.
-- Lauren Tan, trang chợ dr-eggbot-v2 (không để công cụ thừa), https://x.ai/bot/marketplace/bots/dr-eggbot-v2.

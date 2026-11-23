@@ -40,13 +40,13 @@ Done when: all five parts are written for each routine, with a named owner.
 
 ### 3. Write the run instructions
 
-The routine text must work with no chat context: say what to read, what to produce, where to write it, and what to leave alone. Output is a draft; the routine sends, deletes and spends nothing. State that must be trusted across runs (what was sent, what is pending) lives in a named ledger file with an owner and a date: read it at the start, append at the end; where it and the chat disagree, the ledger wins. Approval cards can expire (30 minutes in the Grok Bot docs): a run that waits for approval must not depend on a late answer, and an expired card means nothing happens.
+The routine text must work with no chat context: say what to read, what to produce, where to write it, and what to leave alone. Output is a draft; the routine sends, deletes and spends nothing. State that must be trusted across runs (what was sent, what is pending) lives in a named ledger file with an owner and a date: read it at the start, append at the end; where it and the chat disagree, the ledger wins. Approval cards can expire: a run that waits for approval must not depend on a late answer, and an expired card means nothing happens.
 
 Done when: someone who never saw the chat could run the text and get the intended output.
 
 ### 4. Create paused, test, then enable
 
-Create it paused. Run it by hand twice and read both results. Then ask the user to approve enabling it (gate). After an OpenMausBot import, compare the routines declared in `team.md` with the automations that actually exist; add what is missing (paused) and report any difference.
+Create it paused. Run it by hand twice and read both results. Then ask the user to approve enabling it (gate). After a share or setup, compare the routines you declared with the automations that actually exist; add what is missing (paused) and report any difference.
 
 Done when: two manual runs are read and recorded, and the user decided whether to enable.
 
@@ -67,6 +67,3 @@ bot-access for permissions, or bot-score when access is done. Hand off with exac
 
 ## Sources
 
-- Grok Bot guide for Linear and the overheard and follow-through-agent marketplace bots (five parts of a routine), https://x.ai/bot/guides/grok-bot-for-linear. UNVERIFIED: read on 2026-11-19 through a summarising fetch; quotes may be paraphrased.
-- Lauren Tan, dr-eggbot-v2 marketplace page (healthcheck routines), https://x.ai/bot/marketplace/bots/dr-eggbot-v2.
-- Grok Bot docs, computer and apps (approval card expiry), https://docs.x.ai/grok-bot/computer-and-apps.

@@ -2,53 +2,14 @@
 
 [English](README.md)
 
-Ba bot AI và ba Agent Skills để thiết kế prompt, skill và bot.
+Ba bot AI và các Agent Skills để thiết kế prompt, skill và bot, chỉ dành cho [Orca](https://github.com/stablyai/orca).
 
-| Bot | Vai trò | Skill |
-|---|---|---|
-| Pink Pepper Coated Lotus Seeds | Prompt Designer (thiết kế prompt): prompt, prompt hệ thống, chuỗi prompt, chỉ dẫn nền (soul) của bot | [`prompt-design`](skills/prompt-design/SKILL.md) |
-| Mango Spring Roll | Skill Designer (thiết kế skill): biến quy trình làm việc thành Agent Skills đã được kiểm thử | [`skill-design`](skills/skill-design/SKILL.md) |
-| Dried Plum | Bot Architect (kiến trúc sư bot) kiêm Tổng điều phối (Chief of Staff): hồ sơ bot, nhóm bot, đóng gói | [`bot-design`](skills/bot-design/SKILL.md) |
+Tóm tắt:
 
-Mỗi skill cũng dùng được độc lập, không cần cả nhóm.
+- Repo này chỉ nhắm tới Orca. Bot chạy trong Orca, trên máy và gói đăng ký của chính người dùng, chia sẻ bằng link chia sẻ bot của Orca.
+- Tài liệu theo nền tảng cũ đã được gỡ khỏi nhánh chính; vẫn xem được ở tag git `v0-openmausbot`.
+- Ba bot (soul nằm trong [`bots/`](bots/)): Prompt Designer (thiết kế prompt), Skill Designer (thiết kế skill), Bot Architect (kiến trúc sư bot). Các skill nằm trong [`skills/`](skills/), mỗi skill có bản tiếng Việt tại `references/vi.md`.
+- Cài skill: `npx skills add masonshare/bot-design-team`.
+- Repo công khai: không đưa dữ liệu thật của công ty, khách hàng hay nhân viên vào đây, chỉ dùng ví dụ giả.
 
-## Cài đặt các skill
-
-Cần có Node.js. Trình cài đặt sẽ sao chép các skill vào agent lập trình của bạn (Claude Code, Codex, Cursor và các agent khác):
-
-```bash
-npx skills add masonshare/bot-design-team            # pick skills and agents interactively
-npx skills add masonshare/bot-design-team --list     # preview what is inside
-npx skills add masonshare/bot-design-team --skill prompt-design
-npx skills add masonshare/bot-design-team -g         # install for your user, not one project
-```
-
-## Tạo nhóm trong OpenMausBot
-
-1. Mở **Teams → Import** và dán `https://github.com/masonshare/bot-design-team`.
-2. Xem lại rồi nhập. OpenMausBot sẽ tạo 3 bot cùng chỉ dẫn nền và skill của chúng.
-3. Sau khi nhập:
-   - Trên từng bot, bật skill được giao trong bảng trên và tắt mọi skill nhìn thấy mà không việc nào của bot dùng, kể cả skill kế thừa. Một bot có thể có nhiều skill, giao theo vai trò.
-   - Đọc lại danh sách bật/tắt đã lưu của từng bot trước khi báo cài đặt xong. Làm theo [quy trình kiểm tra skill](guides/vi/openmausbot.md#kiểm-tra-skill-sau-cả-hai-cách).
-   - Chọn mô hình cho từng bot, vì mô hình không đi kèm theo tệp.
-
-Tệp nhóm là [`team.md`](team.md). Đó là Markdown thuần, nên bạn cũng có thể đưa nó cho bất kỳ agent nào có thể đóng vai Tổng điều phối.
-
-## Tự cài đặt thủ công các bot
-
-Để tự dựng các bot trong OpenMausBot hoặc Grok Bot, xem [guides/vi](guides/vi/README.md). Các chỉ dẫn nền dễ đọc nằm trong [`bots/`](bots/).
-
-## Cấu trúc thư mục
-
-```
-team.md        OpenMausBot team file (generated from bots/ and skills/)
-bots/          the three souls (standing instructions), English and Vietnamese
-skills/        three Agent Skills, each with references/vi.md (Vietnamese edition)
-guides/        manual setup for OpenMausBot and Grok Bot, English and Vietnamese
-```
-
-## Ghi công và giấy phép
-
-Các skill và chỉ dẫn nền do Masonshare viết. Những ý tưởng lấy từ công trình của người khác đã được viết lại và ghi nguồn trong [CREDITS.md](CREDITS.md). Kho mã được phát hành theo Giấy phép MIT: xem [LICENSE](LICENSE).
-
-Phiên bản tiếng Việt của các skill nằm tại `references/vi.md` trong từng thư mục skill, ví dụ [skills/prompt-design/references/vi.md](skills/prompt-design/references/vi.md), [skills/skill-design/references/vi.md](skills/skill-design/references/vi.md) và [skills/bot-design/references/vi.md](skills/bot-design/references/vi.md).
+Giấy phép MIT: xem [LICENSE](LICENSE). Ghi công: [CREDITS.md](CREDITS.md).
