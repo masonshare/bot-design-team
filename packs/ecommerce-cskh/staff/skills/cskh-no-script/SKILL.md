@@ -23,7 +23,7 @@ If unsure, treat as sensitive. Anything else is non-sensitive.
 - Non-sensitive: draft a short, polite provisional reply in the shop's voice (`voice-guide.md`). Start the customer reply with `(chưa duyệt)` so staff see it is a stopgap. State no specific fact, number, date or policy that is not in an approved script.
 - Sensitive: do NOT draft an answer, not even a hedged one, and no figures or "usually". Reply only: `chưa có trong kho kiến thức, hãy hỏi chủ shop`. Do not quote `Nháp` or `Hết hạn` text as the answer, and do not stretch an approved script to a case it does not cover.
 - Keep the channel rules of `cskh-lookup` (never move a Shopee customer off-platform).
-- Output uses the two blocks of `cskh-lookup`. Block 2 names the closest script code (if any), says no approved script matched, says whether the reply is `chưa duyệt` or a refusal, and says the question was logged.
+- Output uses the two blocks of `cskh-lookup`. Block 2 names the closest script code (if any), says no approved script matched, says whether the reply is `chưa duyệt` or a refusal, and says the question was logged. For a sensitive topic, block 2 also tells the staff explicitly: `hãy hỏi chủ shop`. If a near-match script exists but was not used (other channel, `Nháp`, `Hết hạn`, unsigned), name its code and say it was NOT used and why.
 
 ## 3. Log to `Đề xuất` (always)
 
