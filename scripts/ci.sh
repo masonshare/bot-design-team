@@ -15,6 +15,10 @@ start "layout and docs pages" sh scripts/check-layout.sh
 start "legacy leftovers and AGENTS.md == CLAUDE.md" sh scripts/check-no-legacy.sh
 start "scenario files parse" sh scripts/check-scenarios.sh
 start "no real company data (leak scan)" "$PYTHON" scripts/check-no-real-data.py
+start "column lists agree (template, FAKE CSVs, run-scenarios.py)" "$PYTHON" scripts/check-columns.py
+start "glossary Avoid terms not used" "$PYTHON" scripts/check-glossary-avoid.py
+start "no tracked __pycache__ or .pyc" sh scripts/check-no-build-artifacts.sh
+start "SOUL files do not restate columns or statuses" "$PYTHON" scripts/check-soul-rules.py
 wait
 fail=0
 i=1

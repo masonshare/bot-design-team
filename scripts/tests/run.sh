@@ -121,6 +121,58 @@ t "non-FAKE file in fake-data rejected" c_nonfake_in_fakedir 1
 t "scenario file with FAKE token accepted" c_scenario_fake_ok 0
 t "scenario file without FAKE rejected" c_scenario_nofake 1
 
+SH="$TMP/r/packs/ecommerce-cskh"
+c_col_template() { sed -i 's/| G | Lưu ý nội bộ |/| G | Ghi chú |/' "$SH/sheet-template.md"; }
+c_col_template_dx() { sed -i 's/| H | Số lần hỏi |/| H | Lần hỏi |/' "$SH/sheet-template.md"; }
+c_col_csv() { sed -i '1s/Trạng thái,/Status,/' "$SH/fake-data/FAKE-kich-ban-cong-ty-mau.csv"; }
+c_col_csv_dx() { sed -i '1s/,Số lần hỏi/,Số lần hỏi,Thừa/' "$SH/fake-data/FAKE-de-xuat-cong-ty-mau.csv"; }
+c_col_const() { sed -i '/^KB_COLUMNS/s/Lưu ý nội bộ/Ghi chú/' "$TMP/r/scripts/run-scenarios.py"; }
+c_col_const_dx() { sed -i '/^DX_COLUMNS/s/Mã gần nhất/Mã/' "$TMP/r/scripts/run-scenarios.py"; }
+c_term_skill() { printf 'Hỏi %s duyệt.
+' "$(printf 'chủ dự %s' án)" >> "$TMP/r/skills/design/skill-test/SKILL.md"; }
+c_term_soul() { printf 'Gửi %s.
+' "$(printf 'Chủ Dự %s' Án)" >> "$SH/staff/SOUL.md"; }
+c_term_docs() { printf 'Gửi %s.
+' "$(printf 'chủ dự %s' án)" >> "$TMP/r/docs/skills/bot-soul.md"; }
+c_term_adr_ok() { mkdir -p "$TMP/r/docs/adr"; printf 'Ví dụ tránh: %s.
+' "$(printf 'chủ dự %s' án)" >> "$TMP/r/docs/adr/0099-x.md"; }
+c_term_marker_ok() { printf 'Không dùng %s (avoid-ok).
+' "$(printf 'chủ dự %s' án)" >> "$TMP/r/docs/skills/bot-soul.md"; }
+c_avoid_missing() { sed -i '/^## Avoid/,$d' "$TMP/r/GLOSSARY.md"; }
+c_pyc_tracked() { mkdir -p "$TMP/r/scripts/lib/__pycache__"; echo x > "$TMP/r/scripts/lib/__pycache__/a.cpython-3.pyc"; (cd "$TMP/r" && git add -f scripts/lib/__pycache__/a.cpython-3.pyc); }
+c_pyc_loose() { echo x > "$TMP/r/scripts/stray.pyc"; (cd "$TMP/r" && git add -f scripts/stray.pyc); }
+c_pyc_untracked_ok() { mkdir -p "$TMP/r/scripts/lib/__pycache__"; echo x > "$TMP/r/scripts/lib/__pycache__/a.cpython-3.pyc"; }
+c_soul_cols() { printf 'Các cột: Mã, Nhóm, Tình huống.
+' >> "$SH/staff/SOUL.md"; }
+c_soul_cols_dx() { printf 'Đề xuất có Ngày, Kênh, Người hỏi.
+' >> "$SH/editor/SOUL.md"; }
+c_soul_status() { printf 'Trạng thái: Nháp, Đã duyệt, Hết hạn.
+' >> "$SH/editor/SOUL.md"; }
+c_soul_nopointer() { sed -i 's/cskh-draft/x/g' "$SH/editor/SOUL.md"; }
+c_soul_two_ok() { printf 'Nháp hoặc Hết hạn thì không dùng; Mã và Nhóm xem skill cskh-lookup.
+' >> "$SH/staff/SOUL.md"; }
+
+t "template header drift rejected" c_col_template 1
+t "template Đề xuất header drift rejected" c_col_template_dx 1
+t "scripts CSV header drift rejected" c_col_csv 1
+t "Đề xuất CSV extra column rejected" c_col_csv_dx 1
+t "run-scenarios KB_COLUMNS drift rejected" c_col_const 1
+t "run-scenarios DX_COLUMNS drift rejected" c_col_const_dx 1
+t "avoided term in a skill rejected" c_term_skill 1
+t "avoided term in a SOUL (any case) rejected" c_term_soul 1
+t "avoided term in docs rejected" c_term_docs 1
+t "avoided term in docs/adr accepted" c_term_adr_ok 0
+t "avoided term on avoid-ok line accepted" c_term_marker_ok 0
+t "GLOSSARY.md without Avoid section rejected" c_avoid_missing 1
+t "tracked __pycache__ file rejected" c_pyc_tracked 1
+t "tracked stray .pyc rejected" c_pyc_loose 1
+t "untracked ignored __pycache__ accepted" c_pyc_untracked_ok 0
+t "SOUL restating sheet columns rejected" c_soul_cols 1
+t "SOUL restating Đề xuất columns rejected" c_soul_cols_dx 1
+t "SOUL defining status vocabulary rejected" c_soul_status 1
+t "SOUL without a skill pointer rejected" c_soul_nopointer 1
+t "SOUL naming two statuses or two columns accepted" c_soul_two_ok 0
+
 PY=$(command -v python || command -v python3)
 if "$PY" -W ignore "$SRC/scripts/tests/test_run_scenarios.py" >"$TMP/unit.log" 2>&1; then
   echo "PASS run-scenarios unit tests (stub agent)"; pass=$((pass+1))
