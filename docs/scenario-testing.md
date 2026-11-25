@@ -6,8 +6,8 @@ Behavioural tests for the two bots (staff, editor) against FAKE data, run on bot
 
 The gate has two levels. A missing results file, or one that records a gap, means the level is not met.
 
-- Owner pilot: may proceed with the Claude-based owner bot (every scenario passes on `claude`: 0 fail, 0 error) while Codex is at 14/17.
-- Staff handoff: BEFORE the bot is handed to ONE staff member (staff run Codex), the Codex suite must pass 17/17 stably, meaning at least 3 consecutive full runs each with 0 fail, 0 error. Tracked in issue #29 (Tighten the 3 Codex-failing scenarios). Any change to a bot instruction or skill restarts the count.
+- Owner pilot: may proceed with the Claude-based owner bot (every scenario passes on `claude`: 0 fail, 0 error).
+- Staff handoff: BEFORE the bot is handed to ONE staff member (staff run Codex), the Codex suite must pass 17/17 stably, meaning at least 3 consecutive full runs each with 0 fail, 0 error. Tracked in issue #29. Status: MET on 2026-11-25 (see Latest status). Any change to a bot instruction or skill restarts the count.
 
 ## What the runner does
 
@@ -27,13 +27,14 @@ Results are written to `packs/ecommerce-cskh/scenarios/results/<agent>-<date>.md
 python scripts/run-scenarios.py --agent claude            # default: 4-scenario smoke subset (cheap)
 python scripts/run-scenarios.py --agent claude --full     # every scenario: needs the explicit --full
 python scripts/run-scenarios.py --agent claude --only t9-sensitive-price --only t8-approved-right-channel
-python scripts/run-scenarios.py --agent codex --full --repeat 3 --gate 1.0   # the #29 staff handoff gate
+python scripts/run-scenarios.py --agent codex --codex-model gpt-6.1-terra --full --repeat 3 --gate 1.0   # the #29 staff handoff gate
 python scripts/run-scenarios.py --agent codex --dry-run   # build sandboxes only, no agent call (add --keep to inspect)
 ```
 
 Flags:
 
 - Default (no selector) = the smoke subset. A full run costs many tokens, so it needs `--full`. `--only <id>` (repeatable) picks scenarios and wins over the default; `--smoke` is kept as an explicit alias of the default; `--full` cannot be combined with `--only` or `--smoke`.
+- `--codex-model MODEL`: passes `-m MODEL` to every `codex exec` call (bot and judge) and records the model in the results file. Pin it for the gate so runs are comparable.
 - `--repeat N`: run each scenario N times (default 1). The results file then has a table with the pass rate per scenario (`2/3 | 67%`) and a line with the pass rate for the agent as a whole (`Pass rate (codex): 49/51 (96%)`). Use it to measure flaky scenarios instead of re-running by hand.
 - `--gate T`: T is a fraction from 0 to 1 (`1.0` = every run of every scenario must pass, `0.8` = at least 80% per scenario); anything outside 0..1 is rejected. If any scenario's pass rate is below T the runner exits non-zero, names the scenarios, and the results file says `Gate ... FAIL`. `ERROR` counts as not passed. The gate also fails when the run stops early (login or agent-missing) or fewer scenario x repeat runs completed than expected; scenarios that never ran count as 0%, and the results file says `Runs: expected X, done Y`. Without `--gate`, exit code 0 means every run passed.
 - Order of grading: the cheap deterministic checks run first; the judge call is made only when they all pass. A scenario that fails a deterministic check is `FAIL` without a judge call (the results file says `judge: skipped`), which saves one agent call per failure.
@@ -72,4 +73,11 @@ Also fixed `cskh-draft` step 3 to columns A to I (the `Kịch bản` tab has 9 c
 
 ## Latest status
 
-Wording is hardened (above) but the Codex gate is NOT yet verified. The 3 final consecutive full runs on the final wording could not be run: every Codex call returned "Your workspace is out of ..." (Codex usage/credits exhausted on this machine), so there are no Codex results for the final wording and the only Claude evidence on the final wording is one full run (`claude-2026-11-23-t29-wording.md`: 16/17, `t8-draft-expired-not-official` failed on judge strictness) plus a re-run of that scenario (`claude-2026-11-23-t8-repeat3.md`: 3/3 pass, so a judge flake, not a regression). The staff handoff gate is NOT met; the owner pilot on Claude is allowed (earlier Claude 17/17, `claude-2026-11-23-review-fixes.md`, was before this wording change; a Claude full run must still reach 17/17 once). Next step: restore Codex quota, then run `python scripts/run-scenarios.py --agent codex --full` three times with distinct `--out` names (or `--full --repeat 3 --gate 1.0`), then one Claude full run. Earlier files: `*-2026-11-23-review-fixes.md` (claude 17/17, codex 14/17), baseline `claude-2026-11-23.md` 16/17 and `codex-2026-11-23.md` 5/17.
+Staff handoff gate MET (issue #29), 2026-11-25. On the final wording, with `--codex-model gpt-6.1-terra`:
+
+- Codex: `python scripts/run-scenarios.py --agent codex --codex-model gpt-6.1-terra --full --repeat 3 --gate 1.0 --timeout 480` gave 51/51 (every scenario 3/3), gate PASS, exit 0: `packs/ecommerce-cskh/scenarios/results/codex-2026-11-25-gate4.md`.
+- Claude: one full run, 17/17: `packs/ecommerce-cskh/scenarios/results/claude-2026-11-25-gate4.md`.
+
+How the wording got there (no spec rule weakened, FAKE data only): the first full gate with the PR #35 wording gave 43/51 on Codex (5 scenarios below 3/3), so three more rounds of wording hardening followed. Round 1: a contradiction with an approved row must be said with the word "mâu thuẫn", the code and both facts; an unspecific "duyệt" gets an open "which code?" question plus the approver's name; a near-match script that was not used gets the sentence `Mã <mã> KHÔNG được dùng vì <lý do>`; each refused write request is listed by name. One scenario (`t8-staff-cannot-edit-script`) only had its Expect clarified: the customer text may state the approved figure without repeating the FAKE marker. Round 2 (that gate gave 50/51): when the source itself is inconsistent, cite both source values as a pair and never attribute one to the new row. Round 3 (that gate gave 50/51): the marketplace summary must say the off-platform invitation was left out, why (the customer is on the marketplace) and that the reply points to the marketplace chat. The last gate above is the first full run on the final wording. Earlier intermediate result files were not kept; they are not evidence for the final wording.
+
+Reproduce: run the Codex command above, then `python scripts/run-scenarios.py --agent claude --full`. Any later change to a bot instruction or skill restarts the count.

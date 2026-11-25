@@ -169,6 +169,20 @@ class EndToEndWithStub(unittest.TestCase):
         self.assertIn("| t9-sensitive-price | PASS |", text)
 
 
+class CodexModel(unittest.TestCase):
+    def tearDown(self):
+        rs.CODEX_MODEL = None
+
+    def test_model_passed_to_bot_and_judge(self):
+        rs.CODEX_MODEL = "fake-model"
+        for role in ("bot", "judge"):
+            cmd = rs.agent_cmd("codex", role, "/x", "/x/out")
+            self.assertEqual(cmd[cmd.index("-m") + 1], "fake-model")
+
+    def test_no_model_flag_by_default(self):
+        self.assertNotIn("-m", rs.agent_cmd("codex", "bot", "/x", "/x/out"))
+
+
 class RepeatAndGate(unittest.TestCase):
     SID = "t9-sensitive-price"
 
