@@ -2,13 +2,13 @@
 
 [Tiếng Việt](README.vi.md)
 
-Three AI bots and Agent Skills for designing prompts, skills and bots, built for [Orca](https://github.com/stablyai/orca) only.
+Four AI bots and Agent Skills for designing prompts, skills and bots, built for [Orca](https://github.com/stablyai/orca) only.
 
 | Bot | Role | Skills |
 |---|---|---|
 | Pink Pepper Coated Lotus Seeds | Prompt Designer: prompts, system prompts, prompt chains, bot souls | [`prompt-design`](skills/design/prompt-design/SKILL.md) and the other `prompt-*` skills |
 | Mango Spring Roll | Skill Designer: turns workflows into tested Agent Skills | [`skill-design`](skills/design/skill-design/SKILL.md) and the other `skill-*` skills |
-| Dried Plum | Bot Architect and Chief of Staff: bot profiles, teams, packaging | [`bot-design`](skills/design/bot-design/SKILL.md) and the other `bot-*` skills |
+| Dried Plum | Bot Architect: bot profiles, teams, packaging | [`bot-design`](skills/design/bot-design/SKILL.md) and the other `bot-*` skills |
 
 Each skill also works on its own, without the team.
 
