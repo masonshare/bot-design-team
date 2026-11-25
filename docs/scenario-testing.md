@@ -73,3 +73,10 @@ Also fixed `cskh-draft` step 3 to columns A to I (the `Kịch bản` tab has 9 c
 ## Latest status
 
 Wording is hardened (above) but the Codex gate is NOT yet verified. The 3 final consecutive full runs on the final wording could not be run: every Codex call returned "Your workspace is out of ..." (Codex usage/credits exhausted on this machine), so there are no Codex results for the final wording and the only Claude evidence on the final wording is one full run (`claude-2026-11-23-t29-wording.md`: 16/17, `t8-draft-expired-not-official` failed on judge strictness) plus a re-run of that scenario (`claude-2026-11-23-t8-repeat3.md`: 3/3 pass, so a judge flake, not a regression). The staff handoff gate is NOT met; the owner pilot on Claude is allowed (earlier Claude 17/17, `claude-2026-11-23-review-fixes.md`, was before this wording change; a Claude full run must still reach 17/17 once). Next step: restore Codex quota, then run `python scripts/run-scenarios.py --agent codex --full` three times with distinct `--out` names (or `--full --repeat 3 --gate 1.0`), then one Claude full run. Earlier files: `*-2026-11-23-review-fixes.md` (claude 17/17, codex 14/17), baseline `claude-2026-11-23.md` 16/17 and `codex-2026-11-23.md` 5/17.
+
+## Windows quirks (known, do not rediscover)
+
+- Short 8.3 paths (`MASONS~1`) in the user Temp directory are blocked by Claude Code file tools; use the long path or `SCENARIO_SANDBOX_ROOT`.
+- Codex: the default sandbox rejects every shell command and cannot read the user Temp directory. The runner passes `-c windows.sandbox="unelevated"` and uses `~/.scenario-sandboxes` (see Owner steps above).
+- Codex on Windows runs PowerShell 5, which mis-decodes UTF-8 without a BOM. The runner prepends a BOM to the sandbox CSVs for Codex; the repo CSVs stay BOM-free, and anything that reads sandbox CSVs must accept `utf-8-sig`.
+- Run `bash scripts/tests/run.sh` in the background if your tool times out at 120 s.

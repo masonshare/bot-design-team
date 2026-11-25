@@ -15,7 +15,7 @@ fresh() {
   if [ $PRISTINE -eq 0 ]; then
     mkdir -p "$TMP/r"
     (cd "$SRC" && git ls-files -z --cached --others --exclude-standard | tar --null -T - -cf - 2>/dev/null) | tar -xf - -C "$TMP/r"
-    (cd "$TMP/r" && git init -q && git add -A >/dev/null 2>&1       && git -c user.name=t -c user.email=t@t -c commit.gpgsign=false commit -qm pristine >/dev/null 2>&1)       || { echo "ABORT: could not create the pristine commit; test state would leak" >&2; exit 2; }
+    (cd "$TMP/r" && git init -q && git config core.autocrlf false && git add -A >/dev/null 2>&1       && git -c user.name=t -c user.email=t@t -c commit.gpgsign=false commit -qm pristine >/dev/null 2>&1)       || { echo "ABORT: could not create the pristine commit; test state would leak" >&2; exit 2; }
     PRISTINE=1
   else
     (cd "$TMP/r" && git reset -q --hard && git clean -fdxq)       || { echo "ABORT: reset/clean of the pristine copy failed; test state would leak" >&2; exit 2; }
@@ -172,6 +172,17 @@ t "SOUL restating Đề xuất columns rejected" c_soul_cols_dx 1
 t "SOUL defining status vocabulary rejected" c_soul_status 1
 t "SOUL without a skill pointer rejected" c_soul_nopointer 1
 t "SOUL naming two statuses or two columns accepted" c_soul_two_ok 0
+
+c_map_bad_path() { printf 'Extra: `packs/nope/staff/`.
+' >> "$TMP/r/docs/repo-map.md"; }
+c_map_missing() { rm "$TMP/r/docs/repo-map.md"; }
+c_map_placeholder_ok() { printf 'Extra: `packs/<pack>/scenarios/`.
+' >> "$TMP/r/docs/repo-map.md"; }
+c_nav_missing() { sed -i '/repo-map/d' "$TMP/r/AGENTS.md" "$TMP/r/CLAUDE.md"; }
+t "repo map naming a missing path rejected" c_map_bad_path 1
+t "missing repo map rejected" c_map_missing 1
+t "repo map placeholder path accepted" c_map_placeholder_ok 0
+t "steering file without repo-map pointer rejected" c_nav_missing 1
 
 PY=$(command -v python || command -v python3)
 if "$PY" -W ignore "$SRC/scripts/tests/test_run_scenarios.py" >"$TMP/unit.log" 2>&1; then
