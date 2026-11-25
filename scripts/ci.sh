@@ -19,6 +19,7 @@ start "column lists agree (template, FAKE CSVs, run-scenarios.py)" "$PYTHON" scr
 start "glossary Avoid terms not used" "$PYTHON" scripts/check-glossary-avoid.py
 start "no tracked __pycache__ or .pyc" sh scripts/check-no-build-artifacts.sh
 start "SOUL files do not restate columns or statuses" "$PYTHON" scripts/check-soul-rules.py
+start "repo map paths exist and are pointed at" sh scripts/check-repo-map.sh
 wait
 fail=0
 i=1

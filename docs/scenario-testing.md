@@ -81,3 +81,10 @@ Staff handoff gate MET (issue #29), 2026-11-25. On the final wording, with `--co
 How the wording got there (no spec rule weakened, FAKE data only): the first full gate with the PR #35 wording gave 43/51 on Codex (5 scenarios below 3/3), so three more rounds of wording hardening followed. Round 1: a contradiction with an approved row must be said with the word "mâu thuẫn", the code and both facts; an unspecific "duyệt" gets an open "which code?" question plus the approver's name; a near-match script that was not used gets the sentence `Mã <mã> KHÔNG được dùng vì <lý do>`; each refused write request is listed by name. One scenario (`t8-staff-cannot-edit-script`) only had its Expect clarified: the customer text may state the approved figure without repeating the FAKE marker. Round 2 (that gate gave 50/51): when the source itself is inconsistent, cite both source values as a pair and never attribute one to the new row. Round 3 (that gate gave 50/51): the marketplace summary must say the off-platform invitation was left out, why (the customer is on the marketplace) and that the reply points to the marketplace chat. The last gate above is the first full run on the final wording. Earlier intermediate result files were not kept; they are not evidence for the final wording.
 
 Reproduce: run the Codex command above, then `python scripts/run-scenarios.py --agent claude --full`. Any later change to a bot instruction or skill restarts the count.
+
+## Windows quirks (known, do not rediscover)
+
+- Short 8.3 paths (`MASONS~1`) in the user Temp directory are blocked by Claude Code file tools; use the long path or `SCENARIO_SANDBOX_ROOT`.
+- Codex: the default sandbox rejects every shell command and cannot read the user Temp directory. The runner passes `-c windows.sandbox="unelevated"` and uses `~/.scenario-sandboxes` (see Owner steps above).
+- Codex on Windows runs PowerShell 5, which mis-decodes UTF-8 without a BOM. The runner prepends a BOM to the sandbox CSVs for Codex; the repo CSVs stay BOM-free, and anything that reads sandbox CSVs must accept `utf-8-sig`.
+- Run `bash scripts/tests/run.sh` in the background if your tool times out at 120 s.
