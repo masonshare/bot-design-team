@@ -7,7 +7,7 @@ Behavioural tests for the two bots (staff, editor) against FAKE data, run on bot
 The gate has two levels. A missing results file, or one that records a gap, means the level is not met.
 
 - Owner pilot: may proceed with the Claude-based owner bot (every scenario passes on `claude`: 0 fail, 0 error).
-- Staff handoff: BEFORE the bot is handed to ONE staff member (staff run Codex), the Codex suite must pass 17/17 stably, meaning at least 3 consecutive full runs each with 0 fail, 0 error. Tracked in issue #29. Status: MET on 2026-11-25 (see Latest status). Any change to a bot instruction or skill restarts the count.
+- Staff handoff: BEFORE the bot is handed to ONE staff member (staff run Codex), the Codex suite must pass 17/17 stably, meaning at least 3 consecutive full runs each with 0 fail, 0 error. "3 consecutive full runs" is run as `--full --repeat 3` (each scenario 3 times in a row, 51 runs in one results file), not as three whole-suite passes. The gate is proven for the model it was run with (`--codex-model`); if staff use a different Codex model, run it again with that model. Tracked in issue #29. Status: MET on 2026-11-25 for `gpt-6.1-terra` (see Latest status). Any change to a bot instruction or skill restarts the count.
 
 ## What the runner does
 

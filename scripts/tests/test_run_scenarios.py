@@ -179,6 +179,25 @@ class CodexModel(unittest.TestCase):
             cmd = rs.agent_cmd("codex", role, "/x", "/x/out")
             self.assertEqual(cmd[cmd.index("-m") + 1], "fake-model")
 
+    def test_main_records_model_in_results_header(self):
+        d = tempfile.mkdtemp()
+        self.addCleanup(rs.cleanup, d)
+        out = os.path.join(d, "out.md")
+        old = dict(os.environ)
+        os.environ.update(SCENARIO_AGENT_STUB=STUB, STUB_MODE="append-dx")
+        try:
+            rs.main(["--agent", "codex", "--codex-model", "fake-model", "--only",
+                     "t9-sensitive-price", "--out", out])
+            self.assertEqual(rs.CODEX_MODEL, "fake-model")
+        finally:
+            os.environ.clear()
+            os.environ.update(old)
+        self.assertIn("(model: fake-model)", open(out, encoding="utf-8").read())
+
+    def test_codex_model_rejected_for_claude(self):
+        with self.assertRaises(SystemExit):
+            rs.main(["--agent", "claude", "--codex-model", "m", "--only", "t9-sensitive-price"])
+
     def test_no_model_flag_by_default(self):
         self.assertNotIn("-m", rs.agent_cmd("codex", "bot", "/x", "/x/out"))
 

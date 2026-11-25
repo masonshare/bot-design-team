@@ -571,6 +571,8 @@ def main(argv=None):
     ap.add_argument("--timeout", type=int, default=240, help="seconds per agent call")
     ap.add_argument("--out", help="results file (default packs/<pack>/scenarios/results/<agent>-<date>.md)")
     args = ap.parse_args(argv)
+    if args.codex_model and args.agent != "codex":
+        ap.error("--codex-model only applies to --agent codex")
     if args.repeat < 1:
         ap.error("--repeat must be >= 1")
     if args.gate is not None and not 0 <= args.gate <= 1:
