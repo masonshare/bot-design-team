@@ -9,6 +9,7 @@ Four AI bots and Agent Skills for designing prompts, skills and bots, built for 
 | Pink Pepper Coated Lotus Seeds | Prompt Designer: prompts, system prompts, prompt chains, bot souls | [`prompt-design`](skills/design/prompt-design/SKILL.md) and the other `prompt-*` skills |
 | Mango Spring Roll | Skill Designer: turns workflows into tested Agent Skills | [`skill-design`](skills/design/skill-design/SKILL.md) and the other `skill-*` skills |
 | Dried Plum | Bot Architect: bot profiles, teams, packaging | [`bot-design`](skills/design/bot-design/SKILL.md) and the other `bot-*` skills |
+| Coordinator | Chief of Staff: receives requests, asks before every handoff, merges results, advises on AI engineering | [`bot-roster`](skills/design/bot-roster/SKILL.md), [`ai-engineering-playbook`](skills/design/ai-engineering-playbook/SKILL.md) |
 
 Each skill also works on its own, without the team.
 
@@ -46,7 +47,7 @@ Create each bot in Orca, paste its soul from [`bots/`](bots/) and enable the ski
 
 ```
 bots/          the three souls (standing instructions), English and Vietnamese
-skills/        Agent Skills in buckets: design/ (promoted), in-progress/, deprecated/; each with references/vi.md (Vietnamese edition)
+skills/        Agent Skills in buckets: design/ (promoted), in-progress/, deprecated/; most with references/vi.md (Vietnamese edition)
 packs/         ready-made bot packs (ecommerce-cskh: Editor and Staff bots, FAKE data, scenarios)
 docs/skills/   one page per promoted skill and per pack skill (what it does, when, questions, how to tell it works)
 docs/agents/   notes for coding agents (issue tracker, labels, domain docs)
