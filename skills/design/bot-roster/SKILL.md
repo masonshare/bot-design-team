@@ -1,58 +1,53 @@
 ---
 name: bot-roster
-description: Picks which bot or worker should do a job and runs the delegation safely, covering how to read the live bot list, the bot to job table, the ask-the-owner-first question, question vs handoff, the 5-field brief, merging results and reporting real progress, and the pre-authorization paragraph for code workers. Use when Ask Masonshare is about to give any job to another bot or to a code worker, register a new bot in the roster, or report delegated progress. Not for giving AI engineering advice (use ai-engineering-playbook). Vietnamese triggers - giao việc cho bot, chọn bot nào, danh sách bot, xin duyệt trước khi giao, gộp kết quả, giao worker code.
+description: Picks which bot or worker should do a job and runs the delegation safely, covering how to read the live bot list and the roster file, the ask-the-owner-first question, question vs handoff, the 5-field brief, merging results and reporting real progress, and the pre-authorization paragraph for code workers. Use when Ask Masonshare is about to give any job to another bot or to a code worker, register a new bot in the roster, or report delegated progress. Not for giving AI engineering advice (use ai-engineering-playbook). Also when the owner asks how delegated work is going. Vietnamese triggers - giao việc cho bot, chọn bot nào, danh sách bot, xin duyệt trước khi giao, gộp kết quả, giao worker code, đến đâu rồi, tiến độ.
 ---
 
 # Bot roster
 
 Delegation skill for the Coordinator bot. Run it every time a job might leave your hands. Output language Vietnamese; instructions here are English by repo convention.
 
-The roster below is a starting map written 2026-11-25. The live list from `orca bot list` always wins.
+The one canonical roster is the bot's roster file in its home. This file holds no copy of it. The live list from `orca bot list` always wins; use full bot names exactly as it prints them, never abbreviations.
+
+Hybrid request (the owner asks for advice and then says to do it, for example a question about the best approach followed by "làm luôn"): load this skill and `ai-engineering-playbook` in the same turn. Answer the advice part first, then run Step 2 for the delegation.
 
 ## Step 1. Read the live list
 
-1. Run `orca bot list`. Never trust an earlier listing, memory or this table.
+1. Run `orca bot list`. Never trust an earlier listing or a remembered roster.
 2. For each bot read its "For:" line; that is what it does today.
-3. Compare with the roster table below. If a bot appeared, vanished or changed purpose, say so in one line and update the roster (see "Register a new bot").
+3. Compare with the bot's roster file. If a bot appeared, vanished or changed purpose, say so in one line and update the roster (see "Register a new bot").
 
 Done when: you can name the bot or worker for the job from the fresh list, or you know no bot fits.
 
 ## Roster
 
-| Bot | Việc | Giao khi | Không giao khi |
-|---|---|---|---|
-| Dried Plum | Kiến trúc bot: phỏng vấn, hình dạng đội, hồ sơ, quyền, chấm điểm, đóng gói | Chủ muốn bot mới hoặc đổi cấu trúc, quyền, đội bot | Chỉ cần viết lại một đoạn soul hoặc một skill |
-| Pink Pepper Coated Lotus Seeds | Viết, rà soát, sửa soul và prompt | Cần soul, system prompt, chuỗi prompt tốt hơn | Cần quyết định kiến trúc bot |
-| Mango Spring Roll | Viết, kiểm thử, rà soát, đóng gói skill | Có quy trình hoặc kiến thức cần thành skill | Cần soul hoặc code ứng dụng |
-| Worker code (Orca) | Code theo pipeline grilling, to-spec, to-tickets, implement-spec, code-review, retro | Mọi việc viết hoặc sửa code | Việc không phải code |
-| Ask Masonshare (chính bạn) | Câu hỏi nhỏ, việc Google, tư vấn AI engineering | Tự làm, không cần giao | Việc anti-job: soul, skill, kiến trúc bot, code, merge |
-
-Rules of thumb: one job, one bot. A job that spans two (for example a new bot needs an architecture and a soul) goes to the lead bot (Dried Plum), which may pull in the other; say so in the question to the owner.
+Read the bot's roster file. It lists, per bot: việc, giao khi, không giao khi. Rules of thumb: one job, one bot. A job that spans two (for example a new bot needs an architecture and a soul) goes to the lead bot (Dried Plum), which may pull in the other; say so in the question to the owner. Anti-job for you: never write souls, skills, bot architecture or code yourself.
 
 ## Register a new bot
 
-When `orca bot list` shows a bot not in the table, or the owner creates one:
+When `orca bot list` shows a bot not in the bot's roster file, or the owner creates one:
 
 1. Read its "For:" line and its chats if the purpose is unclear (`orca bot chats --bot "<name>"`).
-2. Add a row: tên đầy đủ đúng như `orca bot list`, việc một câu, giao khi, không giao khi.
-3. Save the updated roster with a date in `memory/roster.md`; tell the owner the new row in one line.
+2. Add a row to the bot's roster file yourself: tên đầy đủ đúng như `orca bot list`, việc một câu, giao khi, không giao khi. Update the date in its header. Also fix a row whose bot changed or vanished.
+3. Tell the owner in one line what changed in the roster. Editing the bot's roster file is not a bot configuration change, so it needs no approval.
 4. Never create or configure a bot yourself. Propose it with `orca bot create --offer ...`; the owner presses Create.
 
-Done when: the table and `memory/roster.md` match `orca bot list`, and the owner has seen the new row.
+Done when: the bot's roster file matches `orca bot list` and the owner has seen a one-line report of the change.
 
 ## Step 2. Ask the owner before delegating
 
-Gate: no bot gets a job until the owner approves. Name the exact bot and ask about adding another. Use this template:
+Gate: no bot gets a job until the owner approves. Ask every time, even when the owner already named the bot in the request ("giao cho Dried Plum" still gets the question). Name the exact bot and ask about adding another. Use this template:
 
 > Mình định giao việc này cho **Dried Plum** (kiến trúc bot). Bạn đồng ý không, hay muốn kết hợp thêm **Pink Pepper** (soul, prompt) / **Mango Spring Roll** (skill)?
 
 Rules:
 
+- If the owner already named the bot, keep that bot as lead. You may suggest adding another bot, but never swap the lead.
 - Always put the bot name in bold in the question. Never write "một bot" or "đội ngũ".
 - Always offer the add-on choice, even when the answer seems obvious.
 - Say what the bot will return and roughly when you will report.
 - Wait for a yes. Silence is not approval. An approval covers that job only.
-- Code workers: ask once when the owner approves the spec, not per ticket.
+- Code workers, including a worker that only investigates a bug: ask once before starting it, naming the repo (see "Code jobs: worker"), not per ticket.
 
 Done when: the owner replied yes (with or without extra bots) to a question that named the bot.
 
@@ -72,6 +67,8 @@ orca orchestration send --to bot:<name> --type handoff --subject "<one line>" --
 ```
 
 Use `--chat new` on a handoff that should start a separate conversation. Unsure which type: if you must combine results before answering, it is a `question`.
+
+Default for jobs to write a soul or a skill: use `question`. You read the result, check it against Done when, and merge it into one answer for the owner. Use `handoff` for these only if the owner asks for it.
 
 ## Step 4. Write the 5-field brief
 
@@ -99,9 +96,13 @@ Done when: all five fields are present and Done when can be checked by someone e
 
 ## Code jobs: worker
 
-Code is never done by you. Start a worker (see the orchestration skill for syntax), one worker per job, and put the owner's pre-authorization paragraph in its spec. The pipeline skills keep `disable-model-invocation` on, so a worker cannot start them with the Skill tool; the paragraph lets it read them by hand.
+Code is never done by you. Start one worker per job (see the orchestration skill for syntax).
 
-Paste this paragraph verbatim into the worker spec. Add other skills (for example `diagnosing-bugs`) to the list when the task needs them.
+1. Ask the owner once before starting the worker, also when it only investigates a bug. Name the repo and the job, in the Step 2 wording ("Mình định giao việc code này cho một worker trên repo <tên repo>. Bạn đồng ý không?"). Unsure which repo: ask that one question.
+2. The worker begins with grilling, directly with the owner, through the worker's ask mechanism. It writes code only after the owner has settled the spec. Then it runs the rest of the pipeline (to-tickets, implement-spec, code-review, retro).
+3. Put the owner's pre-authorization paragraph and the grilling start in the worker spec. The pipeline skills keep `disable-model-invocation` on, so a worker cannot start them with the Skill tool; the paragraph lets it read them by hand.
+
+Paste this paragraph verbatim into the worker spec. Add other skills (for example `grilling`, `diagnosing-bugs`) to its list when the task needs them.
 
 ```text
 Owner pre-authorization (durable, covers this whole task): the skills to-spec,
@@ -115,9 +116,22 @@ message must name every missing skill. Use FAKE data only. Never put real
 company data or machine-specific paths in the repo.
 ```
 
-Also tell the worker: it owns the pull request it opens until checks are green and review asks are answered, then reports; it opens the PR and never merges. The owner merges. Source of the paragraph: `docs/agents/dispatch-pipeline-skills.md` in the bot-design-team repo (decision from issue #31); if that doc changes, re-copy the paragraph from `origin/main`.
+Then add this paragraph, filled in:
 
-Done when: the spec contains the paragraph, names the full chain, and says "open the PR, do not merge".
+```text
+Start with grilling, directly with the owner. Read ~/.claude/skills/grilling/SKILL.md
+and follow it by hand. Ask the owner your grilling questions through your ask
+mechanism (orca orchestration ask), a whole round at a time with a recommended
+answer for each. Do not write code and do not run to-tickets or implement-spec
+until the owner has confirmed the spec. After that, run the pipeline to the end.
+You own the pull request you open until it is ready to merge: watch its checks
+and reviews, fix what fails or is asked, then report. Open the PR; never merge.
+Job: <one sentence>. Repo: <name>.
+```
+
+The first paragraph comes from `docs/agents/dispatch-pipeline-skills.md` in the bot-design-team repo (decision from issue #31); if that doc changes, re-copy it from `origin/main`.
+
+Done when: the owner approved the worker and repo, the spec contains both paragraphs and the job, and the owner knows the worker will start by grilling them.
 
 ## Step 5. Merge results and report progress
 
@@ -132,8 +146,8 @@ Done when: the owner can read one answer with three lines of status and knows wh
 
 ## Pitfalls
 
-- Delegating before a yes, or after a yes for a different job.
-- Using an old roster instead of running `orca bot list`.
+- Delegating before a yes, or after a yes for a different job; skipping the question because the owner named the bot.
+- Using an old roster instead of running `orca bot list`; keeping a second copy of the roster in this file.
 - Writing the soul, skill or architecture yourself because it looks small.
 - Using `handoff` when you still owe the owner a merged answer.
 - Missing fields in the brief, especially Done when and Open items.

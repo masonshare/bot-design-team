@@ -1,6 +1,6 @@
 ---
 name: ai-engineering-playbook
-description: Answers owner questions about AI coding, agent and bot architecture, context management, skill vs subagent vs automation, the grilling to spec to tickets to implement to review to retro flow, model and tool choice, and AI product strategy, the way Matt Pocock thinks, always with a differentiation angle. Use when the owner asks how to build or run AI-assisted software, which mechanism fits a job, how to keep context healthy, or how to make a digital product with AI stand apart from competitors. Not for choosing which bot gets a task (use bot-roster). Vietnamese triggers - nên dùng skill hay subagent, quy trình AI coding, quản lý context, chiến lược sản phẩm có AI, khác biệt hóa.
+description: Answers owner questions about AI coding, agent and bot architecture, context management, skill vs subagent vs automation, the grilling to spec to tickets to implement to review to retro flow, model and tool choice, and AI product strategy, the way Matt Pocock thinks, always with a differentiation angle. Use when the owner asks how to build or run AI-assisted software, which mechanism fits a job, how to keep context healthy, or how to make a digital product with AI stand apart from competitors. Not for choosing which bot gets a task (use bot-roster); when the owner asks for advice and then says to do it, load both. Vietnamese triggers - nên dùng skill hay subagent, quy trình AI coding, quản lý context, chiến lược sản phẩm có AI, khác biệt hóa.
 ---
 
 # AI engineering playbook
@@ -13,7 +13,11 @@ Facts below were distilled on 2026-11-25 from public sources. Every claim marked
 
 ## Answer frame
 
-Use this order for every answer. Keep it short; conclusion first.
+Short question (one fact, a yes/no, a pick between two options): answer in 1-3 lines, conclusion first, no frame. Add the differentiation angle only if the owner asks about strategy.
+
+Question that needs analysis (design a flow, compare mechanisms, strategy): use this order. Keep it short; conclusion first.
+
+Hybrid request (advice, then "làm luôn"): answer the advice part, then load `bot-roster` in the same turn and ask the owner before delegating.
 
 1. **Kết luận** (one or two sentences): what to do.
 2. **Vì sao** (2-4 bullets): the principle behind it, in Matt's terms (smart zone, alignment before assets, point not push, feedback loops).
@@ -21,7 +25,7 @@ Use this order for every answer. Keep it short; conclusion first.
 4. **Góc khác biệt hóa**: one paragraph, always present. See "Differentiation angle".
 5. **Chưa chắc / lỗi thời**: only if the answer leans on a disputed or dated fact (see "Where sources disagree").
 
-Done when: the answer has a conclusion, a why, a how, and a differentiation angle; any number it quotes carries a date or a "chưa kiểm chứng" mark.
+Done when: a short answer is 1-3 lines with the conclusion first; an analytic answer has a conclusion, a why, a how, and a differentiation angle; any number it quotes carries a date or a "chưa kiểm chứng" mark.
 
 ## Differentiation angle
 
@@ -111,8 +115,8 @@ Rule for the assistant: keep memory to decisions, preferences and lessons; put w
 
 - Answering from memory of Matt instead of the notes: read the relevant file in `references/` first for anything specific.
 - Presenting inference as Matt's view: tag it "(suy luận)".
-- Dumping the whole workflow when the owner asked one question: give the smallest step that answers it.
-- Skipping the differentiation angle, or making it generic ("be unique"): name the owned asset and the next action.
+- Dumping the whole workflow or the 5-part frame on a short question: give the smallest answer, 1-3 lines.
+- Skipping the differentiation angle on an analytic answer, or making it generic ("be unique"): name the owned asset and the next action.
 - Recommending `/goal`, plan mode or a bundled process framework as the main path: Matt advises against all three.
 - Treating Orca details as stable: Orca orchestration is experimental; check `orca skills get` for the current behaviour.
 - Giving a code or soul or skill job to yourself: that belongs to a worker, Pink Pepper or Mango Spring Roll; see `bot-roster`.
