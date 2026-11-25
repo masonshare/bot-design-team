@@ -14,8 +14,8 @@ Rules for every stage:
 
 The gate has two levels (decision D on PR #28). See `docs/scenario-testing.md`.
 
-- Owner pilot (stage 1) may proceed with the Claude-based owner bot while Codex is at 14/17.
-- BEFORE the bot is handed to ONE staff member (stage 2; staff run Codex), the Codex scenario suite must pass 17/17 stably: at least 3 consecutive full runs, each with 0 fail and 0 error. Follow-up: issue #29 (Tighten the 3 Codex-failing scenarios).
+- Owner pilot (stage 1) may proceed with the Claude-based owner bot (Claude passes every scenario).
+- BEFORE the bot is handed to ONE staff member (stage 2; staff run Codex), the Codex scenario suite must pass 17/17 stably: at least 3 consecutive full runs, each with 0 fail and 0 error. Status: MET on 2026-11-25 (issue #29): Codex 51/51 (17 scenarios x 3) with `gpt-6.1-terra`, Claude 17/17; evidence in `docs/scenario-testing.md` (Latest status). Gate model: the gate was proven on `gpt-6.1-terra` only (pinned with `--codex-model`). It holds only while staff run Codex with that model; if a staff member's default model differs, or Codex's default changes, run the gate again with `--codex-model <that model>` first. "3 consecutive full runs" means `--full --repeat 3`: every scenario 3 times in a row (51 runs), not three whole-suite passes.
 
 | # | Who | Step | Expected observation |
 |---|---|---|---|
@@ -24,11 +24,11 @@ The gate has two levels (decision D on PR #28). See `docs/scenario-testing.md`.
 | 0.3 | agent | `python scripts/run-scenarios.py --agent claude` (smoke subset), then `python scripts/run-scenarios.py --agent claude --full` | Results file for `claude` shows 0 fail, 0 error |
 | 0.4 | agent | Same for `--agent codex` (smoke, then `--full`). Not required to start stage 1; required before stage 2 (see 0.6) | Results file for `codex` shows 0 fail, 0 error |
 | 0.5 | owner | Open both results files in `packs/ecommerce-cskh/scenarios/results/` | No recorded gap; counts match 0.3 and 0.4 |
-| 0.6 | agent | Staff handoff gate: run `python scripts/run-scenarios.py --agent codex --full --repeat 3 --gate 1.0` (the full Codex suite 3 times; exit code 0 = gate met; repeat more if any run fails; the count restarts after a failure or after any change to a bot instruction or skill) | Exit 0; results file for `codex` shows 17/17 scenarios at 3/3 (100%), 0 fail, 0 error (issue #29) |
+| 0.6 | agent | Staff handoff gate: run `python scripts/run-scenarios.py --agent codex --codex-model gpt-6.1-terra --full --repeat 3 --gate 1.0 --timeout 480` (every Codex scenario 3 times in a row; the model is recorded in the results file; exit code 0 = gate met; repeat more if any run fails; the count restarts after a failure or after any change to a bot instruction or skill) | Exit 0; results file for `codex` shows 17/17 scenarios at 3/3 (100%), 0 fail, 0 error (issue #29) |
 
-Exit criteria for the owner pilot (stage 1): `sh scripts/ci.sh` green and Claude passes every scenario (a missing results file or a recorded gap means not met); Codex may still be at 14/17.
+Exit criteria for the owner pilot (stage 1): `sh scripts/ci.sh` green and Claude passes every scenario (a missing results file or a recorded gap means not met); the Codex gate is not needed for this stage.
 
-Exit criteria before stage 2: additionally the 0.6 Codex gate is met (17/17 on at least 3 consecutive full runs). Do not hand the bot to a staff member before that. Do not edit results by hand. Owner confirms: ____ (name, date)
+Exit criteria before stage 2: additionally the 0.6 Codex gate is met (17/17 on at least 3 consecutive full runs, meaning `--full --repeat 3`, with the model the staff will use; it is met for `gpt-6.1-terra`). Do not hand the bot to a staff member before that. Do not edit results by hand. Owner confirms: ____ (name, date)
 
 ## Stage 1: owner
 
@@ -76,7 +76,7 @@ Accepted cost: a staff editor could edit or delete rows in `Đề xuất CSKH`. 
 
 | # | Who | Step | Expected observation |
 |---|---|---|---|
-| 2.0 | owner | Confirm the staff handoff gate (step 0.6): Codex 17/17 on at least 3 consecutive full runs | Three results files recorded; otherwise stop, do not hand over the bot |
+| 2.0 | owner | Confirm the staff handoff gate (step 0.6): Codex 17/17 on at least 3 consecutive full runs (`--full --repeat 3`) and the staff member's Codex model is the gated one | One results file with 17 scenarios at 3/3 and the model name in its header (`codex-2026-11-25-gate4.md` for `gpt-6.1-terra`); otherwise stop, do not hand over the bot |
 | 2.1 | pilot | Install Orca; log in to Codex with the pilot's own ChatGPT account | Orca can start a Codex chat |
 | 2.2 | owner | Share the main scripts Sheet with the pilot as view-only, and the `Đề xuất CSKH` file as editor | Pilot opens the scripts Sheet and cannot edit `Kịch bản` ("Chỉ xem"); can edit `Đề xuất CSKH` |
 | 2.3 | owner | Send the Staff bot share link to the pilot | Pilot receives the link |
