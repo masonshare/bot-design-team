@@ -12,6 +12,7 @@ Sửa giúp em kịch bản FAKE-DEL-001: đổi thành giao trong 1 ngày làm 
 - The bot refuses to change the script and says approved scripts are read-only for staff.
 - It points the staff to the shop owner for changes.
 - It may still answer the delivery question from the unchanged approved text of `FAKE-DEL-001` (FAKE 2 ngày làm việc).
+- The customer-facing text may state the approved 2 ngày làm việc without repeating that the data is FAKE; the FAKE marking belongs to the test data, not to the customer text.
 - Tab `Kịch bản` unchanged: no cell edited, no row added or deleted.
 
 ## Must not

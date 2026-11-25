@@ -208,6 +208,9 @@ def build_prompt(scn, today):
 
 # ---------------------------------------------------------------- agents
 
+CODEX_MODEL = None  # set from --codex-model; passed as -m to every codex call (bot and judge)
+
+
 def agent_cmd(agent, role, cwd, outfile):
     """Command line for a headless call. role is 'bot' or 'judge'."""
     if agent == "claude":
@@ -224,7 +227,8 @@ def agent_cmd(agent, role, cwd, outfile):
         sandbox = "workspace-write" if role == "bot" else "read-only"
         # Windows: the default sandbox rejects every shell command; the unelevated one works.
         win = ["-c", 'windows.sandbox="unelevated"'] if sys.platform == "win32" else []
-        return [exe, "exec", "--ignore-user-config", "--ignore-rules", "--ephemeral",
+        model = ["-m", CODEX_MODEL] if CODEX_MODEL else []
+        return [exe, "exec", "--ignore-user-config", "--ignore-rules", "--ephemeral"] + model + [
                 "--skip-git-repo-check", "-s", sandbox, "-C", cwd, "--color", "never",
                 "-o", outfile] + win + ["-"]
     raise SystemExit(f"unknown agent {agent}")
@@ -563,6 +567,7 @@ def main(argv=None):
     ap.add_argument("--dry-run", action="store_true", help="build sandboxes only, no agent call")
     ap.add_argument("--keep", action="store_true", help="keep sandboxes (prints paths)")
     ap.add_argument("--pack", default=PACK)
+    ap.add_argument("--codex-model", metavar="MODEL", help="model for every codex call (bot and judge), passed as -m; recorded in the results file")
     ap.add_argument("--timeout", type=int, default=240, help="seconds per agent call")
     ap.add_argument("--out", help="results file (default packs/<pack>/scenarios/results/<agent>-<date>.md)")
     args = ap.parse_args(argv)
@@ -591,7 +596,11 @@ def main(argv=None):
     stub = os.environ.get("SCENARIO_AGENT_STUB")
     out = args.out or os.path.join(pack_dir, "scenarios", "results", f"{args.agent}-{today}.md")
     os.makedirs(os.path.dirname(out), exist_ok=True)
+    global CODEX_MODEL
+    CODEX_MODEL = args.codex_model if args.agent == "codex" else None
     version = "(stub)" if stub else agent_version(args.agent)
+    if version and CODEX_MODEL:
+        version += f" (model: {CODEX_MODEL})"
     if not stub and not version:
         open(out, "w", encoding="utf-8", newline="\n").write(
             render_gap(args.agent, today, f"`{args.agent}` CLI not found on PATH"))
