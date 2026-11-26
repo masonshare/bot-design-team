@@ -18,7 +18,14 @@ packs/marketing-ecommerce/
 
 | Skill | Docs |
 |---|---|
+| `ecommerce-channel-strategy` | [docs/skills/ecommerce-channel-strategy.md](../../docs/skills/ecommerce-channel-strategy.md) |
 | `ecommerce-kpi-analytics` | [docs/skills/ecommerce-kpi-analytics.md](../../docs/skills/ecommerce-kpi-analytics.md) |
+| `ecommerce-product-strategy` | [docs/skills/ecommerce-product-strategy.md](../../docs/skills/ecommerce-product-strategy.md) |
+| `ecommerce-promotion-design` | [docs/skills/ecommerce-promotion-design.md](../../docs/skills/ecommerce-promotion-design.md) |
+| `ecommerce-store-optimization` | [docs/skills/ecommerce-store-optimization.md](../../docs/skills/ecommerce-store-optimization.md) |
+| `niche-finder` | [docs/skills/niche-finder.md](../../docs/skills/niche-finder.md) |
+| `playbook-documentation` | [docs/skills/playbook-documentation.md](../../docs/skills/playbook-documentation.md) |
+| `youtube-digest` | [docs/skills/youtube-digest.md](../../docs/skills/youtube-digest.md) |
 
 ## The customer's brand profile
 

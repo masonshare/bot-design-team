@@ -204,6 +204,8 @@ c_neutral_starter_old_ok() { printf 'Dung AskUserQuestion.
 ' >> "$TMP/r/packs/starter/mango-spring-roll/skills/skill-test/SKILL.md"; }
 c_neutral_framework_ok() { printf 'Khung AIDA, JTBD va BATNA van duoc dung.
 ' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
+c_neutral_both_files_ok() { printf 'Khac voi tep huong dan du an (CLAUDE.md hay AGENTS.md).
+' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
 t "backup file in a pack rejected" c_junk_bak 1
 t "SPEC.md in a pack rejected" c_junk_spec 1
 t "working/ folder in a pack rejected" c_junk_working 1
@@ -216,6 +218,7 @@ t ".claude path in a marketing skill rejected" c_neutral_claude_path 1
 t "third-party skill folder with LICENSE exempt from neutral check" c_neutral_license_ok 0
 t "older starter skill naming a Claude tool accepted" c_neutral_starter_old_ok 0
 t "framework names (AIDA, JTBD, BATNA) accepted" c_neutral_framework_ok 0
+t "CLAUDE.md named together with AGENTS.md accepted" c_neutral_both_files_ok 0
 
 PY=$(command -v python || command -v python3)
 if "$PY" -W ignore "$SRC/scripts/tests/test_run_scenarios.py" >"$TMP/unit.log" 2>&1; then
