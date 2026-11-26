@@ -42,7 +42,7 @@ Starter là nhóm cơ bản gồm bốn bot. Mọi gói khác đều cần nó.
 
 Tên các bot là tên món ăn vặt, chỉ để dễ nhớ.
 
-Starter chắc chắn nhưng còn mới: chưa có bộ thử tự động. Gói cho shop bên dưới thì đã có.
+Starter là nền móng, nhưng còn mới: chưa có bộ thử tự động. Gói cho shop bên dưới thì đã có.
 
 ### Cài trong 3 bước
 

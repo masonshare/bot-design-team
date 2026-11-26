@@ -42,7 +42,7 @@ Starter is the basic crew of four bots. Every other pack needs it.
 
 The names are snacks. They only make the bots easy to remember.
 
-Starter is solid but young: it does not have an automatic test set yet. The shop pack below does.
+Starter is the foundation, but it is young: it does not have an automatic test set yet. The shop pack below does.
 
 ### Install in 3 steps
 
