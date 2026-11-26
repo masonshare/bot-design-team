@@ -26,7 +26,7 @@ Rules:
 2. In every `SKILL.md`, frontmatter `name` equals the skill's directory name, and `description` is present.
 3. Every pack skill has its docs page at `docs/skills/<name>.md`. Because docs pages are flat, a skill name must not be reused by another skill.
 4. Fake data and scenarios hold FAKE data only (ADR 0003).
-5. Repo-level (non-pack) skills stay at `skills/<design|in-progress|deprecated>/<name>/SKILL.md`.
+5. (Void since ADR 0006.) There are no repo-level skills outside packs.
 
 ## Enforcement
 

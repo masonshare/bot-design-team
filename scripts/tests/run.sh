@@ -38,12 +38,11 @@ PK="$TMP/r/packs/ecommerce-cskh/skills"
 PH0=$(printf '%s%s' 09 08123456)
 
 c_baseline() { :; }
-c_no_name() { sed -i '/^name:/d' "$TMP/r/skills/design/skill-test/SKILL.md"; }
-c_wrong_name() { sed -i 's/^name:.*/name: other/' "$TMP/r/skills/design/skill-test/SKILL.md"; }
-c_no_desc() { sed -i '/^description:/d' "$TMP/r/skills/design/skill-test/SKILL.md"; }
-c_no_frontmatter() { echo "just text" > "$TMP/r/skills/design/skill-test/SKILL.md"; }
-c_outside_bucket() { mk_skill "$TMP/r/skills/stray/SKILL.md" stray d; }
-c_bad_depth() { mk_skill "$TMP/r/skills/in-progress/a/b/SKILL.md" b d; }
+c_no_name() { sed -i '/^name:/d' "$TMP/r/packs/starter/mango-spring-roll/skills/skill-test/SKILL.md"; }
+c_wrong_name() { sed -i 's/^name:.*/name: other/' "$TMP/r/packs/starter/mango-spring-roll/skills/skill-test/SKILL.md"; }
+c_no_desc() { sed -i '/^description:/d' "$TMP/r/packs/starter/mango-spring-roll/skills/skill-test/SKILL.md"; }
+c_no_frontmatter() { echo "just text" > "$TMP/r/packs/starter/mango-spring-roll/skills/skill-test/SKILL.md"; }
+c_bad_depth() { mk_skill "$TMP/r/packs/starter/mango-spring-roll/skills/a/b/SKILL.md" b d; }
 c_no_docs_page() { rm "$TMP/r/docs/skills/bot-soul.md"; }
 c_docs_section() { sed -i '/^## Common questions/d' "$TMP/r/docs/skills/bot-soul.md"; }
 c_pack_docs_section() { sed -i '/^## Common questions/d' "$TMP/r/docs/skills/cskh-lookup.md"; }
@@ -96,7 +95,6 @@ t "missing name rejected" c_no_name 1
 t "name != directory rejected" c_wrong_name 1
 t "missing description rejected" c_no_desc 1
 t "no frontmatter rejected" c_no_frontmatter 1
-t "skill outside bucket rejected" c_outside_bucket 1
 t "skill too deep rejected" c_bad_depth 1
 t "promoted skill without docs page rejected" c_no_docs_page 1
 t "docs page missing section rejected" c_docs_section 1
@@ -129,7 +127,7 @@ c_col_csv_dx() { sed -i '1s/,Số lần hỏi/,Số lần hỏi,Thừa/' "$SH/fa
 c_col_const() { sed -i '/^KB_COLUMNS/s/Lưu ý nội bộ/Ghi chú/' "$TMP/r/scripts/run-scenarios.py"; }
 c_col_const_dx() { sed -i '/^DX_COLUMNS/s/Mã gần nhất/Mã/' "$TMP/r/scripts/run-scenarios.py"; }
 c_term_skill() { printf 'Hỏi %s duyệt.
-' "$(printf 'chủ dự %s' án)" >> "$TMP/r/skills/design/skill-test/SKILL.md"; }
+' "$(printf 'chủ dự %s' án)" >> "$TMP/r/packs/starter/mango-spring-roll/skills/skill-test/SKILL.md"; }
 c_term_soul() { printf 'Gửi %s.
 ' "$(printf 'Chủ Dự %s' Án)" >> "$SH/staff/SOUL.md"; }
 c_term_docs() { printf 'Gửi %s.

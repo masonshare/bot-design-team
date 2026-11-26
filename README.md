@@ -1,63 +1,91 @@
-# Bot Design Team
+# Bots Factory
 
 [Tiếng Việt](README.vi.md)
 
-Four AI bots and Agent Skills for designing prompts, skills and bots, built for [Orca](https://github.com/stablyai/orca) only.
+A production line for AI bots, like a software factory, but for small businesses. Describe the job, get a designed, tested, ready-to-use bot.
 
-| Bot | Role | Skills |
+## What is this?
+
+Picture a cake factory. It does not bake one cake by hand. It has a line: an order comes in, a recipe is chosen, a taster checks the cake, and a box goes out the door.
+
+Bots Factory is the same line, but for **AI bots**. An AI bot is a helper you chat with that does one job for you.
+
+Say you run an online shop. Customers ask the same questions all day: "Where is my order?", "Can I return this?". You want a helper that answers the way you would. That is the job we follow on this page.
+
+```mermaid
+flowchart LR
+    A["1. Describe the job"] --> B["2. Design the bot"]
+    B --> C["3. Test the bot"]
+    C --> D["4. Hand over the bot"]
+```
+
+1. **Describe the job.** You say what you need in plain words. *Cake factory: the customer's order.*
+2. **Design the bot.** The factory plans who the bot is and what rules it follows. *The recipe.*
+3. **Test the bot.** The bot is tried on made-up cases before it meets a real customer. *The taste test.*
+4. **Hand over the bot.** You get a bot that is ready to use, with setup steps. *The box.*
+
+## What you need
+
+- A **brain**: Claude Code or Codex. These are AI programs that do the real work for you. You need an account with one of them.
+- An **app window**: [Orca](https://github.com/stablyai/orca). This is the app where your bots live and where you chat with them.
+
+## Part 1. Starter (install this first, it is required)
+
+Starter is the basic crew of four bots. Every other pack needs it.
+
+| Bot | What it does for you | In the cake factory |
 |---|---|---|
-| Pink Pepper Coated Lotus Seeds | Prompt Designer: prompts, system prompts, prompt chains, bot souls | [`prompt-design`](skills/design/prompt-design/SKILL.md) and the other `prompt-*` skills |
-| Mango Spring Roll | Skill Designer: turns workflows into tested Agent Skills | [`skill-design`](skills/design/skill-design/SKILL.md) and the other `skill-*` skills |
-| Dried Plum | Bot Architect: bot profiles, teams, packaging | [`bot-design`](skills/design/bot-design/SKILL.md) and the other `bot-*` skills |
-| Coordinator | Chief of Staff: receives requests, asks before every handoff, merges results, advises on AI engineering | [`bot-roster`](skills/design/bot-roster/SKILL.md), [`ai-engineering-playbook`](skills/design/ai-engineering-playbook/SKILL.md) |
+| Ask Masonshare | Takes your request, picks the right bot, asks you before handing anything over, gives you one answer | The factory manager |
+| Dried Plum | Plans a new bot: what it does, who it serves, what it may touch | The one who designs the recipe |
+| Pink Pepper Coated Lotus Seeds | Writes the bot's "soul" (its standing rules and voice, read at the start of every chat) and its prompts (the messages you give an AI) | The one who writes the instructions on the card |
+| Mango Spring Roll | Writes and tests "skills" (a skill is a how-to card for one job) | The one who writes the how-to cards |
 
-Each skill also works on its own, without the team.
+The names are snacks. They only make the bots easy to remember.
 
-## Pack: ecommerce-cskh
+Starter is solid but young: it does not have an automatic test set yet. The shop pack below does.
 
-A ready-made two-bot pack for a Vietnamese e-commerce shop (Shopee, Zalo, hotline), in [`packs/ecommerce-cskh/`](packs/ecommerce-cskh/README.md). The owner keeps approved reply scripts in a Google Sheet.
+### Install in 3 steps
 
-| Bot | Role | Skills |
-|---|---|---|
-| Editor | Helps the owner draft and clean up scripts; drafts are always `Nháp` and only the owner approves | [`cskh-draft`](docs/skills/cskh-draft.md) |
-| Staff | Helps staff answer customers from approved scripts only; read-only on scripts | [`cskh-lookup`](docs/skills/cskh-lookup.md), [`cskh-no-script`](docs/skills/cskh-no-script.md) |
+1. **Download.** Get this repository onto your computer (the green Code button on GitHub, then Download ZIP, or ask your brain to do it).
+2. **Paste one sentence** into Claude Code or Codex and let it do the setup:
 
-The pack ships with FAKE sample data and replayable behaviour scenarios, no real data. See the pack README for the Sheet layout, Google permissions and rollout, and the [pilot rollout checklist](docs/pilot-rollout-checklist.md) for the owner, pilot and team stages.
+   > Please set up Bots Factory Starter for me. The repository is https://github.com/masonshare/bots-factory. Read docs/for-developers.md, section "Set the bots up in Orca", and create the four bots in packs/starter in Orca, each with its SOUL.md and its skills. Tell me when it is done and what I should do next.
 
-## Direction
+3. **Open a NEW chat with each bot.** A chat that was already open does not load the soul and the skills. Starting a new chat is how a bot picks up its rules.
 
-This repo is Orca-only. Bots run inside Orca on the user's own machine and subscription, and are shared with Orca's bot share link. The earlier platform-specific material was removed; it stays available at the git tag `v0-openmausbot`.
+### Starter in action
 
-## Install the skills
+You tell Ask Masonshare: "I need a helper that answers my customers."
 
-Requires Node.js. The installer copies the skills into your coding agent (Claude Code, Codex, Cursor and others):
+- Ask Masonshare says which bot it would use and asks you: "Do you agree?" Nothing moves until you say yes.
+- Dried Plum plans the helper. Pink Pepper writes its soul. Mango Spring Roll writes the how-to cards it needs.
+- You get the pieces back in one answer.
 
-```bash
-npx skills add masonshare/bot-design-team            # pick skills and agents interactively
-npx skills add masonshare/bot-design-team --list     # preview what is inside
-npx skills add masonshare/bot-design-team --skill prompt-design
-npx skills add masonshare/bot-design-team -g         # install for your user, not one project
-```
+Every bot asks you before it sends, shares, deletes or spends anything. Ask Masonshare never merges code changes for you.
 
-## Set the bots up in Orca
+## Part 2. More packs (each one needs Starter first)
 
-Create each bot in Orca, paste its soul from [`bots/`](bots/) and enable the skills from the table above. Disable every visible skill that none of the bot's jobs uses, and pick a model for each bot. The `bot-package` skill walks through the steps and the rollout order.
+A pack is a ready-made set of bots for one kind of job. Only packs that have been tested are listed here.
 
-## Layout
+### Online shop: answering customers (`ecommerce-cskh`)
 
-```
-bots/          the three souls (standing instructions), English and Vietnamese
-skills/        Agent Skills in buckets: design/ (promoted), in-progress/, deprecated/; most with references/vi.md (Vietnamese edition)
-packs/         ready-made bot packs (ecommerce-cskh: Editor and Staff bots, FAKE data, scenarios)
-docs/skills/   one page per promoted skill and per pack skill (what it does, when, questions, how to tell it works)
-docs/agents/   notes for coding agents (issue tracker, labels, domain docs)
-scripts/       repo checks (run `sh scripts/ci.sh`)
-```
+- **The problem:** you or your staff type the same answers all day, and they are not always the same answer.
+- **What the bots do:** one bot helps you write answer scripts, which stay drafts until you approve them. Another helps your staff answer customers using only your approved scripts. It cannot change them.
+- **Start here:** [`packs/ecommerce-cskh/README.md`](packs/ecommerce-cskh/README.md). Install Starter first. The pack is written for Vietnamese-speaking shops (Shopee, Zalo, hotline) and uses made-up sample data only.
 
-## No real data
+## Words we used
 
-This repo is public. Hard rule: no real company, customer or staff data goes into it, ever. Only fake examples (the pack's sample files are marked FAKE).
+- **Bot:** a helper that does one job.
+- **Soul:** the bot's standing rules, read at the start of every chat. Like a job description pinned to the wall.
+- **Skill:** a how-to card for one job.
+- **Prompt:** a message you give an AI.
+- **Pack:** a box of bots that belong together.
+- **Brain:** Claude Code or Codex. **App window:** Orca.
 
-## Credits and license
+## Need help?
 
-The skills and souls are written by Masonshare. The ideas they draw from other people's work are rewritten and credited in [CREDITS.md](CREDITS.md). The repo is released under the MIT License: see [LICENSE](LICENSE).
+Open an issue on [GitHub](https://github.com/masonshare/bots-factory/issues). Do not put real customer details in it.
+
+## For developers
+
+Install with npx, folder layout, tests and CI: [docs/for-developers.md](docs/for-developers.md). Credits: [CREDITS.md](CREDITS.md). MIT License: [LICENSE](LICENSE). Everything in this public repo is made-up example data.

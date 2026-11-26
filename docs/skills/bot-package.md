@@ -4,7 +4,7 @@
 
 Packages a designed bot or team for rollout in Orca as numbered manual setup steps or an Orca bot share link, with rollout order and a 10-line summary.
 
-Source: [`skills/design/bot-package/SKILL.md`](../../skills/design/bot-package/SKILL.md)
+Source: [`packs/starter/dried-plum/skills/bot-package/SKILL.md`](../../packs/starter/dried-plum/skills/bot-package/SKILL.md)
 
 ## When to reach for it
 

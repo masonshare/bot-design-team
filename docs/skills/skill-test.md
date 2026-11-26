@@ -4,7 +4,7 @@
 
 Tests one skill: trigger tests check the description fires on the right prompts and no others; task tests compare a baseline without the skill to a retest with it.
 
-Source: [`skills/design/skill-test/SKILL.md`](../../skills/design/skill-test/SKILL.md)
+Source: [`packs/starter/mango-spring-roll/skills/skill-test/SKILL.md`](../../packs/starter/mango-spring-roll/skills/skill-test/SKILL.md)
 
 ## When to reach for it
 

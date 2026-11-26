@@ -4,7 +4,7 @@
 
 Interviews you about a bot idea in one batch of questions and gives a go or no-go verdict on whether a bot is the right tool at all. It produces a short brief.
 
-Source: [`skills/design/bot-interview/SKILL.md`](../../skills/design/bot-interview/SKILL.md)
+Source: [`packs/starter/dried-plum/skills/bot-interview/SKILL.md`](../../packs/starter/dried-plum/skills/bot-interview/SKILL.md)
 
 ## When to reach for it
 

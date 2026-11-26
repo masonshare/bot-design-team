@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Check SKILL.md frontmatter (name + description present, name == directory name)
-for skills/**/SKILL.md and every SKILL.md anywhere under packs/, and that pack skills sit at
+for every SKILL.md anywhere under packs/, and that pack skills sit at
 packs/<pack>/skills/<name>/SKILL.md or packs/<pack>/<bot>/skills/<name>/SKILL.md. Missing packs/ is fine. Stdlib only.
 
 The placement rules implement the pack layout contract in docs/adr/0005-pack-layout-contract.md;
@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
 from cskh_common import split_frontmatter  # noqa: E402
 
 root = Path(__file__).resolve().parent.parent
-files = sorted(root.glob("skills/**/SKILL.md")) + sorted(root.glob("packs/**/SKILL.md"))
+files = sorted(root.glob("packs/**/SKILL.md"))
 bad = 0
 
 
@@ -26,8 +26,6 @@ for f in files:
     rel = f.relative_to(root).parts
     if rel[0] == "packs" and not ((len(rel) == 5 and rel[2] == "skills") or (len(rel) == 6 and rel[3] == "skills")):
         fail(f, "pack skill must be packs/<pack>/skills/<name>/SKILL.md or packs/<pack>/<bot>/skills/<name>/SKILL.md")
-    if rel[0] == "skills" and len(rel) != 4:
-        fail(f, "skill must be skills/<bucket>/<name>/SKILL.md")
     try:
         fm, _ = split_frontmatter(f.read_text(encoding="utf-8"))
     except ValueError as e:

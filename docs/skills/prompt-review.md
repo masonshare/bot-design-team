@@ -4,7 +4,7 @@
 
 Diagnoses a prompt you already have against four errors (vague, greedy, unbounded, trapping) and a six-element checklist, quotes the line behind each finding and returns a marked rewrite.
 
-Source: [`skills/design/prompt-review/SKILL.md`](../../skills/design/prompt-review/SKILL.md)
+Source: [`packs/starter/pink-pepper-coated-lotus-seeds/skills/prompt-review/SKILL.md`](../../packs/starter/pink-pepper-coated-lotus-seeds/skills/prompt-review/SKILL.md)
 
 ## When to reach for it
 

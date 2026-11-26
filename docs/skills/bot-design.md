@@ -4,7 +4,7 @@
 
 Front door for designing one bot or a small team. It holds the shared rules (work loop, approval gates, 5-field handoff) and routes each stage to the matching bot-* skill.
 
-Source: [`skills/design/bot-design/SKILL.md`](../../skills/design/bot-design/SKILL.md)
+Source: [`packs/starter/dried-plum/skills/bot-design/SKILL.md`](../../packs/starter/dried-plum/skills/bot-design/SKILL.md)
 
 ## When to reach for it
 

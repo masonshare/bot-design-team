@@ -4,7 +4,7 @@
 
 Gives the Coordinator bot a consistent way to answer questions about AI coding, agent and bot architecture, context management, skill vs subagent vs automation, and AI product strategy. Answers follow one frame (conclusion, why, how, differentiation angle, doubts) and draw on public sources: the `mattpocock/skills` repo, aihero.dev posts and the Orca docs, kept in `references/`.
 
-Source: [`skills/design/ai-engineering-playbook/SKILL.md`](../../skills/design/ai-engineering-playbook/SKILL.md)
+Source: [`packs/starter/ask-masonshare/skills/ai-engineering-playbook/SKILL.md`](../../packs/starter/ask-masonshare/skills/ai-engineering-playbook/SKILL.md)
 
 ## When to reach for it
 

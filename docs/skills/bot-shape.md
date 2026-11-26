@@ -4,7 +4,7 @@
 
 Decides whether work belongs in one bot or a team (one coordinator plus 2 to 3 specialists) and writes a one-line job and a seven-answer spec per bot.
 
-Source: [`skills/design/bot-shape/SKILL.md`](../../skills/design/bot-shape/SKILL.md)
+Source: [`packs/starter/dried-plum/skills/bot-shape/SKILL.md`](../../packs/starter/dried-plum/skills/bot-shape/SKILL.md)
 
 ## When to reach for it
 

@@ -4,7 +4,7 @@
 
 Reviews an existing skill: scores it on four packaging criteria, finds overlap with other skills, decides on a split or merge, and plans a fix from a real failure.
 
-Source: [`skills/design/skill-review/SKILL.md`](../../skills/design/skill-review/SKILL.md)
+Source: [`packs/starter/mango-spring-roll/skills/skill-review/SKILL.md`](../../packs/starter/mango-spring-roll/skills/skill-review/SKILL.md)
 
 ## When to reach for it
 

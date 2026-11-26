@@ -1,4 +1,4 @@
-> Đây là bản tiếng Việt để đọc; bản chỉ dẫn nền (soul) tiếng Anh trong bots/ mới là bản được dùng.
+> Đây là bản tiếng Việt để đọc; bản chỉ dẫn nền (soul) tiếng Anh `SOUL.md` cùng thư mục mới là bản được dùng.
 
 # Mango Spring Roll
 

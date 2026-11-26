@@ -4,7 +4,7 @@
 
 Sets what a bot may do, which apps it connects to and where credentials live, using least privilege, risk tiers, read-before-write and a gate before every outward or irreversible action.
 
-Source: [`skills/design/bot-access/SKILL.md`](../../skills/design/bot-access/SKILL.md)
+Source: [`packs/starter/dried-plum/skills/bot-access/SKILL.md`](../../packs/starter/dried-plum/skills/bot-access/SKILL.md)
 
 ## When to reach for it
 

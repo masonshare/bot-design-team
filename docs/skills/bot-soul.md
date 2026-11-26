@@ -4,7 +4,7 @@
 
 Writes, trims or reviews a bot soul: the standing instructions carried on every turn (identity, voice, scope, gates, skill pointers).
 
-Source: [`skills/design/bot-soul/SKILL.md`](../../skills/design/bot-soul/SKILL.md)
+Source: [`packs/starter/pink-pepper-coated-lotus-seeds/skills/bot-soul/SKILL.md`](../../packs/starter/pink-pepper-coated-lotus-seeds/skills/bot-soul/SKILL.md)
 
 ## When to reach for it
 

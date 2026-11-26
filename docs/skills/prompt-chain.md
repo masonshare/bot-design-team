@@ -4,7 +4,7 @@
 
 Turns a multi-step task into a prompt chain: numbered prompts where each output feeds the next, with placeholders, a handoff map and approval points.
 
-Source: [`skills/design/prompt-chain/SKILL.md`](../../skills/design/prompt-chain/SKILL.md)
+Source: [`packs/starter/pink-pepper-coated-lotus-seeds/skills/prompt-chain/SKILL.md`](../../packs/starter/pink-pepper-coated-lotus-seeds/skills/prompt-chain/SKILL.md)
 
 ## When to reach for it
 
