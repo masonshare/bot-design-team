@@ -30,6 +30,11 @@ Allowlist (nothing else is exempt):
 9. `scripts/check-soul-rules.py`: each `packs/*/staff/SOUL.md` and `packs/*/editor/SOUL.md` points at its skills for rules. A line must not list 3 or more sheet column headers (exact match of the template headers), must not list all three statuses `Nháp`, `Đã duyệt`, `Hết hạn` as one adjacent run, and the SOUL must name at least one skill from its own `skills/` folder. Single mentions inside a rule are fine.
 10. `scripts/check-repo-map.sh`: `docs/repo-map.md` exists, every repo path it names in backticks exists (a `<placeholder>` or `*` is checked up to that part), and `AGENTS.md` points at it. Update the map when you move or add a top-level folder.
 
+11. `scripts/check-skill-junk.py`: no backups (`*.bak*`), `SPEC.md`, `progress.md`, transcripts, `working/`, `.versions/` or `.git` anywhere under `packs/`.
+12. `scripts/check-skill-neutral.py`: skills in `packs/marketing-ecommerce`, `packs/strategy-advisor` (and the starter skills named in `scripts/lib/skill_rules.py`) contain no `AskUserQuestion`, `.claude` paths, `CLAUDE.md`, slash-command modes, `WebSearch`/`WebFetch`, URLs, or real company brands. A skill folder with a `LICENSE` file (third-party code copied as is) is exempt. Framework names (AIDA, JTBD, BATNA) are fine.
+
+Importing a rewritten skill: `python scripts/import-skill.py <skill-dir> <pack>` copies it to `packs/<pack>/skills/<name>/`, drops junk, keeps only `name` and `description` in the frontmatter. Then write `docs/skills/<name>.md` from `docs/templates/skill-page.md`, add its row to `docs/credits.md`, and run `sh scripts/ci.sh`.
+
 Shared parsing (front matter, phone regex) lives in `scripts/lib/cskh_common.py`. GitHub Actions runs the tests below, then `sh scripts/ci.sh`, on every push and on pull requests to `main`.
 
 Tests: `bash scripts/tests/run.sh` (failing-case tests for the checks, plus unit tests of `scripts/run-scenarios.py` with a stub agent; CI never calls a real agent). It builds one pristine temp copy and resets it between cases, so it runs in under about 75 s on Windows (Git Bash, measured 40-72 s); it was about 150 s with a full copy per case. It aborts with exit 2 if the pristine commit or a reset/clean fails. Keep `AGENTS.md` and `CLAUDE.md` byte-identical. Dispatching pipeline skills to a worker: `docs/agents/dispatch-pipeline-skills.md`.

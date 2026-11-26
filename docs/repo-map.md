@@ -11,6 +11,10 @@ One page: where things live. Steering files point here; `scripts/check-repo-map.
 | Starter pack: the 4 design bots (mandatory first install) | `packs/starter/` |
 | Starter bot homes (SOUL.md, SOUL.vi.md, skills) | `packs/starter/<bot>/` |
 | One docs page per pack skill | `docs/skills/<name>.md` |
+| Template for a skill docs page | `docs/templates/skill-page.md` |
+| Sources, licences, third-party code of the pack skills | `docs/credits.md` |
+| Customer brand-profile template and FAKE example | `packs/marketing-ecommerce/brand-profile-template.md`, `packs/marketing-ecommerce/fake-data/` |
+| Import a rewritten skill into a pack (drops junk, slims frontmatter) | `scripts/import-skill.py` |
 | Developer docs (install, layout, CI) | `docs/for-developers.md` |
 | Packs | `packs/<pack>/` |
 | Pack bot homes (SOUL.md and skills) | `packs/<pack>/staff/`, `packs/<pack>/editor/` |

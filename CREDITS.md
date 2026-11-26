@@ -4,6 +4,8 @@ Written by Masonshare: the Prompt Architect process (Gold Standard, Reality Chec
 
 Ideas from other work, rewritten in our own words. Each skill also lists its sources at the bottom of the file that uses them.
 
+Credits for the marketing-ecommerce and strategy-advisor skills are in [`docs/credits.md`](docs/credits.md).
+
 | Source | Used for |
 |---|---|
 | [Agent Skills specification](https://agentskills.io/specification) | skill format rules in `skill-design` |
