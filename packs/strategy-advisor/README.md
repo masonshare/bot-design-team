@@ -19,6 +19,8 @@ This pack is filled in batches. Each skill has a docs page in `docs/skills/`; so
 | `elite-negotiator` | [docs/skills/elite-negotiator.md](../../docs/skills/elite-negotiator.md) |
 | `pitch-bod-bos-dt` | [docs/skills/pitch-bod-bos-dt.md](../../docs/skills/pitch-bod-bos-dt.md) |
 | `thiet-ke-trai-nghiem-cao-cap` | [docs/skills/thiet-ke-trai-nghiem-cao-cap.md](../../docs/skills/thiet-ke-trai-nghiem-cao-cap.md) |
+| `winning-business-model` | [docs/skills/winning-business-model.md](../../docs/skills/winning-business-model.md) |
+| `thuyet-trinh-winston` | [docs/skills/thuyet-trinh-winston.md](../../docs/skills/thuyet-trinh-winston.md) |
 
 If you need to read a video, also install `youtube-digest` from `packs/marketing-ecommerce/`.
 
