@@ -18,6 +18,10 @@ packs/marketing-ecommerce/
 
 | Skill | Docs |
 |---|---|
+| `brand-architect` | [docs/skills/brand-architect.md](../../docs/skills/brand-architect.md) |
+| `stp-marketing-strategy` | [docs/skills/stp-marketing-strategy.md](../../docs/skills/stp-marketing-strategy.md) |
+| `market-researcher` | [docs/skills/market-researcher.md](../../docs/skills/market-researcher.md) |
+| `journey-mapper` | [docs/skills/journey-mapper.md](../../docs/skills/journey-mapper.md) |
 | `ecommerce-channel-strategy` | [docs/skills/ecommerce-channel-strategy.md](../../docs/skills/ecommerce-channel-strategy.md) |
 | `ecommerce-kpi-analytics` | [docs/skills/ecommerce-kpi-analytics.md](../../docs/skills/ecommerce-kpi-analytics.md) |
 | `ecommerce-product-strategy` | [docs/skills/ecommerce-product-strategy.md](../../docs/skills/ecommerce-product-strategy.md) |
