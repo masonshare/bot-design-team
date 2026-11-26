@@ -1,7 +1,3 @@
 # Skills the marketing-ecommerce orchestrator lists that are not merged into packs/marketing-ecommerce/skills/ yet.
 # One name per line, `name  # why`. check-orchestrator-skills.py fails when a name here has a folder (delete the line).
 # Delete a line when its skill lands.
-tui-kich-ban  # PR 58
-video-script-vn  # PR 58
-ecommerce-image-design  # PR 58
-new-product-development  # PR 58

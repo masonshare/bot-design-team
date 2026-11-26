@@ -40,6 +40,10 @@ packs/marketing-ecommerce/
 | `lead-gen-expert` | [docs/skills/lead-gen-expert.md](../../docs/skills/lead-gen-expert.md) |
 | `paid-ads-strategist` | [docs/skills/paid-ads-strategist.md](../../docs/skills/paid-ads-strategist.md) |
 | `cro-specialist` | [docs/skills/cro-specialist.md](../../docs/skills/cro-specialist.md) |
+| `tui-kich-ban` | [docs/skills/tui-kich-ban.md](../../docs/skills/tui-kich-ban.md) |
+| `video-script-vn` | [docs/skills/video-script-vn.md](../../docs/skills/video-script-vn.md) |
+| `ecommerce-image-design` | [docs/skills/ecommerce-image-design.md](../../docs/skills/ecommerce-image-design.md) |
+| `new-product-development` | [docs/skills/new-product-development.md](../../docs/skills/new-product-development.md) |
 
 ## The customer's brand profile
 

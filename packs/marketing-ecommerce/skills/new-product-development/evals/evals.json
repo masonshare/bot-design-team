@@ -1,0 +1,42 @@
+{
+  "skill": "new-product-development",
+  "note": "Generic cases, invented products, no brand names. Each case lists what a good answer must do.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "full run from an idea",
+      "prompt": "Mình muốn làm một loại nến thơm handmade và bán trên sàn thương mại điện tử cộng website riêng. Mình mới có ý tưởng, chưa có gì khác. Dẫn mình từ đầu.",
+      "must": [
+        "Shows the six-phase map with a one-line output for each phase, including what packaging and launch will need",
+        "States the current phase and the next decision gate",
+        "Lists assumptions it is using and what it needs the user to confirm",
+        "Does not recommend buying inventory before the concept is validated",
+        "Reminds the user to check the rules for their product type and country with a professional"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "resume at the packaging phase",
+      "prompt": "Mình đã chốt concept và công thức cho bộ quà tặng trà thảo mộc (3 hộp nhỏ, đã có mẫu thử). Mình đang ở bước bao bì, giúp mình tiếp.",
+      "must": [
+        "Skips phases 1 to 4 and says so, noting which earlier outputs it assumes exist",
+        "Works on packaging: structure, materials, information that must appear, shipping fit, unit cost target",
+        "Asks for or flags the missing inputs (target price, quantity, shipping method)",
+        "Ends with the phase output and the decision gate before launch",
+        "Includes the product-type checklist for food or beverage items with the professional-check reminder"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "start from a competitor photo only",
+      "prompt": "Mình chỉ có một tấm ảnh sản phẩm của đối thủ (một chai nước ép đóng chai) và muốn làm sản phẩm tương tự nhưng khác biệt. Giúp mình bắt đầu.",
+      "must": [
+        "Does not copy the competitor's product, name or claims; frames it as learning and differentiating",
+        "Starts at strategy and insight, asking what the user can do better and for whom",
+        "Proposes how to learn about the competitor from public information without inventing facts about it",
+        "Names the decision gate before any spending",
+        "Labels every assumption and asks for missing facts instead of guessing"
+      ]
+    }
+  ]
+}
