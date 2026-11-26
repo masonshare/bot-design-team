@@ -33,6 +33,13 @@ packs/marketing-ecommerce/
 | `copywriter-choi-chu` | [docs/skills/copywriter-choi-chu.md](../../docs/skills/copywriter-choi-chu.md) |
 | `watch` (third-party, MIT, copied as is; plugin parts Claude Code only) | [docs/skills/watch.md](../../docs/skills/watch.md) |
 | `orchestrator` | [docs/skills/orchestrator.md](../../docs/skills/orchestrator.md) |
+| `copywriter-skill` | [docs/skills/copywriter-skill.md](../../docs/skills/copywriter-skill.md) |
+| `content-strategist-seo` | [docs/skills/content-strategist-seo.md](../../docs/skills/content-strategist-seo.md) |
+| `social-content-specialist` | [docs/skills/social-content-specialist.md](../../docs/skills/social-content-specialist.md) |
+| `email-specialist` | [docs/skills/email-specialist.md](../../docs/skills/email-specialist.md) |
+| `lead-gen-expert` | [docs/skills/lead-gen-expert.md](../../docs/skills/lead-gen-expert.md) |
+| `paid-ads-strategist` | [docs/skills/paid-ads-strategist.md](../../docs/skills/paid-ads-strategist.md) |
+| `cro-specialist` | [docs/skills/cro-specialist.md](../../docs/skills/cro-specialist.md) |
 
 ## The customer's brand profile
 

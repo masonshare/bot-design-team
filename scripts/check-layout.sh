@@ -27,5 +27,6 @@ printf -- "- [ ] FAKE open item
 " > "${TMPDIR:-/tmp}/fake-plan-$$.md"
 "${PYTHON:-python}" packs/starter/ask-masonshare/skills/agentic-vibe-working/scripts/context-recovery.py "${TMPDIR:-/tmp}/fake-plan-$$.md" >/dev/null || { echo "context-recovery.py failed"; fail=1; }
 rm -f "${TMPDIR:-/tmp}/fake-plan-$$.md"
+"${PYTHON:-python}" packs/marketing-ecommerce/skills/copywriter-skill/scripts/copy_check.py "A FAKE sample sentence. It is short and plain." >/dev/null || { echo "copy_check.py failed"; fail=1; }
 [ $fail -eq 0 ] && echo "ok"
 exit $fail

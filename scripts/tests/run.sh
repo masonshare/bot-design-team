@@ -195,6 +195,7 @@ c_orch_stale_pending() { printf 'niche-finder  # stale
 c_orch_pending_ok() { printf 'future-skill  # PR 999
 ' >> "$TMP/r/scripts/orchestrator-pending.txt"; sed -i 's/`niche-finder`, `journey-mapper`/`niche-finder`, `future-skill`, `journey-mapper`/' "$MK/orchestrator/SKILL.md"; printf '| `future-skill` | Later | None | None |
 ' >> "$MK/orchestrator/references/ecosystem-map.md"; }
+c_copycheck_broken() { echo "def broken(" >> "$MK/copywriter-skill/scripts/copy_check.py"; }
 c_junk_bak() { echo x > "$MK/ecommerce-kpi-analytics/SKILL.md.bak.1"; }
 c_junk_spec() { echo x > "$MK/ecommerce-kpi-analytics/SPEC.md"; }
 c_junk_working() { mkdir -p "$MK/ecommerce-kpi-analytics/working"; echo x > "$MK/ecommerce-kpi-analytics/working/a.md"; }
@@ -227,6 +228,7 @@ t "orchestrator SKILL.md naming an unknown skill rejected" c_orch_unknown_md 1
 t "pack skill the orchestrator does not list rejected" c_orch_unlisted 1
 t "stale pending entry (folder exists) rejected" c_orch_stale_pending 1
 t "pending skill listed by the orchestrator accepted" c_orch_pending_ok 0
+t "broken copy_check.py script rejected" c_copycheck_broken 1
 t "SPEC.md in a pack rejected" c_junk_spec 1
 t "working/ folder in a pack rejected" c_junk_working 1
 t "transcript file in a pack rejected" c_junk_transcript 1
