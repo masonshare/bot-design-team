@@ -4,7 +4,7 @@
 
 Helps the Coordinator bot decide who should do a job and run the delegation safely: read the live bot list, pick the bot or code worker from a roster table, ask the user for approval first, choose `question` or `handoff`, write the 5-field brief (Goal, Inputs, Deliverable, Done when, Open items), merge results and report real progress. It also carries the pre-authorization paragraph that lets a code worker read pipeline skills by hand.
 
-Source: [`skills/design/bot-roster/SKILL.md`](../../skills/design/bot-roster/SKILL.md)
+Source: [`packs/starter/ask-masonshare/skills/bot-roster/SKILL.md`](../../packs/starter/ask-masonshare/skills/bot-roster/SKILL.md)
 
 ## When to reach for it
 

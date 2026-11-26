@@ -4,7 +4,7 @@
 
 Writes one new prompt from a brief, using a gold-standard example and a reality check, and points other prompt work to the matching prompt-* skill.
 
-Source: [`skills/design/prompt-design/SKILL.md`](../../skills/design/prompt-design/SKILL.md)
+Source: [`packs/starter/pink-pepper-coated-lotus-seeds/skills/prompt-design/SKILL.md`](../../packs/starter/pink-pepper-coated-lotus-seeds/skills/prompt-design/SKILL.md)
 
 ## When to reach for it
 

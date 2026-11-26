@@ -10,7 +10,7 @@ OUT=$(mktemp -d) || exit 2
 trap 'rm -rf "$OUT"' EXIT
 n=0
 start() { n=$((n+1)); echo "$1" > "$OUT/$n.title"; shift; ( "$@" > "$OUT/$n.out" 2>&1; echo $? > "$OUT/$n.rc" ) & }
-start "SKILL.md frontmatter (skills/ and packs/)" "$PYTHON" scripts/check-frontmatter.py
+start "SKILL.md frontmatter (packs/)" "$PYTHON" scripts/check-frontmatter.py
 start "layout and docs pages" sh scripts/check-layout.sh
 start "legacy leftovers and AGENTS.md == CLAUDE.md" sh scripts/check-no-legacy.sh
 start "scenario files parse" sh scripts/check-scenarios.sh

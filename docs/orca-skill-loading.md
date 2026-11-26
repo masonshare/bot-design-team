@@ -37,11 +37,11 @@ Orca's skill discovery scans these roots in a repo, for every repo added to Orca
 
 Facts that matter for this repo:
 
-- **A top-level `skills/` folder is NOT scanned.** This repo keeps skills at `skills/<name>/`. Orca will not see them as project skills until they are installed or linked into `.agents/skills` (or `.claude/skills`). [CODE: the root list above has no bare `skills/`]
+- **A top-level `skills/` folder is NOT scanned.** Skills in this repo live in pack bot homes (`packs/<pack>/<bot>/skills/<name>/`, ADR 0006). Orca will not see them as project skills until they are installed or linked into `.agents/skills` (or `.claude/skills`). [CODE: the root list above has no bare `skills/`]
 - `SKILL.md` must sit at most 5 directory levels deep under a root (plugins: 10). [CODE: `skill-discovery-depth.js`]
 - `SKILL.md` front matter uses simple `name:` and `description:` keys. [CODE: `skill-metadata.js`]
 - Global (home) roots are also read: `~/.agents/skills`, `~/.codex/skills`, `~/.claude/skills`, and more. [CODE]
-- `npx skills add <repo>` (the community skills CLI) installs into `.agents/skills` for a project, or `~/.agents/skills` with `-g`, and links agent-specific folders such as `.claude/skills` to it. Orca's own installer does the same. [CODE: `.agents/skills` canonical root with per-agent roots] This is how the README's `npx skills add masonshare/bot-design-team` works.
+- `npx skills add <repo>` (the community skills CLI) installs into `.agents/skills` for a project, or `~/.agents/skills` with `-g`, and links agent-specific folders such as `.claude/skills` to it. Orca's own installer does the same. [CODE: `.agents/skills` canonical root with per-agent roots] This is how `npx skills add masonshare/bots-factory` works.
 - A bot can be linked to project folders ("skill projects"). For agents that read the linked folders, Orca prepares them at chat start. For agents that do not (antigravity, cursor, hermes, kimi, kiro, goose and others), the bot gets a text list of skills instead. [CODE: `bot-skill-projects.js`, `resolveSessionLinkedSkills`]
 - A skill that a linked project links in from outside the project is shared only if the owner ticks it in the share dialog. [CODE: `bot-share-skill-picks.js`]
 
@@ -78,12 +78,14 @@ On the recipient side, the link opens a review dialog showing each part and flag
 ## 4. What this means for T2 (skills layout)
 
 1. Keep `skills/<name>/SKILL.md` as the authored source, one folder per skill, names lowercase-dash, flat. Do not rely on a bare top-level `skills/` being discovered by Orca.
-2. Provide an install path so Orca and agents see them: `npx skills add masonshare/bot-design-team` (already documented) installs into `.agents/skills`. For work inside this repo itself, a link or copy into `.agents/skills` is needed. Decide the exact mechanism after owner step V1.
+2. Provide an install path so Orca and agents see them: `npx skills add masonshare/bots-factory` (already documented) installs into `.agents/skills`. For work inside this repo itself, a link or copy into `.agents/skills` is needed. Decide the exact mechanism after owner step V1.
 3. Keep each skill self-contained: everything it needs in its own folder, at most 5 levels under the root, under 512 files and 32 MiB.
 4. Use only `name:` and `description:` front matter keys with simple values.
 5. Skills must work for any agent: no Claude-only paths, since Staff bots run on Codex.
 
 ## 4a. Layout decision for T2 (buckets) and the install path
+
+> Update: ADR 0006 moved the buckets into `packs/starter/`; the bucket paths below are historical. The install facts still hold.
 
 Authored skills now live in buckets, as in mattpocock/skills: `skills/design/<name>/SKILL.md` (promoted, with a page in `docs/skills/`), `skills/in-progress/<name>/` (not yet promoted) and `skills/deprecated/<name>/` (obsolete). Each skill is still one self-contained folder.
 
@@ -91,7 +93,7 @@ Compatibility check, run on this repo with `npx skills add . --list` (skills CLI
 
 Install steps:
 
-1. For other projects: `npx skills add masonshare/bot-design-team` (all skills) or `--skill <name>`. Add `-g` for your user.
+1. For other projects: `npx skills add masonshare/bots-factory` (all skills) or `--skill <name>`. Add `-g` for your user.
 2. For work inside this repo: run `npx skills add . ` from the repo root, which fills `.agents/skills` here.
 3. Skills in `in-progress/` and `deprecated/` are also found by the installer, so install by name only what you intend to use.
 4. Scripts keep paths relative to their own skill folder (`python scripts/score_bot.py profile.md` from `bot-score`, `python scripts/validate_skill.py <folder>` from `skill-package`), so moving a skill between buckets needs no edits.
@@ -114,7 +116,7 @@ The agent cannot drive the Orca UI or use the owner's account. These were verifi
 
 | # | Unverified | Owner steps |
 |---|---|---|
-| V1 | A repo's top-level `skills/` is not discovered by Orca as project skills. | In Orca add this repo as a project. Open the Skills page and look for the repo's skills. Report whether any appear. Then run `npx skills add masonshare/bot-design-team --skill prompt-design` inside a test project and confirm they now appear under `.agents/skills`. |
+| V1 | A repo's top-level `skills/` is not discovered by Orca as project skills. | In Orca add this repo as a project. Open the Skills page and look for the repo's skills. Report whether any appear. Then run `npx skills add masonshare/bots-factory --skill prompt-design` inside a test project and confirm they now appear under `.agents/skills`. |
 | V2 | Orca links bot-home `skills/<name>/` into `.claude/skills` and `.agents/skills` at chat start, including on Windows. | Create a test bot. Put `skills/hello/SKILL.md` (name `hello`, any description) in its home folder. Start a new chat. Ask the bot "which skills do you have?". Then list `.agents\skills` and `.claude\skills` in the bot home. Report whether `hello` is listed and whether the entries are links, junctions or copies. |
 | V3 | The share link contents match section 3 and secrets are blocked. | In the test bot's Share dialog, tick a skill, skip memory, publish. Copy the link. Open it on a second Orca (or the same one, new bot) and read the review dialog. Report the parts shown and whether any real path, token or header value appears. Then put a fake secret such as `sk-test-0000` in SOUL.md and confirm publishing is blocked. |
 | V4 | Link lifetime and recipient needs. | Report whether the link needs an Orca account for the recipient, whether it expires (and after how long), and whether republishing keeps the same link. Test with a second machine or user. |

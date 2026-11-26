@@ -4,7 +4,7 @@
 
 Proves a prompt, chain or soul with 5 to 10 test cases, a baseline run, a retest, a score sheet and a v2 changelog.
 
-Source: [`skills/design/prompt-test/SKILL.md`](../../skills/design/prompt-test/SKILL.md)
+Source: [`packs/starter/pink-pepper-coated-lotus-seeds/skills/prompt-test/SKILL.md`](../../packs/starter/pink-pepper-coated-lotus-seeds/skills/prompt-test/SKILL.md)
 
 ## When to reach for it
 

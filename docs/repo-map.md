@@ -8,10 +8,10 @@ One page: where things live. Steering files point here; `scripts/check-repo-map.
 | Domain terms (and terms to avoid) | `GLOSSARY.md` |
 | Decisions | `docs/adr/` |
 | Agent workflow docs (tracker, labels, dispatch) | `docs/agents/` |
-| Design skills (promoted) | `skills/design/<name>/SKILL.md` |
-| Skills being written, retired skills | `skills/in-progress/`, `skills/deprecated/` |
-| One docs page per promoted or pack skill | `docs/skills/<name>.md` |
-| Design bots (EN, VI) | `bots/`, `bots/vi/` |
+| Starter pack: the 4 design bots (mandatory first install) | `packs/starter/` |
+| Starter bot homes (SOUL.md, SOUL.vi.md, skills) | `packs/starter/<bot>/` |
+| One docs page per pack skill | `docs/skills/<name>.md` |
+| Developer docs (install, layout, CI) | `docs/for-developers.md` |
 | Packs | `packs/<pack>/` |
 | Pack bot homes (SOUL.md and skills) | `packs/<pack>/staff/`, `packs/<pack>/editor/` |
 | FAKE sample data | `packs/<pack>/fake-data/` |

@@ -4,7 +4,7 @@
 
 Fills the 13-section profile of one bot, marking unneeded sections `not needed` with a reason, and prepares the brief for its soul and skills.
 
-Source: [`skills/design/bot-profile/SKILL.md`](../../skills/design/bot-profile/SKILL.md)
+Source: [`packs/starter/dried-plum/skills/bot-profile/SKILL.md`](../../packs/starter/dried-plum/skills/bot-profile/SKILL.md)
 
 ## When to reach for it
 

@@ -2,6 +2,8 @@
 
 A two-bot pack for a Vietnamese e-commerce shop (Shopee, Zalo, hotline). The shop owner keeps approved reply scripts in a Google Sheet. An Editor bot helps the owner write and clean up scripts. A Staff bot helps customer-service staff answer customers using only approved scripts.
 
+Needs the Starter pack first (`packs/starter/`): install it before this one.
+
 Everything in this folder uses FAKE data. No real company, product, price or customer data belongs here. The skills (`cskh-lookup`, `cskh-no-script`, `cskh-draft`) live under each bot's `skills/` folder; each has a docs page in `docs/skills/`.
 
 ## What is in the pack

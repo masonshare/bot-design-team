@@ -4,7 +4,7 @@
 
 Runs the whole job of building an Agent Skill from a first idea to a published folder, taking the intake and handing each stage to the matching skill-* sibling.
 
-Source: [`skills/design/skill-design/SKILL.md`](../../skills/design/skill-design/SKILL.md)
+Source: [`packs/starter/mango-spring-roll/skills/skill-design/SKILL.md`](../../packs/starter/mango-spring-roll/skills/skill-design/SKILL.md)
 
 ## When to reach for it
 
@@ -16,7 +16,7 @@ You want to create a skill from a workflow, SOP or knowledge, or do not know whi
 
 **What are the stages?** Search, write, test, review, package.
 
-**Where does the result go?** A skill folder under skills/ ready to install.
+**Where does the result go?** A skill folder ready to install.
 
 ## It's working if
 

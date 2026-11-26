@@ -4,7 +4,7 @@
 
 Searches for an existing Agent Skill before building, reads the candidates, and gives a go or no-go verdict on whether the idea deserves a skill.
 
-Source: [`skills/design/skill-search/SKILL.md`](../../skills/design/skill-search/SKILL.md)
+Source: [`packs/starter/mango-spring-roll/skills/skill-search/SKILL.md`](../../packs/starter/mango-spring-roll/skills/skill-search/SKILL.md)
 
 ## When to reach for it
 

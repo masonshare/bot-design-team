@@ -4,7 +4,7 @@
 
 Writes or audits a bot's routines (scheduled or event-triggered runs) with a five-part spec: owner, trigger, allowed actions, escalation path, stop condition. Also sets up the optional weekly healthcheck.
 
-Source: [`skills/design/bot-routine/SKILL.md`](../../skills/design/bot-routine/SKILL.md)
+Source: [`packs/starter/dried-plum/skills/bot-routine/SKILL.md`](../../packs/starter/dried-plum/skills/bot-routine/SKILL.md)
 
 ## When to reach for it
 

@@ -4,7 +4,7 @@
 
 Scores and tests a bot profile before it ships, reporting design, applied, read-back and behaviour-tested as four separate states. Includes a 14-item scorecard and the optional completeness check (the Python scorer `score_bot.py`).
 
-Source: [`skills/design/bot-score/SKILL.md`](../../skills/design/bot-score/SKILL.md)
+Source: [`packs/starter/dried-plum/skills/bot-score/SKILL.md`](../../packs/starter/dried-plum/skills/bot-score/SKILL.md)
 
 ## When to reach for it
 

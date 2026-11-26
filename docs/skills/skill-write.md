@@ -4,7 +4,7 @@
 
 Writes the description and SKILL.md body of one skill, choosing its size tier and the split between SKILL.md, references and scripts.
 
-Source: [`skills/design/skill-write/SKILL.md`](../../skills/design/skill-write/SKILL.md)
+Source: [`packs/starter/mango-spring-roll/skills/skill-write/SKILL.md`](../../packs/starter/mango-spring-roll/skills/skill-write/SKILL.md)
 
 ## When to reach for it
 

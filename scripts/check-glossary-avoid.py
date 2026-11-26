@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Terms listed under '## Avoid' in GLOSSARY.md must not appear (case-insensitive)
-in skills/, packs/, docs/ or the root *.md files.
+in packs/, docs/ or the root *.md files.
 Only .md files are scanned. Exempt: GLOSSARY.md itself, docs/adr/ (ADRs may
 quote an avoided term as an example), and any line containing the token
 `avoid-ok`. scripts/ is not scanned at all."""

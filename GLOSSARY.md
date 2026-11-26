@@ -1,4 +1,4 @@
-# Bot Design Team
+# Bots Factory
 
 Bot chạy trong Orca, trên máy và gói đăng ký của chính người dùng. Repo này chứa các skill thiết kế bot và pack mẫu `ecommerce-cskh` (dữ liệu giả).
 
@@ -6,7 +6,9 @@ Bot chạy trong Orca, trên máy và gói đăng ký của chính người dùn
 
 **Pack (gói)**: Thư mục các bot, skill và dữ liệu mẫu cài được vào Orca, ví dụ `packs/ecommerce-cskh`.
 
-**Bot Design Team**: Nhóm chuyên gia thiết kế bot, kỹ năng và prompt (câu lệnh hướng dẫn).
+**Bots Factory**: Dây chuyền sản xuất bot AI cho doanh nghiệp nhỏ: Mô tả việc, Thiết kế, Thử nghiệm, Giao bot.
+
+**Starter**: Gói nền gồm 4 bot (Dried Plum, Mango Spring Roll, Pink Pepper Coated Lotus Seeds, Ask Masonshare); cài đầu tiên, các gói khác cần nó.
 
 **Skill (kỹ năng)**: Gói hướng dẫn giúp bot thực hiện một loại công việc. Viết trung lập, chạy được trên cả Claude Code và Codex.
 
@@ -43,6 +45,6 @@ Bot chạy trong Orca, trên máy và gói đăng ký của chính người dùn
 
 ## Avoid
 
-Từ không chuẩn; `scripts/check-glossary-avoid.py` báo lỗi nếu chúng xuất hiện trong `skills/`, `packs/`, `docs/` hay các file `.md` ở gốc (không phân biệt hoa thường). Ngoại lệ: mục này, `docs/adr/` (ADR được trích làm ví dụ) và dòng có token `avoid-ok`. Mỗi dòng: `từ cần tránh`, rồi từ chuẩn.
+Từ không chuẩn; `scripts/check-glossary-avoid.py` báo lỗi nếu chúng xuất hiện trong `packs/`, `docs/` hay các file `.md` ở gốc (không phân biệt hoa thường). Ngoại lệ: mục này, `docs/adr/` (ADR được trích làm ví dụ) và dòng có token `avoid-ok`. Mỗi dòng: `từ cần tránh`, rồi từ chuẩn.
 
 - `chủ dự án`: dùng **Chủ shop**.
