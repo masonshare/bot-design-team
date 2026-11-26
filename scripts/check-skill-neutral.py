@@ -20,6 +20,8 @@ for d in skill_dirs(root, neutral_only=True):
         for n, line in enumerate(f.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
             for rx, label in NEUTRAL_RE:
                 if rx.search(line):
+                    if label.startswith("CLAUDE.md") and "AGENTS.md" in line:
+                        continue  # naming both instruction files is the neutral phrasing
                     print(f"{f.relative_to(root).as_posix()}:{n}: {label}")
                     bad += 1
 print("ok" if not bad else f"{bad} neutrality problem(s)")

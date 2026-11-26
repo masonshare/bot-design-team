@@ -4,7 +4,7 @@
 
 Diagnoses e-commerce sales numbers and turns them into actions: GMV as traffic times conversion times average order value, GMV versus NMV, sell-in versus sell-out, inventory days, and a weekly review template. It names which of the three drivers is broken first, then gives the fix.
 
-It exists because "sales dropped" is usually one driver, not all three. The thresholds in the skill (for example conversion of 1 to 3 percent on a marketplace) are reference points, and the skill says so; it asks for the user's own numbers.
+It exists because "sales dropped" is usually one driver, not all three. Fixing the wrong one costs money, so diagnosis comes before solutions. Reference points: GMV-to-NMV loss under roughly 10 to 15 percent is healthy and over 20 percent needs investigation; picture click-through under roughly 2 percent means test a new cover image; conversion of about 1 to 3 percent on a marketplace and 0.5 to 1.5 percent on an own website; stock over 60 days is too much and under 7 days is about to run out. Every number in this skill is a labelled reference point, not a fact about your market; the skill asks for your own figures.
 
 Source: [`packs/marketing-ecommerce/skills/ecommerce-kpi-analytics/SKILL.md`](../../packs/marketing-ecommerce/skills/ecommerce-kpi-analytics/SKILL.md)
 
