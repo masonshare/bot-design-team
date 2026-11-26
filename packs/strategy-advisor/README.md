@@ -11,6 +11,8 @@ This pack is filled in batches. Each skill has a docs page in `docs/skills/`; so
 | `startup-financial-modeling` | [docs/skills/startup-financial-modeling.md](../../docs/skills/startup-financial-modeling.md) |
 | `startup-metrics-framework` | [docs/skills/startup-metrics-framework.md](../../docs/skills/startup-metrics-framework.md) |
 | `system-thinking` | [docs/skills/system-thinking.md](../../docs/skills/system-thinking.md) |
+| `business-strategist` | [docs/skills/business-strategist.md](../../docs/skills/business-strategist.md) |
+| `pricing-strategist` | [docs/skills/pricing-strategist.md](../../docs/skills/pricing-strategist.md) |
 
 If you need to read a video, also install `youtube-digest` from `packs/marketing-ecommerce/`.
 
