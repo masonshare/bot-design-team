@@ -13,6 +13,12 @@ This pack is filled in batches. Each skill has a docs page in `docs/skills/`; so
 | `system-thinking` | [docs/skills/system-thinking.md](../../docs/skills/system-thinking.md) |
 | `business-strategist` | [docs/skills/business-strategist.md](../../docs/skills/business-strategist.md) |
 | `pricing-strategist` | [docs/skills/pricing-strategist.md](../../docs/skills/pricing-strategist.md) |
+| `problem-solver-skill` | [docs/skills/problem-solver-skill.md](../../docs/skills/problem-solver-skill.md) |
+| `startup-analyst` | [docs/skills/startup-analyst.md](../../docs/skills/startup-analyst.md) |
+| `visual-thinking` | [docs/skills/visual-thinking.md](../../docs/skills/visual-thinking.md) |
+| `elite-negotiator` | [docs/skills/elite-negotiator.md](../../docs/skills/elite-negotiator.md) |
+| `pitch-bod-bos-dt` | [docs/skills/pitch-bod-bos-dt.md](../../docs/skills/pitch-bod-bos-dt.md) |
+| `thiet-ke-trai-nghiem-cao-cap` | [docs/skills/thiet-ke-trai-nghiem-cao-cap.md](../../docs/skills/thiet-ke-trai-nghiem-cao-cap.md) |
 
 If you need to read a video, also install `youtube-digest` from `packs/marketing-ecommerce/`.
 
