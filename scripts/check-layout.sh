@@ -22,5 +22,10 @@ done
 S=packs/starter
 "${PYTHON:-python}" $S/mango-spring-roll/skills/skill-package/scripts/validate_skill.py $S/mango-spring-roll/skills/skill-design >/dev/null || { echo "validate_skill.py failed"; fail=1; }
 "${PYTHON:-python}" $S/dried-plum/skills/bot-score/scripts/score_bot.py $S/dried-plum/skills/bot-score/references/sample-profile.md >/dev/null || { echo "score_bot.py failed"; fail=1; }
+printf -- "- [ ] FAKE open item
+- [x] FAKE done item
+" > "${TMPDIR:-/tmp}/fake-plan-$$.md"
+"${PYTHON:-python}" packs/starter/ask-masonshare/skills/agentic-vibe-working/scripts/context-recovery.py "${TMPDIR:-/tmp}/fake-plan-$$.md" >/dev/null || { echo "context-recovery.py failed"; fail=1; }
+rm -f "${TMPDIR:-/tmp}/fake-plan-$$.md"
 [ $fail -eq 0 ] && echo "ok"
 exit $fail

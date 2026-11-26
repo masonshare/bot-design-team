@@ -11,6 +11,7 @@ Trả lời theo ngôn ngữ của người dùng. Người dùng Việt nhận 
 | Người dùng muốn | Dùng |
 |---|---|
 | Viết hoặc cấu trúc lại description, SKILL.md | skill này |
+| Làm skill từ một chủ đề, chưa có quy trình hay ghi chú | skill này, [references/from-topic.md](from-topic.md) (bản tiếng Anh) |
 | Biết trước đã có skill chưa hoặc có đáng làm không | skill-search |
 | Kiểm thử, nền so với chạy lại | skill-test |
 | Chấm, chia hoặc gộp skill có sẵn | skill-review |

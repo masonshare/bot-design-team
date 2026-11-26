@@ -34,6 +34,10 @@ The skills in these packs are written in our own words. Skill files carry no aut
 | Skill | Source | Licence | Notes |
 |---|---|---|---|
 | `skill-spec-generate` | Masonshare (own design: keep the why of a skill apart from the skill) | none (ideas only) | Lives in `packs/starter/mango-spring-roll/skills/` |
+| `agentic-vibe-working` | Six-step framework (define, research, plan, execute, verify, package) from the Agentic Vibe Working programme by Neurons-AI (session 02, a paid course); rebuilt in our own words. The idea of re-reading a checkbox plan after context compaction was borrowed from a tool kit of the same programme (vibecodekit); only that idea is kept. Skill packaging rules follow the Agent Skills specification. The safety checkpoint, evidence-based verification and conditional skill calls are Masonshare's own additions | Course material, no licence (ideas only) | Rewritten from scratch; the recovery script is our own code. The tool kit's licence was not verified, and none of its code was copied |
+| `workflow-ai-agents` | Masonshare's own skill, based on the Agentic Vibe Working programme by Neurons-AI (session 06, the master blueprint part): research chain, workflow, packaging, agent; single-purpose agents that refuse out-of-scope work. The identify step (Go or No-go) is Masonshare's own addition | Course material, no licence (ideas only) | Rewritten around an agent blueprint; the earlier industry examples and evals were not carried over |
+| `luu-vao-notion-second-brain` | Masonshare (new skill; the rules are the owner's). The expected workspace shape (notes, tasks, projects, goals, people, plans) follows the ready-made Notion template Ultimate Brain by Thomas Frank, which the owner uses; the skill contains none of the template's content | none (ideas only) | Optional storage module; other skills may point to it as a soft suggestion |
+| `skill-write (`references/from-topic.md`)` | The knowledge, systems thinking, workflow, skill packaging chain of an earlier distilling skill, taken from session 04 of the Agentic Vibe Working programme (Neurons-AI); only the useful ideas were moved into a new reference file. The earlier skill and its working folder of course material are not shipped | Course material, no licence (ideas only) | Added to an existing starter skill, with one row in its Route table |
 
 ## Third-party code copied with its licence
 
@@ -41,7 +45,7 @@ Code written by others and copied into a pack as is. The folder keeps its `LICEN
 
 | Folder | Author | Licence |
 |---|---|---|
-| (none yet) | | |
+| `packs/marketing-ecommerce/skills/watch` | Bradley Bonanno (repository `bradautomates/claude-video` on GitHub) | MIT, copyright 2026 Bradley Bonanno; the `LICENSE` file is kept unchanged and no file was edited |
 
 ## Linked only, not copied
 
@@ -49,7 +53,8 @@ Tools and skills the docs point to but this repo does not include.
 
 | Name | Why not copied |
 |---|---|
-| (none yet) | |
+| `skill-creator` (Anthropic skill, repository `anthropics/skills` on GitHub; Apache-2.0 per the licence file we saw; original source not verified from this machine) | Relies on sub-agents and the `claude -p` command, and overlaps `skill-write` and `skill-test` in the Starter pack; install it from its own repository if wanted |
+| `distilly` (repository `titanwings/distilly` on GitHub; MIT, copyright 2026 titanwings; a `CITATION` file asks users to cite its technical report by Tianyi Zhou, Dongrui Liu, Leitao Yuan, Jing Shao and Xia Hu) | An independent project of over a hundred files with its own tools; it serves a different purpose, so it is linked here only |
 
 ## Tools called from outside
 

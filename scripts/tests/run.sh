@@ -183,6 +183,9 @@ t "repo map placeholder path accepted" c_map_placeholder_ok 0
 t "steering file without repo-map pointer rejected" c_nav_missing 1
 
 MK="$TMP/r/packs/marketing-ecommerce/skills"
+c_ctxrec_broken() { echo "def broken(" >> "$TMP/r/packs/starter/ask-masonshare/skills/agentic-vibe-working/scripts/context-recovery.py"; }
+c_watch_license_ok() { printf "See https://example.com
+" >> "$MK/watch/SKILL.md"; }
 c_junk_bak() { echo x > "$MK/ecommerce-kpi-analytics/SKILL.md.bak.1"; }
 c_junk_spec() { echo x > "$MK/ecommerce-kpi-analytics/SPEC.md"; }
 c_junk_working() { mkdir -p "$MK/ecommerce-kpi-analytics/working"; echo x > "$MK/ecommerce-kpi-analytics/working/a.md"; }
@@ -207,6 +210,8 @@ c_neutral_framework_ok() { printf 'Khung AIDA, JTBD va BATNA van duoc dung.
 c_neutral_both_files_ok() { printf 'Khac voi tep huong dan du an (CLAUDE.md hay AGENTS.md).
 ' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
 t "backup file in a pack rejected" c_junk_bak 1
+t "broken context-recovery.py script rejected" c_ctxrec_broken 1
+t "third-party watch folder (LICENSE) with a URL accepted" c_watch_license_ok 0
 t "SPEC.md in a pack rejected" c_junk_spec 1
 t "working/ folder in a pack rejected" c_junk_working 1
 t "transcript file in a pack rejected" c_junk_transcript 1

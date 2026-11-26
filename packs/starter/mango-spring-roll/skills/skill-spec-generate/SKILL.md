@@ -58,4 +58,4 @@ Tối đa khoảng 150 dòng, đúng sáu mục (vì sao tồn tại, quyết đ
 
 ## Dùng cùng skill khác
 
-Làm xong skill bằng công cụ tạo skill nào, gọi skill này ở bước cuối. Nó cũng dùng được độc lập để bổ sung ghi chú cho skill cũ. Nó khác việc rà soát tệp hướng dẫn dự án (CLAUDE.md hay AGENTS.md): đó là một tầng khác.
+Làm xong skill bằng công cụ tạo skill nào, gọi skill này ở bước cuối. Nó cũng dùng được độc lập để bổ sung ghi chú cho skill cũ. Nó khác việc rà soát tệp hướng dẫn dự án (tệp chỉ dẫn chung của dự án): đó là một tầng khác.
