@@ -182,6 +182,41 @@ t "missing repo map rejected" c_map_missing 1
 t "repo map placeholder path accepted" c_map_placeholder_ok 0
 t "steering file without repo-map pointer rejected" c_nav_missing 1
 
+MK="$TMP/r/packs/marketing-ecommerce/skills"
+c_junk_bak() { echo x > "$MK/ecommerce-kpi-analytics/SKILL.md.bak.1"; }
+c_junk_spec() { echo x > "$MK/ecommerce-kpi-analytics/SPEC.md"; }
+c_junk_working() { mkdir -p "$MK/ecommerce-kpi-analytics/working"; echo x > "$MK/ecommerce-kpi-analytics/working/a.md"; }
+c_junk_transcript() { echo x > "$MK/ecommerce-kpi-analytics/transcript-lecture.txt"; }
+c_neutral_ask() { printf 'Dung AskUserQuestion de hoi.
+' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
+c_neutral_brand() { printf 'Vi du: Nam Xanh ban tra.
+' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
+c_neutral_url() { printf 'Xem https://example.com/x
+' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
+c_neutral_slash() { printf 'Go /express de chay nhanh.
+' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
+c_neutral_claude_path() { printf 'Luu o ~/.claude/skills.
+' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
+c_neutral_license_ok() { mk_skill "$MK/vendored/SKILL.md" vendored d; printf 'See https://example.com and AskUserQuestion
+' >> "$MK/vendored/SKILL.md"; printf 'MIT License
+' > "$MK/vendored/LICENSE"; cp "$TMP/r/docs/skills/ecommerce-kpi-analytics.md" "$TMP/r/docs/skills/vendored.md"; }
+c_neutral_starter_old_ok() { printf 'Dung AskUserQuestion.
+' >> "$TMP/r/packs/starter/mango-spring-roll/skills/skill-test/SKILL.md"; }
+c_neutral_framework_ok() { printf 'Khung AIDA, JTBD va BATNA van duoc dung.
+' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
+t "backup file in a pack rejected" c_junk_bak 1
+t "SPEC.md in a pack rejected" c_junk_spec 1
+t "working/ folder in a pack rejected" c_junk_working 1
+t "transcript file in a pack rejected" c_junk_transcript 1
+t "AskUserQuestion in a marketing skill rejected" c_neutral_ask 1
+t "real company brand in a marketing skill rejected" c_neutral_brand 1
+t "URL in a marketing skill rejected" c_neutral_url 1
+t "slash command in a marketing skill rejected" c_neutral_slash 1
+t ".claude path in a marketing skill rejected" c_neutral_claude_path 1
+t "third-party skill folder with LICENSE exempt from neutral check" c_neutral_license_ok 0
+t "older starter skill naming a Claude tool accepted" c_neutral_starter_old_ok 0
+t "framework names (AIDA, JTBD, BATNA) accepted" c_neutral_framework_ok 0
+
 PY=$(command -v python || command -v python3)
 if "$PY" -W ignore "$SRC/scripts/tests/test_run_scenarios.py" >"$TMP/unit.log" 2>&1; then
   echo "PASS run-scenarios unit tests (stub agent)"; pass=$((pass+1))
