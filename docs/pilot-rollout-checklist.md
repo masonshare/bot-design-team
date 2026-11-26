@@ -36,8 +36,8 @@ Exit criteria before stage 2: additionally the 0.6 Codex gate is met (17/17 on a
 |---|---|---|---|
 | 1.1 | owner | Install Orca and open it | App starts, shows the home screen |
 | 1.2 | owner | Log in to Codex (ChatGPT account) and to Claude Code if used for the Editor bot | Orca can start a chat on each agent |
-| 1.3 | owner | `orca --version`; note it | Version printed (V6); compare with 1.4.271 in `docs/orca-skill-loading.md` |
-| 1.4 | owner | Add this repo and the pack as described in `docs/orca-skill-loading.md` (sections 4a and 5), then run owner verification steps V1 to V6 in section 6 of that file | Each V1 to V6 has a recorded result; any difference from the doc is reported back so the doc can be fixed |
+| 1.3 | owner | `orca --version`; note it | Version printed (V6); compare with 1.4.271 (code read) and 1.4.274 (owner checks) in `docs/orca-skill-loading.md`; owner's Orca was 1.4.274 on 2026-11-25 |
+| 1.4 | owner | Add this repo and the pack as described in `docs/orca-skill-loading.md` (sections 4a and 5), then run owner verification steps V1 to V6 in section 6 of that file | Each V1 to V6 has a recorded result; any difference from the doc is reported back so the doc can be fixed. Status: V1 to V3 and V6 recorded 2026-11-25 (V1 Skills page by-eye check still open); V4 and V5 pending, deferred to stage 2 or 3 (second machine, staff machine) |
 | 1.5 | owner | Create the Editor bot from `packs/ecommerce-cskh/editor/` and the Staff bot from `packs/ecommerce-cskh/staff/`; enable only the skills each bot needs | Two separate bots; each lists its own skills in a new chat |
 | 1.6 | owner | Create the Google Sheet from `packs/ecommerce-cskh/sheet-template.md` in the owner's own Google account (tab `Kịch bản`, exact name) and, separately, the `Đề xuất CSKH` file (tab `Đề xuất`) as in step 1.13 | Scripts Sheet opens with tab `Kịch bản` and the exact headers |
 | 1.7 | owner | Connect the Google connector for each bot (kind `google`), signed in as the owner | Each bot can read tab `Kịch bản` when asked |
@@ -50,7 +50,7 @@ Exit criteria before stage 2: additionally the 0.6 Codex gate is met (17/17 on a
 
 Exit criteria:
 
-- V1 to V6 recorded, and `docs/orca-skill-loading.md` corrected if reality differed.
+- V1 to V6 recorded, and `docs/orca-skill-loading.md` corrected if reality differed. V1 to V3 and V6 are recorded; V4 and V5 are recorded when stage 2 or 3 runs them.
 - Editor bot writes only `Nháp`; Staff bot never edits `Kịch bản`.
 - The share link opens and installs a working Staff bot on the owner's side.
 - A no-script question lands in the `Đề xuất CSKH` file.

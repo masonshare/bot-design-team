@@ -1,6 +1,6 @@
 # 0001. Follow Orca's skill loading and share model
 
-Status: Accepted (pending owner checks V1 to V6 in `docs/orca-skill-loading.md`)
+Status: Accepted. Owner checks V1 to V3 and V6 are confirmed (Orca 1.4.274, Windows); V4 and V5 stay pending until the pilot-staff phase. See `docs/orca-skill-loading.md` section 6.
 
 ## Context
 
@@ -23,4 +23,4 @@ Evidence and the list of unverified items are in `docs/orca-skill-loading.md`.
 
 - The repo layout keeps `skills/<name>/SKILL.md` as the unit and groups skills in buckets (`skills/design/`, `skills/in-progress/`, `skills/deprecated/`); `npx skills add` was checked to find nested skills. It documents the install path into `.agents/skills`. The layout must not assume Orca reads `skills/` at the repo root.
 - The pack is built as a bot package (SOUL.md, skills, optional memory, short setup note) and must not rely on schedules being enabled.
-- This rests on Orca internals, not a documented API. A new Orca version may change it, so the docs page records the version (1.4.271) and the owner verification steps V1 to V6. If V1 or V2 fail, revise this ADR before the layout and the pack are finalised.
+- This rests on Orca internals, not a documented API. A new Orca version may change it, so the docs page records the versions (code read on 1.4.271, owner checks on 1.4.274) and the owner verification steps V1 to V6. V1 and V2 passed, so this ADR stands. If V4 or V5 fail at the pilot-staff phase, revise it.
