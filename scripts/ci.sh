@@ -22,6 +22,7 @@ start "SOUL files do not restate columns or statuses" "$PYTHON" scripts/check-so
 start "repo map paths exist and are pointed at" sh scripts/check-repo-map.sh
 start "no junk files in packs (backups, SPEC.md, working/...)" "$PYTHON" scripts/check-skill-junk.py
 start "neutral skill wording (new packs)" "$PYTHON" scripts/check-skill-neutral.py
+start "orchestrator skill list matches the pack folder" "$PYTHON" scripts/check-orchestrator-skills.py
 wait
 fail=0
 i=1

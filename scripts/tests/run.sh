@@ -186,6 +186,15 @@ MK="$TMP/r/packs/marketing-ecommerce/skills"
 c_ctxrec_broken() { echo "def broken(" >> "$TMP/r/packs/starter/ask-masonshare/skills/agentic-vibe-working/scripts/context-recovery.py"; }
 c_watch_license_ok() { printf "See https://example.com
 " >> "$MK/watch/SKILL.md"; }
+c_orch_unknown() { printf '| `ghost-skill` | Does nothing | None | None |
+' >> "$MK/orchestrator/references/ecosystem-map.md"; }
+c_orch_unknown_md() { sed -i 's/`niche-finder`, `journey-mapper`/`niche-finder`, `ghost-skill`, `journey-mapper`/' "$MK/orchestrator/SKILL.md"; }
+c_orch_unlisted() { mk_skill "$MK/extra-skill/SKILL.md" extra-skill d; cp "$TMP/r/docs/skills/niche-finder.md" "$TMP/r/docs/skills/extra-skill.md"; }
+c_orch_stale_pending() { printf 'niche-finder  # stale
+' >> "$TMP/r/scripts/orchestrator-pending.txt"; }
+c_orch_pending_ok() { printf 'future-skill  # PR 999
+' >> "$TMP/r/scripts/orchestrator-pending.txt"; sed -i 's/`niche-finder`, `journey-mapper`/`niche-finder`, `future-skill`, `journey-mapper`/' "$MK/orchestrator/SKILL.md"; printf '| `future-skill` | Later | None | None |
+' >> "$MK/orchestrator/references/ecosystem-map.md"; }
 c_junk_bak() { echo x > "$MK/ecommerce-kpi-analytics/SKILL.md.bak.1"; }
 c_junk_spec() { echo x > "$MK/ecommerce-kpi-analytics/SPEC.md"; }
 c_junk_working() { mkdir -p "$MK/ecommerce-kpi-analytics/working"; echo x > "$MK/ecommerce-kpi-analytics/working/a.md"; }
@@ -202,7 +211,8 @@ c_neutral_claude_path() { printf 'Luu o ~/.claude/skills.
 ' >> "$MK/ecommerce-kpi-analytics/SKILL.md"; }
 c_neutral_license_ok() { mk_skill "$MK/vendored/SKILL.md" vendored d; printf 'See https://example.com and AskUserQuestion
 ' >> "$MK/vendored/SKILL.md"; printf 'MIT License
-' > "$MK/vendored/LICENSE"; cp "$TMP/r/docs/skills/ecommerce-kpi-analytics.md" "$TMP/r/docs/skills/vendored.md"; }
+' > "$MK/vendored/LICENSE"; cp "$TMP/r/docs/skills/ecommerce-kpi-analytics.md" "$TMP/r/docs/skills/vendored.md"; sed -i 's/`niche-finder`, `journey-mapper`/`niche-finder`, `vendored`, `journey-mapper`/' "$MK/orchestrator/SKILL.md"; printf '| `vendored` | Third-party | None | None |
+' >> "$MK/orchestrator/references/ecosystem-map.md"; }
 c_neutral_starter_old_ok() { printf 'Dung AskUserQuestion.
 ' >> "$TMP/r/packs/starter/mango-spring-roll/skills/skill-test/SKILL.md"; }
 c_neutral_framework_ok() { printf 'Khung AIDA, JTBD va BATNA van duoc dung.
@@ -212,6 +222,11 @@ c_neutral_both_files_ok() { printf 'Khac voi tep huong dan du an (CLAUDE.md hay 
 t "backup file in a pack rejected" c_junk_bak 1
 t "broken context-recovery.py script rejected" c_ctxrec_broken 1
 t "third-party watch folder (LICENSE) with a URL accepted" c_watch_license_ok 0
+t "orchestrator ecosystem map naming an unknown skill rejected" c_orch_unknown 1
+t "orchestrator SKILL.md naming an unknown skill rejected" c_orch_unknown_md 1
+t "pack skill the orchestrator does not list rejected" c_orch_unlisted 1
+t "stale pending entry (folder exists) rejected" c_orch_stale_pending 1
+t "pending skill listed by the orchestrator accepted" c_orch_pending_ok 0
 t "SPEC.md in a pack rejected" c_junk_spec 1
 t "working/ folder in a pack rejected" c_junk_working 1
 t "transcript file in a pack rejected" c_junk_transcript 1

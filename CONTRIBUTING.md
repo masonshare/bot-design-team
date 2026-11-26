@@ -32,6 +32,7 @@ Allowlist (nothing else is exempt):
 
 11. `scripts/check-skill-junk.py`: no backups (`*.bak*`), `SPEC.md`, `progress.md`, transcripts, `working/`, `.versions/` or `.git` anywhere under `packs/`.
 12. `scripts/check-skill-neutral.py`: skills in `packs/marketing-ecommerce`, `packs/strategy-advisor` (and the starter skills named in `scripts/lib/skill_rules.py`) contain no `AskUserQuestion`, `.claude` paths, `CLAUDE.md`, slash-command modes, `WebSearch`/`WebFetch`, URLs, or real company brands. A skill folder with a `LICENSE` file (third-party code copied as is) is exempt. Framework names (AIDA, JTBD, BATNA) are fine.
+13. `scripts/check-orchestrator-skills.py`: every skill name the marketing-ecommerce `orchestrator` lists (SKILL.md section "Skills in this pack" and the first column of `references/ecosystem-map.md`) is a folder in `packs/marketing-ecommerce/skills/`, and every folder is listed. `scripts/orchestrator-pending.txt` names skills that are listed but not merged yet; a pending name whose folder exists fails, so delete the line when the skill lands.
 
 Importing a rewritten skill: `python scripts/import-skill.py <skill-dir> <pack>` copies it to `packs/<pack>/skills/<name>/`, drops junk, keeps only `name` and `description` in the frontmatter. Then write `docs/skills/<name>.md` from `docs/templates/skill-page.md`, add its row to `docs/credits.md`, and run `sh scripts/ci.sh`.
 

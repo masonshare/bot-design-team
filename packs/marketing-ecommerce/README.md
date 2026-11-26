@@ -32,6 +32,7 @@ packs/marketing-ecommerce/
 | `youtube-digest` | [docs/skills/youtube-digest.md](../../docs/skills/youtube-digest.md) |
 | `copywriter-choi-chu` | [docs/skills/copywriter-choi-chu.md](../../docs/skills/copywriter-choi-chu.md) |
 | `watch` (third-party, MIT, copied as is; plugin parts Claude Code only) | [docs/skills/watch.md](../../docs/skills/watch.md) |
+| `orchestrator` | [docs/skills/orchestrator.md](../../docs/skills/orchestrator.md) |
 
 ## The customer's brand profile
 
