@@ -10,7 +10,7 @@ Source: [`packs/starter/mango-spring-roll/skills/skill-spec-generate/SKILL.md`](
 
 ## When to reach for it
 
-Right after finishing a skill, or when asked to record the design reasons of a skill, write design notes for skill X, or backfill notes for an older skill. It is separate from reviewing a project instruction file (CLAUDE.md or AGENTS.md), which is another layer.
+Right after finishing a skill, or when asked to record the design reasons of a skill, write design notes for skill X, or backfill notes for an older skill. It is separate from reviewing a project instruction file, which is another layer.
 
 ## Common questions
 

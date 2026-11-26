@@ -26,6 +26,7 @@ packs/marketing-ecommerce/
 | `niche-finder` | [docs/skills/niche-finder.md](../../docs/skills/niche-finder.md) |
 | `playbook-documentation` | [docs/skills/playbook-documentation.md](../../docs/skills/playbook-documentation.md) |
 | `youtube-digest` | [docs/skills/youtube-digest.md](../../docs/skills/youtube-digest.md) |
+| `watch` (third-party, MIT, copied as is; plugin parts Claude Code only) | [docs/skills/watch.md](../../docs/skills/watch.md) |
 
 ## The customer's brand profile
 

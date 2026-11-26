@@ -21,6 +21,7 @@ A **gate** is a stop where the user approves before work continues. Gate here: b
 | The user wants | Use |
 |---|---|
 | A description or SKILL.md written or restructured | this skill |
+| A skill from a bare topic, with no SOP or notes yet | this skill, [references/from-topic.md](references/from-topic.md) |
 | To find out first if a skill exists or is worth it | skill-search |
 | Tests, a baseline against a retest | skill-test |
 | An existing skill scored, split or merged | skill-review |

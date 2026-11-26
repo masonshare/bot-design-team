@@ -12,7 +12,7 @@ JUNK_FILES = ["*.bak", "*.bak.*", "*.orig", "*.tmp", ".DS_Store", "Thumbs.db", "
 
 NEUTRAL_PACKS = ["marketing-ecommerce", "strategy-advisor"]
 # Starter skills added by the pack-public stream (the older starter skills may name Claude on purpose).
-NEUTRAL_STARTER = ["skill-spec-generate", "workflow-ai-agents", "agentic-vibe-working"]
+NEUTRAL_STARTER = ["skill-spec-generate", "workflow-ai-agents", "agentic-vibe-working", "luu-vao-notion-second-brain"]
 
 # (regex, label). Case-insensitive. Framework names (AIDA, JTBD ...) are fine; people, books, URLs are not.
 NEUTRAL_TERMS = [

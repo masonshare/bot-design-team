@@ -2,7 +2,7 @@
 
 ## What it does
 
-Writes the description and SKILL.md body of one skill, choosing its size tier and the split between SKILL.md, references and scripts.
+Writes the description and SKILL.md body of one skill, choosing its size tier and the split between SKILL.md, references and scripts. It also covers starting from a bare topic with no SOP or notes (`references/from-topic.md`): intake with defaults, a quick check for an existing skill, two passes of gathering knowledge with a deep-research gate, auto, soft and gated steps, and a final audit.
 
 Source: [`packs/starter/mango-spring-roll/skills/skill-write/SKILL.md`](../../packs/starter/mango-spring-roll/skills/skill-write/SKILL.md)
 
